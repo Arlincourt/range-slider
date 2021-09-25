@@ -62,7 +62,7 @@ module.exports = {
 		// }),
 		new HtmlWebpackPlugin({
 			template: './src/demo/page/index.pug',
-			filename: 'demo.html',
+			filename: 'index.html',
 			minify: {
 				collapseWhitespace: !isDev
 			}
@@ -121,6 +121,17 @@ module.exports = {
 				options: {
 					presets: [
 						'@babel/preset-env'
+					]
+				}
+			},
+			{
+				test: /\.ts$/,
+				exclude: /node_modules/,
+				loader: 'babel-loader',
+				options: {
+					presets: [
+						'@babel/preset-env',
+						'@babel/preset-typescript',
 					]
 				}
 			},
