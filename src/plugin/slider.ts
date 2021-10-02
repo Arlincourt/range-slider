@@ -1,7 +1,15 @@
-/// <reference path="slider.d.ts"/>
+import IOptions from 'plugin/types/IOptions';
+import Controller from './MVC/Controller/Controller'
 
-(function($) {
-  $.fn.slider = function() {
+class Slider {
+
+  constructor(options: IOptions, element: JQuery) {
     
   }
-})(jQuery);
+
+  init() {
+    
+  }
+}
+
+export default Slider

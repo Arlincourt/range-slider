@@ -39,7 +39,8 @@ module.exports = {
 			'@plugin': path.resolve(__dirname, 'src/plugin'),
 			'@demo': path.resolve(__dirname, 'src/demo'),
 			'@': path.resolve(__dirname, 'src')
-		}
+		},
+		extensions: ['.tsx', '.ts', '.js'],
 	},
 	optimization: optimization(),
 	devServer: {
