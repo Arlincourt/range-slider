@@ -3,33 +3,3 @@ const slider = $('slider').slider('getState') // string
 const slider = $('slider').slider('setMax', 999) // string any
 const slider = $('slider').slider('onChange', fn) // string any
 
-this.ObserverService(model, view)
-
-const observer = new Observer()
-observer.subscribe('viewChange', updateModel)
-observer.subscribe('modelChange', updateView)
-this.model.observer = observer
-this.view.observer = observer
-
-this.subscribes = {
-  'modelChange': [updateModel],
-  'viewChange': [updateView],
-}
-
-//model
-emitChange(data) {
-  this.observer.emit('modelChange', data)
-}
-//view
-emitChange(data) {
-  this.observer.emit('viewChange', data)
-}
-
-
-
-function updateView(data) {
-  this.view.update(data)
-}
-function updateModel(data) {
-  this.model.update(data)
-}

@@ -1,15 +1,14 @@
-import IOptions from 'plugin/types/IOptions';
-import Controller from './MVC/Controller/Controller'
+import Controller from './MVC/Controller/Controller';
+import IState from './types/IState';
 
 class Slider {
+  constructor(options: IState, element: JQuery) {
 
-  constructor(options: IOptions, element: JQuery) {
-    
   }
 
   init() {
-    
+
   }
 }
 
-export default Slider
+export default Slider;
