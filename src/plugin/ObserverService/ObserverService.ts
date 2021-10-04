@@ -24,8 +24,8 @@ class ObserverService {
   }
 
   private addEvents(): void {
-    this.observer.subscribe('viewChange', this.updateModel);
-    this.observer.subscribe('modelChange', this.updateView);
+    this.observer.subscribe('viewChange', this.updateModel.bind(this));
+    this.observer.subscribe('modelChange', this.updateView.bind(this));
   }
 
   private updateModel(state?: IState): void {
@@ -40,34 +40,3 @@ class ObserverService {
 }
 
 export default ObserverService;
-
-// // Controller
-// this.ObserverService(model, view)
-
-// // ObserverService
-// const observer = new Observer()
-// this.model.observer = observer
-// this.view.observer = observer
-// observer.subscribe('viewChange', updateModel)
-// observer.subscribe('modelChange', updateView)
-
-// this.subscribes = {
-//   'modelChange': [updateModel],
-//   'viewChange': [updateView],
-// }
-
-// //model
-// emitChange(data) {
-//   this.observer.emit('modelChange', data)
-// }
-// //view
-// emitChange(data) {
-//   this.observer.emit('viewChange', data)
-// }
-
-// function updateView(data) {
-//   this.view.update(data)
-// }
-// function updateModel(data) {
-//   this.model.update(data)
-// }

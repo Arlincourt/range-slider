@@ -3,8 +3,14 @@ import Model from '../Model/Model';
 import View from '../View/View';
 
 class Controller {
-  constructor(element: HTMLElement, model: Model) {
 
+  private model: Model;
+  private view: View;
+
+  constructor(element: HTMLElement, model: Model) {
+    this.model = model;
+    this.view = new View(element);
+    new ObserverService(this.model, this.view);
   }
 }
 

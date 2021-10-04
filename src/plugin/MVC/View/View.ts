@@ -2,14 +2,14 @@ import IState from '../../types/IState';
 import Observer from '../../Observer/Observer';
 
 class View {
-  observer?: Observer;
+  public observer?: Observer;
 
-  constructor() {
+  constructor(element: HTMLElement) {
 
   }
 
   public update(state: IState) {
-
+    
   }
 }
 
