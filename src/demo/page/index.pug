@@ -7,3 +7,60 @@ html(lang="en")
     title Document
   body 
     h1(data-text="test text" data-id="2") Hello
+
+    .slider-wrapper 
+      .slider
+        .slider__body.slider__body_horizontal 
+          .slider__line.slider__line_horizontal 
+            .slider__active-line.slider__active-line_horizontal
+              .slider__item.slider__item_left.slider__item_horizontal
+                .slider__tip 33
+                .slider__btn 
+              .slider__item.slider__item_right.slider__item_horizontal 
+                .slider__tip 33
+                .slider__btn 
+          .slider__info.slider__info_horizontal
+            .slider__edge.slider__edge_left 0
+            .slider__edge.slider__edge_right 100
+    .slider-wrapper 
+      .slider.slider_one_horizontal
+        .slider__body.slider__body_horizontal 
+          .slider__line.slider__line_horizontal
+            .slider__active-line.slider__active-line_horizontal
+              .slider__item.slider__item_right.slider__item_horizontal
+                .slider__tip 38
+                .slider__btn  
+          .slider__info.slider__info_horizontal
+            .slider__edge.slider__edge_left 0
+            .slider__edge.slider__edge_right 100
+    hr 
+    hr
+
+    .sliders 
+      .slider-wrapper 
+        .slider.slider_one_vertical
+          .slider__body.slider__body_vertical 
+            .slider__line.slider__line_vertical
+              .slider__active-line.slider__active-line_vertical
+                .slider__item.slider__item_bottom.slider__item_vertical
+                  .slider__tip 38
+                  .slider__btn  
+            .slider__info.slider__info_vertical
+              .slider__edge.slider__edge_top 0
+              .slider__edge.slider__edge_bottom 100
+
+      .slider-wrapper 
+        .slider
+          .slider__body.slider__body_vertical 
+            .slider__line.slider__line_vertical
+              .slider__active-line.slider__active-line_vertical
+                .slider__item.slider__item_top.slider__item_vertical
+                  .slider__tip 38
+                  .slider__btn 
+                .slider__item.slider__item_bottom.slider__item_vertical
+                  .slider__tip 38
+                  .slider__btn 
+            .slider__info.slider__info_vertical
+              .slider__edge.slider__edge_top 0
+              .slider__edge.slider__edge_bottom 100
+              
