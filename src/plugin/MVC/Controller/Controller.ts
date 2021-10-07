@@ -9,7 +9,7 @@ class Controller {
 
   constructor(element: HTMLElement, model: Model) {
     this.model = model;
-    this.view = new View(element);
+    this.view = new View(element, this.model.getState());
     new ObserverService(this.model, this.view);
   }
 }
