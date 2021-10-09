@@ -1,4 +1,4 @@
-import IState from '../types/IState';
+import {IState} from '../types/interfaces';
 import Model from '../MVC/Model/Model';
 import View from '../MVC/View/View';
 import Observer from '../Observer/Observer';

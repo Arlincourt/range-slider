@@ -1,4 +1,4 @@
-import IState from 'plugin/types/IState';
+import {IState} from 'plugin/types/interfaces';
 
 interface ISubscribes {
   [key: string]: Array<() => any>

@@ -1,7 +1,7 @@
-import IState from '../../types/IState';
+import {IState} from '../../types/interfaces';
 import Observer from '../../Observer/Observer';
 import Orientation from '../../types/orientation';
-import IOptions from '../../types/IOptions';
+import {IOptions} from '../../types/interfaces';
 
 class Model {
   public observer?: Observer;

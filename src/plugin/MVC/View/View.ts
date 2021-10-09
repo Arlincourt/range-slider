@@ -1,10 +1,12 @@
-import IState from '../../types/IState';
+import {IState} from '../../types/interfaces';
 import Observer from '../../Observer/Observer';
 import Classes from '../../types/classes';
 import Interval from './Interval/Interval'
 import RunnerService from './RunnerService/RunnerService';
-import IRunnerService from '../../types/IRunnerService';
+import {IRunnerService} from '../../types/interfaces';
 import InterfacesNames from '../../types/interfacesNames';
+import setType from '../../helpers/setType';
+import { IRunner } from "../../types/interfaces";
 
 class View {
   public observer?: Observer;
@@ -12,15 +14,15 @@ class View {
   private slider: HTMLElement = document.createElement('div')
   private state: IState;
   private interval: Interval;
-  private RunnerService: RunnerService;
-  private RunnerServiceData: IRunnerService;
+  private runnerService: RunnerService;
+  private runnerServiceData: IRunnerService;
 
   constructor(element: HTMLElement, state: IState) {
     this.state = state
-    this.RunnerServiceData = this.setType(InterfacesNames.IRunnerService)
     this.rootElement = element
     this.interval = new Interval()
-    this.RunnerService = new RunnerService(this.RunnerServiceData)
+    this.runnerServiceData = setType(InterfacesNames.IRunnerService, this.state)
+    this.runnerService = new RunnerService(this.runnerServiceData)
     this.init()
   }
   
@@ -30,21 +32,6 @@ class View {
   
   public update(state: IState) {
     
-  }
-
-  private setType(type: string): IRunnerService {
-    switch(type) {
-      case InterfacesNames.IRunnerService:
-        return {
-          tips: this.state.tips,
-          range: this.state.range,
-          orientation: this.state.orientation,
-          value: this.state.value
-        }
-        break;
-      default: 
-        return {...this.state}
-    }
   }
 
   private addClass() {

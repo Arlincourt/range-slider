@@ -1,6 +1,7 @@
 
 enum InterfacesNames {
-  IRunnerService = 'IRunnerService'
+  IRunnerService = 'IRunnerService',
+  IRunner = 'IRunner',
 }
 
 export default InterfacesNames
