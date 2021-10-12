@@ -1,5 +1,17 @@
 import Orientation from './orientation'
 
+interface IEdgeService {
+  min: number;
+  max: number;
+  orientation: Orientation;
+}
+
+interface IEdge {
+  edge: number;
+  orientation: Orientation;
+  classList: string[]
+}
+
 interface IProgressBar {
   min: number;
   max: number;
@@ -43,4 +55,4 @@ interface IState {
   value: number[]
 }
 
-export {IState, IOptions, IRunnerService, IRunner, IProgressBar};
+export {IState, IOptions, IRunnerService, IRunner, IProgressBar, IEdge, IEdgeService};

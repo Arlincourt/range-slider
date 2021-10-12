@@ -1,6 +1,7 @@
 import Tip from '../Tip/Tip'
 import Point from '../Point/Point'
 import {IRunner} from '../../../types/interfaces'
+import isArraysEqual from '../../../helpers/isArraysEqual';
 
 
 class Runner {
@@ -19,43 +20,43 @@ class Runner {
   }
   
   public update(newState: IRunner): void {
+    if(!isArraysEqual(this.runnerState.classList, newState.classList)) {
+      this.addClass(newState.classList)
+    }
     this.runnerState = newState
-    this.addClass(this.runnerState.classList)
     this.setTipText(this.runnerState.value)
     this.removeElems()
-    this.addElems()
+    this.addTip()
   }
   
   private init(): void {
-    this.addElems()
+    this.addTip()
+    this.addPoint()
     this.setTipText(this.runnerState.value)
     this.addClass(this.runnerState.classList)
   }
 
   private removeElems(): void {
-    if(!this.runnerState.tips) {
-      this.tip.remove()
+    if(!this.runnerState.tips && this.runner.contains(this.tip.getTemplate())) {
+      this.runner.removeChild(this.tip.getTemplate())
     }
   }
   
-  private addElems(): void {
+  private addTip(): void {
     if(this.isTip()) {
       this.runner.append(this.tip.getTemplate())
     }
-    if(this.isPoint()) {
-      this.runner.append(this.point.getTemplate())
-    }
+  }
+
+  private addPoint(): void {
+    this.runner.append(this.point.getTemplate())
   }
   
-  private addClass(classNames: string | string[]): void {
+  private addClass(classNames: string[]): void {
     this.runner.className = ''
-    if(typeof classNames === 'string') {
-      this.runner.classList.add(classNames)
-    } else {
-      classNames.forEach((className) => {
-        this.runner.classList.add(className)
-      })
-    }
+    classNames.forEach((className) => {
+      this.runner.classList.add(className)
+    })
   }
 
   private setTipText(text: number): void {
@@ -63,19 +64,13 @@ class Runner {
   }
 
   private isTip(): boolean {
-    let isTip = true 
-    if(this.runnerState.tips) {
-      isTip = true
-    } else {
-      isTip = false
+    if(!this.runnerState.tips) {
+      return false
     }
-
+    
+    let isTip = true 
     isTip = !this.runner.contains(this.tip.getTemplate()) && isTip
     return isTip
-  }
-
-  private isPoint(): boolean {
-    return !this.runner.contains(this.point.getTemplate())
   }
 }
 

@@ -7,6 +7,7 @@ class View {
   public observer?: Observer;
   private rootElement: HTMLElement;
   private slider: HTMLElement = document.createElement('div')
+  private body: HTMLElement = document.createElement('div')
   private state: IState;
   private progressBar: ProgressBar;
 

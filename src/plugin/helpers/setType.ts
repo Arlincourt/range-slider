@@ -1,7 +1,7 @@
 import InterfacesNames from '../types/interfacesNames';
-import { IRunnerService, IState } from 'plugin/types/interfaces';
+import { IEdgeService, IRunnerService, IState } from 'plugin/types/interfaces';
 
-function setType(type: string, parentType: IState | IRunnerService, count?: number): any {
+function setType(type: string, parentType: IState | IRunnerService | IEdgeService, count?: number): any {
   switch(type) {
     case InterfacesNames.IRunnerService:
       return {

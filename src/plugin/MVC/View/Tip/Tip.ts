@@ -11,10 +11,6 @@ class Tip {
     this.setText(text)
   }
 
-  public remove(): void {
-    this.tip.remove()
-  }
-
   private init(): void {
     this.addClass()
   }

@@ -18,24 +18,30 @@ class RunnerService {
   private secondRunnerData: IRunner;
   private runnerServiceState: IRunnerService;
    
-  constructor(options: IRunnerService) {
-    this.runnerServiceState = options
-    this.firstRunnerData = this.setData(setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first)
-    this.secondRunnerData = this.setData(setType(InterfacesNames.IRunner, this.runnerServiceState, 1), Orders.second)
+  constructor(runnerServiceState: IRunnerService) {
+    this.runnerServiceState = runnerServiceState
+    this.firstRunnerData = this.setClass(setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first)
+    this.secondRunnerData = this.setClass(setType(InterfacesNames.IRunner, this.runnerServiceState, 1), Orders.second)
     this.firstRunner = new Runner(this.firstRunnerData)
     this.secondRunner = new Runner(this.secondRunnerData)
   }
   
   public update(runnerServiceState: IRunnerService): void {
     this.runnerServiceState = runnerServiceState
-    this.firstRunnerData = this.setData(setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first)
-    this.secondRunnerData = this.setData(setType(InterfacesNames.IRunner, this.runnerServiceState, 1), Orders.second)
+    this.firstRunnerData = this.setClass(setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first)
+    this.secondRunnerData = this.setClass(setType(InterfacesNames.IRunner, this.runnerServiceState, 1), Orders.second)
     this.firstRunner.update(this.firstRunnerData)
     this.secondRunner.update(this.secondRunnerData)
-
   }
 
-  private setData(runnerData: IRunner, order: string): IRunner {
+  public getTemplate(): HTMLElement[] {
+    if(this.runnerServiceState.range) {
+      return [this.firstRunner.getTemplate(), this.secondRunner.getTemplate()]
+    }
+    return [this.firstRunner.getTemplate()]
+  }
+
+  private setClass(runnerData: IRunner, order: string): IRunner {
     const isFirst = order === Orders.first
     if(runnerData.orientation === Orientation.VERTICAL) {
 
