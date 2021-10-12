@@ -6,8 +6,16 @@ class Tip {
   constructor() {
     this.init()
   }
+  
+  public update(text: number): void {
+    this.setText(text)
+  }
 
-  init(): void {
+  public remove(): void {
+    this.tip.remove()
+  }
+
+  private init(): void {
     this.addClass()
   }
 
@@ -16,16 +24,12 @@ class Tip {
     this.tip.classList.add(classes.sliderTip)
   }
 
-  private setText(text: string): void {
-    this.tip.textContent = text
+  private setText(text: number): void {
+    this.tip.textContent = String(text)
   }
 
   public getTemplate(): HTMLElement {
     return this.tip
-  }
-
-  private update(text: string): void {
-    this.setText(text)
   }
 }
 

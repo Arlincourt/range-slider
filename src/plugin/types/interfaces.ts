@@ -1,5 +1,14 @@
 import Orientation from './orientation'
 
+interface IProgressBar {
+  min: number;
+  max: number;
+  tips: boolean;
+  range: boolean;
+  orientation: Orientation;
+  value: number[];
+}
+
 interface IRunnerService {
   tips: boolean;
   range: boolean;
@@ -25,7 +34,7 @@ interface IOptions {
 }
 
 interface IState {
-  min?: number;
+  min: number;
   max: number;
   tips: boolean;
   step: number;
@@ -34,4 +43,4 @@ interface IState {
   value: number[]
 }
 
-export {IState, IOptions, IRunnerService, IRunner};
+export {IState, IOptions, IRunnerService, IRunner, IProgressBar};

@@ -1,6 +1,5 @@
 import Tip from '../Tip/Tip'
 import Point from '../Point/Point'
-import classes from '../../../types/classes'
 import {IRunner} from '../../../types/interfaces'
 
 
@@ -8,22 +7,44 @@ class Runner {
   private tip: Tip = new Tip();
   private point: Point = new Point();
   private runner: HTMLElement = document.createElement('div')
+  private runnerState: IRunner;
 
   constructor(options: IRunner) {
+    this.runnerState = options
     this.init()
   }
 
   public getTemplate(): HTMLElement {
     return this.runner
   }
-
-  private init(): void {
+  
+  public update(newState: IRunner): void {
+    this.runnerState = newState
+    this.addClass(this.runnerState.classList)
+    this.setTipText(this.runnerState.value)
+    this.removeElems()
     this.addElems()
   }
   
+  private init(): void {
+    this.addElems()
+    this.setTipText(this.runnerState.value)
+    this.addClass(this.runnerState.classList)
+  }
+
+  private removeElems(): void {
+    if(!this.runnerState.tips) {
+      this.tip.remove()
+    }
+  }
+  
   private addElems(): void {
-    this.runner.append(this.tip.getTemplate())
-    this.runner.append(this.point.getTemplate())
+    if(this.isTip()) {
+      this.runner.append(this.tip.getTemplate())
+    }
+    if(this.isPoint()) {
+      this.runner.append(this.point.getTemplate())
+    }
   }
   
   private addClass(classNames: string | string[]): void {
@@ -35,6 +56,26 @@ class Runner {
         this.runner.classList.add(className)
       })
     }
+  }
+
+  private setTipText(text: number): void {
+    this.tip.update(text)
+  }
+
+  private isTip(): boolean {
+    let isTip = true 
+    if(this.runnerState.tips) {
+      isTip = true
+    } else {
+      isTip = false
+    }
+
+    isTip = !this.runner.contains(this.tip.getTemplate()) && isTip
+    return isTip
+  }
+
+  private isPoint(): boolean {
+    return !this.runner.contains(this.point.getTemplate())
   }
 }
 

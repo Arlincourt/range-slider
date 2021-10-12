@@ -1,18 +1,64 @@
 import Runner from '../Runner/Runner'
-import {IRunnerService} from '../../../types/interfaces'
+import {IRunner, IRunnerService} from '../../../types/interfaces'
 import setType from '../../../helpers/setType';
 import InterfacesNames from '../../../types/interfacesNames';
+import Orientation from '../../../types/orientation';
+import Classes from '../../../types/classes';
+
+enum Orders {
+  first = 'first',
+  second = 'second',
+}
 
 
 class RunnerService {
   private firstRunner: Runner;
   private secondRunner: Runner;
+  private firstRunnerData: IRunner;
+  private secondRunnerData: IRunner;
+  private runnerServiceState: IRunnerService;
    
   constructor(options: IRunnerService) {
-    this.firstRunner = new Runner(setType(InterfacesNames.IRunner, options, 0))
-    this.secondRunner = new Runner(setType(InterfacesNames.IRunner, options, 1))
+    this.runnerServiceState = options
+    this.firstRunnerData = this.setData(setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first)
+    this.secondRunnerData = this.setData(setType(InterfacesNames.IRunner, this.runnerServiceState, 1), Orders.second)
+    this.firstRunner = new Runner(this.firstRunnerData)
+    this.secondRunner = new Runner(this.secondRunnerData)
+  }
+  
+  public update(runnerServiceState: IRunnerService): void {
+    this.runnerServiceState = runnerServiceState
+    this.firstRunnerData = this.setData(setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first)
+    this.secondRunnerData = this.setData(setType(InterfacesNames.IRunner, this.runnerServiceState, 1), Orders.second)
+    this.firstRunner.update(this.firstRunnerData)
+    this.secondRunner.update(this.secondRunnerData)
+
   }
 
+  private setData(runnerData: IRunner, order: string): IRunner {
+    const isFirst = order === Orders.first
+    if(runnerData.orientation === Orientation.VERTICAL) {
+
+      runnerData.classList = [Classes.sliderItem, Classes.sliderItemVertical]
+
+      if(isFirst) {
+        runnerData.classList.push(Classes.sliderItemTop)
+      } else {
+        runnerData.classList.push(Classes.sliderItemBottom)
+      }
+
+    } else {
+      runnerData.classList = [Classes.sliderItem, Classes.sliderItemHorizontal]
+
+      if(isFirst) {
+        runnerData.classList.push(Classes.sliderItemLeft)
+      } else {
+        runnerData.classList.push(Classes.sliderItemRight)
+      }
+
+    }
+    return runnerData
+  }
 }
 
 export default RunnerService

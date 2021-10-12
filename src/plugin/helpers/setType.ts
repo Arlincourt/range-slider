@@ -17,7 +17,8 @@ function setType(type: string, parentType: IState | IRunnerService, count?: numb
           tips: parentType.tips,
           range: parentType.range,
           orientation: parentType.orientation,
-          value: parentType.value[count]
+          value: parentType.value[count],
+          classList: []
         }
       }
       break;

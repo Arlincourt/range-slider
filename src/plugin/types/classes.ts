@@ -10,6 +10,9 @@ enum Classes {
   sliderItemVertical = 'slider__item_vertical',
   sliderItemBottom = 'slider__item_bottom',
   sliderItemTop = 'slider__item_top',
+  sliderActiveLine = 'slider__active-line',
+  sliderActiveLineHorizontal = 'slider__active-line_horizontal',
+  sliderActiveLineVertical = 'slider__active-line_vertical',
 }
 
 export default Classes

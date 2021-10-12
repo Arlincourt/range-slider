@@ -1,7 +1,6 @@
 import Controller from './MVC/Controller/Controller';
 import Model from './MVC/Model/Model';
-import IState from './types/IState';
-import IOptions from './types/IOptions';
+import {IState, IOptions} from './types/interfaces';
 
 class Slider {
 
