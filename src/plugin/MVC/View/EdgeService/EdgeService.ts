@@ -20,8 +20,8 @@ class EdgeService {
 
   constructor(edgeServiceState: IEdgeService) {
     this.edgeServiceState = edgeServiceState
-    this.minEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 0), Orders.min)
-    this.maxEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 1), Orders.max)
+    this.minEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'min'), Orders.min)
+    this.maxEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'max'), Orders.max)
     this.minEdge = new Edge(this.minEdgeData)
     this.maxEdge = new Edge(this.maxEdgeData)
   }

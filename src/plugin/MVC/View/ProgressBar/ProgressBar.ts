@@ -7,9 +7,9 @@ import Orientation from "../../../types/orientation";
 
 class ProgressBar {
   private progressBar: HTMLElement = document.createElement('div')
+  private progressBarState: IProgressBar;
   private runnerService: RunnerService;
   private runnerServiceData: IRunnerService;
-  private progressBarState: IProgressBar;
 
   constructor(progressBarState: IProgressBar) {
     this.progressBarState = progressBarState
