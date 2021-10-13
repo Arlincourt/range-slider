@@ -22,21 +22,35 @@ class Info {
 
   public update(infoState: IInfo): void {
     if(this.infoState.orientation !== infoState.orientation) {
-      this.addClass()
+      this.addClass(infoState.orientation)
     }
     this.infoState = infoState
     this.edgeServiceData = setType(InterfacesNames.IRunnerService, this.infoState)
     this.edgeService.update(this.edgeServiceData)
   }
 
-  private addClass(): void {
+  public getTemplate(): HTMLElement {
+    return this.info
+  }
+
+  private addClass(orientation?: Orientation): void {
     this.info.className = ''
     this.info.classList.add(Classes.sliderInfo)
+    if(orientation) {
+      if(orientation === Orientation.VERTICAL) {
+        this.info.classList.add(Classes.sliderInfoVertical)
+        return
+      } 
+      
+      this.info.classList.add(Classes.sliderInfoHorizontal)
+      return
+    }
+
     if(this.infoState.orientation === Orientation.VERTICAL) {
       this.info.classList.add(Classes.sliderInfoVertical)
-    } else {
-      this.info.classList.add(Classes.sliderInfoHorizontal)
-    }
+      return
+    } 
+    this.info.classList.add(Classes.sliderInfoHorizontal)
   }
 
   private addElems(): void {

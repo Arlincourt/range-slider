@@ -1,6 +1,5 @@
 import InterfacesNames from '../types/interfacesNames';
 import { IEdgeService, IRunnerService, IState } from 'plugin/types/interfaces';
-import Orientation from 'plugin/types/orientation';
 
 function setType(type: string, parentType: IState | IRunnerService | IEdgeService | any, count?: number | string): any {
   switch(type) {

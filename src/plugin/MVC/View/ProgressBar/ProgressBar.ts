@@ -21,7 +21,7 @@ class ProgressBar {
 
   public update(progressBarState: IProgressBar): void {
     if(this.progressBarState.orientation !== progressBarState.orientation) {
-      this.addClass()
+      this.addClass(progressBarState.orientation)
     }
     if(this.progressBarState.range !== progressBarState.range) {
       this.removeElems()
@@ -46,9 +46,19 @@ class ProgressBar {
     this.progressBar.innerHTML = ''
   }
 
-  private addClass(): void {
+  private addClass(orientation?: Orientation): void {
     this.progressBar.className = ''
     this.progressBar.classList.add(Classes.sliderActiveLine)
+    if(orientation) {
+      if(orientation === Orientation.VERTICAL) {
+        this.progressBar.classList.add(Classes.sliderActiveLineVertical)
+        return
+      }
+      
+      this.progressBar.classList.add(Classes.sliderActiveLineHorizontal)
+      return
+    }
+
     if(this.progressBarState.orientation === Orientation.VERTICAL) {
       this.progressBar.classList.add(Classes.sliderActiveLineVertical)
     } else {

@@ -1,4 +1,5 @@
 import Observer from './Observer';
+import Orientation from '../types/orientation'
 
 describe('Observer module', () => {
   let observer: Observer;
@@ -9,11 +10,23 @@ describe('Observer module', () => {
 
   test('Observer must be called with certain parameters twice for each subscribes', () => {
     const options1 = {
-      min: 2
+      min: 0,
+      max: 100,
+      tips: true,
+      step: 1,
+      range: true,
+      orientation: Orientation.VERTICAL,
+      value: [0, 15]
     }
 
     const options2 = {
-      min: 3
+      min: 20,
+      max: 120,
+      tips: false,
+      step: 2,
+      range: false,
+      orientation: Orientation.HORIZONTAL,
+      value: [20, 45]
     }
 
     const mockFn1: any = jest.fn(options => options.min)

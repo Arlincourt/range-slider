@@ -28,10 +28,26 @@ class EdgeService {
 
   public update(edgeServiceState: IEdgeService): void {
     this.edgeServiceState = edgeServiceState
-    this.minEdgeData = this.setClass(setType(InterfacesNames.IRunner, this.edgeServiceState, 0), Orders.min)
-    this.maxEdgeData = this.setClass(setType(InterfacesNames.IRunner, this.edgeServiceState, 1), Orders.max)
+    this.minEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'min'), Orders.min)
+    this.maxEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'max'), Orders.max)
     this.minEdge.update(this.minEdgeData)
     this.maxEdge.update(this.maxEdgeData)
+  }
+
+  get getEdgeServiceState() {
+    return this.edgeServiceState
+  }
+  get getMinEdge() {
+    return this.minEdge
+  }
+  get getMaxEdge() {
+    return this.maxEdge
+  }
+  get getMinEdgeData() {
+    return this.minEdgeData
+  }
+  get getMaxEdgeData() {
+    return this.maxEdgeData
   }
 
   public getTemplate(): HTMLElement[] {

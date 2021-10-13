@@ -1,4 +1,4 @@
-function isArraysEqual(arr1: Array<string>, arr2: Array<string>): boolean {
+function isArraysEqual(arr1: Array<any>, arr2: Array<any>): boolean {
   if(arr1.length !== arr2.length) {
     return false
   }

@@ -12,7 +12,6 @@ class Point {
   }
 
   private addClass(): void {
-    this.point.className = ''
     this.point.classList.add(classes.sliderPoint)
   }
 
