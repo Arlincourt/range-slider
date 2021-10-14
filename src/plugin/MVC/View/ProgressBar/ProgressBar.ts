@@ -20,6 +20,8 @@ class ProgressBar {
   }
 
   public update(progressBarState: IProgressBar): void {
+    this.runnerServiceData = setType(InterfacesNames.IRunnerService, progressBarState)
+    this.runnerService.update(this.runnerServiceData)
     if(this.progressBarState.orientation !== progressBarState.orientation) {
       this.addClass(progressBarState.orientation)
     }
@@ -28,8 +30,6 @@ class ProgressBar {
       this.addElems()
     }
     this.progressBarState = progressBarState
-    this.runnerServiceData = setType(InterfacesNames.IRunnerService, this.progressBarState)
-    this.runnerService.update(this.runnerServiceData)
   }
 
   public getTemplate(): HTMLElement {

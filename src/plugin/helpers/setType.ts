@@ -12,7 +12,7 @@ function setType(type: string, parentType: IState | IRunnerService | IEdgeServic
       }
       break;
     case InterfacesNames.IRunner:
-      if(count) {
+      if(count !== undefined) {
         return {
           tips: parentType.tips,
           range: parentType.range,

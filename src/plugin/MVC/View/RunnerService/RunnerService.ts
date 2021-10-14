@@ -41,6 +41,22 @@ class RunnerService {
     return [this.firstRunner.getTemplate()]
   }
 
+  get getFirstRunner() {
+    return this.firstRunner
+  }
+  get getSecondRunner() {
+    return this.secondRunner
+  }
+  get getSecondRunnerData() {
+    return this.secondRunnerData
+  }
+  get getFirstRunnerData() {
+    return this.firstRunnerData
+  }
+  get getRunnerServiceState() {
+    return this.runnerServiceState
+  }
+
   private setClass(runnerData: IRunner, order: string): IRunner {
     const isFirst = order === Orders.first
     if(runnerData.orientation === Orientation.VERTICAL) {

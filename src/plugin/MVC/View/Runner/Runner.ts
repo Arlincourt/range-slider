@@ -5,13 +5,14 @@ import isArraysEqual from '../../../helpers/isArraysEqual';
 
 
 class Runner {
-  private tip: Tip = new Tip();
+  private tip: Tip;
   private point: Point = new Point();
   private runner: HTMLElement = document.createElement('div')
   private runnerState: IRunner;
 
   constructor(options: IRunner) {
     this.runnerState = options
+    this.tip = new Tip(this.runnerState.value)
     this.init()
   }
 

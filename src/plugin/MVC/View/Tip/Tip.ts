@@ -3,8 +3,9 @@ import classes from '../../../types/classes'
 class Tip {
   private tip: HTMLElement = document.createElement('div')
 
-  constructor() {
+  constructor(text: number) {
     this.init()
+    this.setText(text)
   }
   
   public update(text: number): void {
@@ -16,7 +17,6 @@ class Tip {
   }
 
   private addClass(): void {
-    this.tip.className = ''
     this.tip.classList.add(classes.sliderTip)
   }
 
