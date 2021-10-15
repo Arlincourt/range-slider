@@ -77,16 +77,17 @@ class ProgressBar {
   }
 
   private getSize(progressBarState: IProgressBar): number {
-    const size = 3
+    const {min, max, value} = progressBarState
+    const all = max - min
+    
+    if(progressBarState.range) {
+      const rangeValue = value[1] - value[0]
+      const size = (rangeValue / all) * 100
+      return size 
+    }
 
-    // min: 7
-    // max: 104
-    // value[12, 90]
-    // const intervalValue - (max - min) 
-    // 12 - firstRunner
-    // 90 - secondRunner
-    // if(range === false) ((value[1] - min) / max) * 100 
-    // if(range === true) ((value[0] - min) / max) * 100 
+    const rightSide = max - value[1]
+    const size = (all - rightSide) / all * 100
 
     return size
   }
