@@ -38,7 +38,7 @@ class RunnerService {
     if(this.runnerServiceState.range) {
       return [this.firstRunner.getTemplate(), this.secondRunner.getTemplate()]
     }
-    return [this.firstRunner.getTemplate()]
+    return [this.secondRunner.getTemplate()]
   }
 
   get getFirstRunner() {

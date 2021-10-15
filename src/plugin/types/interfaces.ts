@@ -1,5 +1,15 @@
 import Orientation from './orientation'
 
+interface IInterval {
+  min: number;
+  max: number;
+  tips: boolean;
+  step: number;
+  range: boolean;
+  orientation: Orientation;
+  value: number[]
+}
+
 interface IInfo {
   min: number;
   max: number;
@@ -61,4 +71,4 @@ interface IState {
   value: number[]
 }
 
-export {IState, IOptions, IRunnerService, IRunner, IProgressBar, IEdge, IEdgeService, IInfo};
+export {IState, IOptions, IRunnerService, IRunner, IProgressBar, IEdge, IEdgeService, IInfo, IInterval};

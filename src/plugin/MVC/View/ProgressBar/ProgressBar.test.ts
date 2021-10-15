@@ -48,7 +48,7 @@ describe('ProgressBar module', () => {
     expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItem)).toBe(true)
     expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemVertical)).toBe(false)
     expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemHorizontal)).toBe(true)
-    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemLeft)).toBe(true)
+    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemRight)).toBe(true)
     expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemTop)).toBe(false)
   })
 })

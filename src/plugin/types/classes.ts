@@ -1,6 +1,12 @@
 
 enum Classes {
   slider = 'slider',
+  sliderBody = 'slider__body',
+  sliderBodyHorizontal = 'slider__body_horizontal',
+  sliderBodyVertical = 'slider__body_vertical',
+  sliderLine = 'slider__line',
+  sliderLineVertical = 'slider__line_vertical',
+  sliderLineHorizontal = 'slider__line_horizontal',
   sliderPoint = 'slider__btn',
   sliderTip = 'slider__tip',
   sliderItem = 'slider__item',

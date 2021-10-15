@@ -10,7 +10,7 @@ class Model {
     tips: true,
     max: 100,
     min: 0,
-    orientation: Orientation.GORIZONTAL,
+    orientation: Orientation.HORIZONTAL,
     step: 1,
     value: [0, 100],
   };

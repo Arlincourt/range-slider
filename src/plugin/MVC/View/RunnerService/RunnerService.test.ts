@@ -54,7 +54,7 @@ describe('RunnerService module', () => {
     runnerService.update(runnerServiceData2)
     expect(runnerService.getTemplate().length).toBe(1)
     expect(runnerService.getTemplate()[0].classList.contains(Classes.sliderItem)).toBe(true)
-    expect(runnerService.getTemplate()[0].classList.contains(Classes.sliderItemLeft)).toBe(true)
+    expect(runnerService.getTemplate()[0].classList.contains(Classes.sliderItemRight)).toBe(true)
     expect(runnerService.getTemplate()[0].classList.contains(Classes.sliderItemHorizontal)).toBe(true)
   })
 })

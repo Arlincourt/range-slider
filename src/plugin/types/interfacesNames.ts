@@ -2,7 +2,9 @@
 enum InterfacesNames {
   IRunnerService = 'IRunnerService',
   IRunner = 'IRunner',
-  IEdge = 'IEdge'
+  IEdge = 'IEdge',
+  IProgressBar = 'IProgressBar',
+  IInfo = 'IInfo'
 }
 
 export default InterfacesNames

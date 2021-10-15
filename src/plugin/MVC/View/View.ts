@@ -1,20 +1,19 @@
 import {IState} from '../../types/interfaces';
 import Observer from '../../Observer/Observer';
 import Classes from '../../types/classes';
-import ProgressBar from './ProgressBar/ProgressBar';
+import Interval from './Interval/Interval';
 
 class View {
   public observer?: Observer;
   private rootElement: HTMLElement;
   private slider: HTMLElement = document.createElement('div')
-  private body: HTMLElement = document.createElement('div')
   private state: IState;
-  private progressBar: ProgressBar;
+  private interval: Interval
 
   constructor(element: HTMLElement, state: IState) {
     this.state = state
-    this.progressBar = new ProgressBar(this.state)
     this.rootElement = element
+    this.interval = new Interval(this.state)
     this.init()
   }
   
@@ -24,7 +23,6 @@ class View {
   
   public update(state: IState) {
     this.state = state
-    this.progressBar.update(this.state)
   }
 
   private emitChanges() {

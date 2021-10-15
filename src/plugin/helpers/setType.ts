@@ -31,6 +31,23 @@ function setType(type: string, parentType: IState | IRunnerService | IEdgeServic
         }
       }
       break;
+    case InterfacesNames.IProgressBar:
+        return {
+          min: parentType.min,
+          max: parentType.max,
+          tips: parentType.tips,
+          range: parentType.range,
+          orientation: parentType.orientation,
+          value: parentType.value
+        }
+      break;
+    case InterfacesNames.IInfo:
+        return {
+          min: parentType.min,
+          max: parentType.max,
+          orientation: parentType.orientation,
+        }
+      break;
     default: 
       return {...parentType}
   }
