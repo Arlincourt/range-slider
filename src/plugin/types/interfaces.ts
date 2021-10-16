@@ -76,6 +76,8 @@ interface IEmit {
   clientY: number;
   clientWidth: number;
   clientHeight: number;
+  offsetX: number;
+  offsetY: number;
 }
 
 export {

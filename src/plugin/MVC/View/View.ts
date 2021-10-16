@@ -41,16 +41,18 @@ class View {
   }
 
   private onSliderMouseMove = (evt: MouseEvent): void => {
-    const emitData = {
+    const emitData: IEmit = {
       clientX: evt.clientX,
       clientY: evt.clientY,
       clientWidth: Number(this.slider.offsetWidth),
       clientHeight: Number(this.slider.offsetHeight),
+      offsetX: this.slider.getBoundingClientRect().left + document.body.scrollLeft,
+      offsetY: this.slider.getBoundingClientRect().top + document.body.scrollTop,
     }
-
+    
     this.emitChanges(emitData)
   }
-
+  
   private onSliderMouseDown = (evt: MouseEvent): void => {
     if(this.isElem(evt.target as HTMLElement)) {
       const emitData = {
@@ -58,6 +60,8 @@ class View {
         clientY: evt.clientY,
         clientWidth: Number(this.slider.offsetWidth),
         clientHeight: Number(this.slider.offsetHeight),
+        offsetX: this.slider.getBoundingClientRect().left + document.body.scrollLeft,
+        offsetY: this.slider.getBoundingClientRect().top + document.body.scrollTop,
       }
       this.emitChanges(emitData)
     }

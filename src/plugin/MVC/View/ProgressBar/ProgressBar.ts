@@ -87,11 +87,10 @@ class ProgressBar {
     if (progressBarState.range) {
       const rangeValue = value[1] - value[0];
       const size = (rangeValue / all) * 100;
-      console.log(size)
       return size;
     }
 
-    const rightSide = max - value[1];
+    const rightSide = Math.abs(max - value[1]);
     const size = (all - rightSide) / all * 100;
 
     return size;
