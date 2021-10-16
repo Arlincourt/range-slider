@@ -2,6 +2,7 @@ import { IState, IEmit } from '../../types/interfaces';
 import Observer from '../../Observer/Observer';
 import Classes from '../../types/classes';
 import Interval from './Interval/Interval';
+import copyObject from '../../helpers/copyObject';
 
 class View {
   public observer?: Observer;
@@ -15,7 +16,7 @@ class View {
   private interval: Interval
 
   constructor(element: HTMLElement, state: IState) {
-    this.state = jQuery.extend(true, {}, state)
+    this.state = copyObject(state)
     this.rootElement = element;
     this.interval = new Interval(this.state);
     this.init();
@@ -28,8 +29,15 @@ class View {
   }
 
   public update(state: IState) {
-    this.state = jQuery.extend(true, {}, state)
+    this.state = copyObject(state)
     this.interval.update(this.state)
+  }
+
+  get getTemplate(): HTMLElement {
+    return this.slider
+  }
+  get getState(): IState {
+    return this.state
   }
 
   private onSliderMouseMove = (evt: MouseEvent): void => {
