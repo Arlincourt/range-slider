@@ -1,6 +1,7 @@
 
 .wrapper {
-  width: 500px;
+  width: 70%;
+  height: 400px;
   margin: 0 auto;
   margin-bottom: 100px;
 }
@@ -125,7 +126,7 @@
     }
     &_top {
       top: 0%;
-      right: -42px;
+      right: -35px;
       transform: translateY(-50%);
     }
     &_bottom {

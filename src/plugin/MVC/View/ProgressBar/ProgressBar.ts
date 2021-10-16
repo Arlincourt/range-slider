@@ -4,6 +4,7 @@ import { IRunnerService, IProgressBar } from '../../../types/interfaces';
 import RunnerService from '../RunnerService/RunnerService';
 import InterfacesNames from '../../../types/interfacesNames';
 import Orientation from '../../../types/orientation';
+import copyObject from '../../../helpers/copyObject';
 
 class ProgressBar {
   private progressBar: HTMLElement = document.createElement('div')
@@ -15,7 +16,7 @@ class ProgressBar {
   private runnerServiceData: IRunnerService;
 
   constructor(progressBarState: IProgressBar) {
-    this.progressBarState = progressBarState;
+    this.progressBarState = copyObject(progressBarState)
     this.runnerServiceData = setType(InterfacesNames.IRunnerService, this.progressBarState);
     this.runnerService = new RunnerService(this.runnerServiceData);
     this.addClass();
@@ -36,7 +37,7 @@ class ProgressBar {
     if (this.isPositionChanged(progressBarState)) {
       this.setStyle(progressBarState);
     }
-    this.progressBarState = progressBarState;
+    this.progressBarState = copyObject(progressBarState)
   }
 
   public getTemplate(): HTMLElement {
@@ -86,6 +87,7 @@ class ProgressBar {
     if (progressBarState.range) {
       const rangeValue = value[1] - value[0];
       const size = (rangeValue / all) * 100;
+      console.log(size)
       return size;
     }
 

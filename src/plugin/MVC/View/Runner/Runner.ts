@@ -2,6 +2,7 @@ import Tip from '../Tip/Tip';
 import Point from '../Point/Point';
 import { IRunner } from '../../../types/interfaces';
 import isArraysEqual from '../../../helpers/isArraysEqual';
+import copyObject from '../../../helpers/copyObject';
 
 class Runner {
   private tip: Tip;
@@ -12,8 +13,8 @@ class Runner {
 
   private runnerState: IRunner;
 
-  constructor(options: IRunner) {
-    this.runnerState = options;
+  constructor(runnerState: IRunner) {
+    this.runnerState = copyObject(runnerState)
     this.tip = new Tip(this.runnerState.value);
     this.init();
   }
@@ -22,11 +23,11 @@ class Runner {
     return this.runner;
   }
 
-  public update(newState: IRunner): void {
-    if (!isArraysEqual(this.runnerState.classList, newState.classList)) {
-      this.addClass(newState.classList);
+  public update(runnerState: IRunner): void {
+    if (!isArraysEqual(this.runnerState.classList, runnerState.classList)) {
+      this.addClass(runnerState.classList);
     }
-    this.runnerState = newState;
+    this.runnerState = copyObject(runnerState)
     this.setTipText(this.runnerState.value);
     this.removeElems();
     this.addTip();

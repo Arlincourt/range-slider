@@ -4,6 +4,7 @@ import Classes from '../../../types/classes';
 import setType from '../../../helpers/setType';
 import InterfacesNames from '../../../types/interfacesNames';
 import Orientation from '../../../types/orientation';
+import copyObject from '../../../helpers/copyObject';
 
 class Info {
   private info: HTMLElement = document.createElement('div')
@@ -15,7 +16,7 @@ class Info {
   private edgeServiceData: IEdgeService
 
   constructor(infoState: IInfo) {
-    this.infoState = infoState;
+    this.infoState = copyObject(infoState)
     this.edgeServiceData = setType(InterfacesNames.IEdgeService, this.infoState);
     this.edgeService = new EdgeService(this.edgeServiceData);
     this.addClass();
@@ -26,7 +27,7 @@ class Info {
     if (this.infoState.orientation !== infoState.orientation) {
       this.addClass(infoState.orientation);
     }
-    this.infoState = infoState;
+    this.infoState = copyObject(infoState)
     this.edgeServiceData = setType(InterfacesNames.IEdgeService, this.infoState);
     this.edgeService.update(this.edgeServiceData);
   }

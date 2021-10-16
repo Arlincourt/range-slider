@@ -1,13 +1,14 @@
 import { IEdge } from '../../../types/interfaces';
 import isArraysEqual from '../../../helpers/isArraysEqual';
+import copyObject from '../../../helpers/copyObject';
 
 class Edge {
   private edge: HTMLElement = document.createElement('div')
 
   private edgeState: IEdge;
 
-  constructor(state: IEdge) {
-    this.edgeState = state;
+  constructor(edgeState: IEdge) {
+    this.edgeState = copyObject(edgeState)
     this.addClass(this.edgeState.classList);
     this.setEdge(this.edgeState.edge);
   }
@@ -16,11 +17,11 @@ class Edge {
     return this.edge;
   }
 
-  public update(newState: IEdge): void {
-    if (!isArraysEqual(this.edgeState.classList, newState.classList)) {
-      this.addClass(newState.classList);
+  public update(edgeState: IEdge): void {
+    if (!isArraysEqual(this.edgeState.classList, edgeState.classList)) {
+      this.addClass(edgeState.classList);
     }
-    this.edgeState = newState;
+    this.edgeState = copyObject(edgeState)
     this.setEdge(this.edgeState.edge);
   }
 

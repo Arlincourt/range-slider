@@ -1,6 +1,7 @@
 import { IState, IOptions, IEmit } from '../../types/interfaces';
 import Observer from '../../Observer/Observer';
 import Orientation from '../../types/orientation';
+import copyObject from '../../helpers/copyObject';
 
 class Model {
   public observer?: Observer;
@@ -16,10 +17,8 @@ class Model {
   };
 
   constructor(options: IOptions) {
-    this.state = { ...this.state, ...options };
-    setTimeout(() => {
-      console.log(this.state);
-    });
+    this.state = copyObject({ ...this.state, ...options });
+    
   }
 
   public getState(): IState {
@@ -27,7 +26,6 @@ class Model {
   }
 
   public update(state: IEmit) {
-    console.log(state)
     this.observer?.emit('modelChange');
   }
 }

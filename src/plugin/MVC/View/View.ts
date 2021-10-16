@@ -15,7 +15,7 @@ class View {
   private interval: Interval
 
   constructor(element: HTMLElement, state: IState) {
-    this.state = state;
+    this.state = jQuery.extend(true, {}, state)
     this.rootElement = element;
     this.interval = new Interval(this.state);
     this.init();
@@ -28,7 +28,8 @@ class View {
   }
 
   public update(state: IState) {
-    this.state = state;
+    this.state = jQuery.extend(true, {}, state)
+    this.interval.update(this.state)
   }
 
   private onSliderMouseMove = (evt: MouseEvent): void => {

@@ -10,23 +10,17 @@ describe('Observer module', () => {
 
   test('Observer must be called with certain parameters twice for each subscribes', () => {
     const options1 = {
-      min: 0,
-      max: 100,
-      tips: true,
-      step: 1,
-      range: true,
-      orientation: Orientation.VERTICAL,
-      value: [0, 15]
+      clientHeight: 300,
+      clientWidth: 952,
+      clientX: 19,
+      clientY: 35,
     }
 
     const options2 = {
-      min: 20,
-      max: 120,
-      tips: false,
-      step: 2,
-      range: false,
-      orientation: Orientation.HORIZONTAL,
-      value: [20, 45]
+      clientHeight: 400,
+      clientWidth: 1052,
+      clientX: 619,
+      clientY: 135,
     }
 
     const mockFn1: any = jest.fn(options => options.min)

@@ -4,6 +4,7 @@ import setType from '../../../helpers/setType';
 import Orientation from '../../../types/orientation';
 import InterfacesNames from '../../../types/interfacesNames';
 import Classes from '../../../types/classes';
+import copyObject from '../../../helpers/copyObject';
 
 enum Orders {
   max = 'max',
@@ -22,7 +23,7 @@ class EdgeService {
   private edgeServiceState: IEdgeService
 
   constructor(edgeServiceState: IEdgeService) {
-    this.edgeServiceState = edgeServiceState;
+    this.edgeServiceState = copyObject(edgeServiceState)
     this.minEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'min'), Orders.min);
     this.maxEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'max'), Orders.max);
     this.minEdge = new Edge(this.minEdgeData);
@@ -30,7 +31,7 @@ class EdgeService {
   }
 
   public update(edgeServiceState: IEdgeService): void {
-    this.edgeServiceState = edgeServiceState;
+    this.edgeServiceState = copyObject(edgeServiceState)
     this.minEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'min'), Orders.min);
     this.maxEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'max'), Orders.max);
     this.minEdge.update(this.minEdgeData);

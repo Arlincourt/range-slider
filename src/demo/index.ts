@@ -1,3 +1,3 @@
 $(() => {
-  $('.wrapper').slider({ min: 2, max: 100, value: [2, 11], orientation: 'HORIZONTAL' });
+  $('.wrapper').slider({ min: -200, max: 100, range: true, value: [-100, 25], orientation: 'HORIZONTAL' });
 });
