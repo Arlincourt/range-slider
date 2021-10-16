@@ -1,4 +1,4 @@
-import {IState} from '../types/interfaces';
+import { IEmit, IState } from '../types/interfaces';
 import Model from '../MVC/Model/Model';
 import View from '../MVC/View/View';
 import Observer from '../Observer/Observer';
@@ -28,7 +28,7 @@ class ObserverService {
     this.observer.subscribe('modelChange', this.updateView.bind(this));
   }
 
-  private updateModel(state?: IState): void {
+  private updateModel(state?: IEmit): void {
     if (state) {
       this.model.update(state);
     }

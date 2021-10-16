@@ -1,4 +1,3 @@
-
 enum Classes {
   slider = 'slider',
   sliderBody = 'slider__body',
@@ -29,4 +28,4 @@ enum Classes {
   sliderInfoHorizontal = 'slider__info_horizontal',
 }
 
-export default Classes
+export default Classes;

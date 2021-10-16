@@ -1,4 +1,10 @@
 
+.wrapper {
+  width: 500px;
+  margin: 0 auto;
+  margin-bottom: 100px;
+}
+
 .sliders {
   display: flex;
   justify-content: space-between;
@@ -13,6 +19,7 @@
 
 .slider {
   height: 100%;
+  user-select: none;
 
   &__body {
     display: flex;
@@ -129,6 +136,7 @@
   }
 
   &__btn {
+    user-select: none;
     padding: 8px;
     border-radius: 50%;
     background-color: #222;

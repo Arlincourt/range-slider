@@ -3,8 +3,8 @@ import Model from '../Model/Model';
 import View from '../View/View';
 
 class Controller {
-
   private model: Model;
+
   private view: View;
 
   constructor(element: HTMLElement, model: Model) {

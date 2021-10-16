@@ -1,7 +1,7 @@
 function importAll(resolve) {
-  resolve.keys().forEach((str) =>  {
-    if(str.includes('.test.ts')) {
-      return
+  resolve.keys().forEach((str) => {
+    if (str.includes('.test.ts')) {
+      return;
     }
     resolve(str);
   });

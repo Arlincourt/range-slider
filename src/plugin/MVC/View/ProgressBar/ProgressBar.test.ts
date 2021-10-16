@@ -41,6 +41,10 @@ describe('ProgressBar module', () => {
   })
   test('should correct update: delete child and removes and add classes', () => {
     progressBar.update(progressBarData2)
+    expect(progressBar.getTemplate().style.top).toBe('0%')
+    expect(progressBar.getTemplate().style.height).toBe('8px')
+    expect(progressBar.getTemplate().style.width).toBe('62.5%')
+    expect(progressBar.getTemplate().style.left).toBe('18.75%')
     expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLine)).toBe(true)
     expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLineHorizontal)).toBe(true)
     expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLineVertical)).toBe(false)

@@ -16,4 +16,3 @@ import Slider from './Slider';
     return this;
   };
 }(jQuery));
-

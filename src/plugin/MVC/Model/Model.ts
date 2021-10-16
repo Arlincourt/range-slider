@@ -1,10 +1,10 @@
-import {IState} from '../../types/interfaces';
+import { IState, IOptions, IEmit } from '../../types/interfaces';
 import Observer from '../../Observer/Observer';
 import Orientation from '../../types/orientation';
-import {IOptions} from '../../types/interfaces';
 
 class Model {
   public observer?: Observer;
+
   private state: IState = {
     range: false,
     tips: true,
@@ -16,19 +16,19 @@ class Model {
   };
 
   constructor(options: IOptions) {
-    this.state = {...this.state, ...options}
+    this.state = { ...this.state, ...options };
     setTimeout(() => {
-      console.log(this.state)
-    })
+      console.log(this.state);
+    });
   }
 
   public getState(): IState {
     return this.state;
   }
 
-  public update(state: IState) {
-
-    this.observer?.emit('modelChange')
+  public update(state: IEmit) {
+    console.log(state)
+    this.observer?.emit('modelChange');
   }
 }
 

@@ -1,23 +1,23 @@
-import classes from '../../../types/classes'
+import classes from '../../../types/classes';
 
 class Point {
   private point: HTMLElement = document.createElement('div')
 
   constructor() {
-    this.init()
+    this.init();
   }
 
   private init() {
-    this.addClass()
+    this.addClass();
   }
 
   private addClass(): void {
-    this.point.classList.add(classes.sliderPoint)
+    this.point.classList.add(classes.sliderPoint);
   }
 
   public getTemplate(): HTMLElement {
-    return this.point
+    return this.point;
   }
 }
 
-export default Point
+export default Point;

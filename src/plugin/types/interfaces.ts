@@ -1,4 +1,4 @@
-import Orientation from './orientation'
+import Orientation from './orientation';
 
 interface IInterval {
   min: number;
@@ -71,4 +71,13 @@ interface IState {
   value: number[]
 }
 
-export {IState, IOptions, IRunnerService, IRunner, IProgressBar, IEdge, IEdgeService, IInfo, IInterval};
+interface IEmit {
+  clientX: number;
+  clientY: number;
+  clientWidth: number;
+  clientHeight: number;
+}
+
+export {
+  IState, IOptions, IRunnerService, IRunner, IProgressBar, IEdge, IEdgeService, IInfo, IInterval, IEmit
+};

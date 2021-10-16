@@ -1,4 +1,4 @@
-import {IState} from 'plugin/types/interfaces';
+import { IEmit } from 'plugin/types/interfaces';
 
 interface ISubscribes {
   [key: string]: Array<() => any>
@@ -11,7 +11,7 @@ class Observer {
     this.subscribes = {};
   }
 
-  subscribe(eventName: string, callback: (state?: IState) => void): void {
+  subscribe(eventName: string, callback: (state?: IEmit) => void): void {
     if (this.subscribes[eventName]) {
       this.subscribes[eventName].push(callback);
       return;
@@ -20,9 +20,9 @@ class Observer {
     this.subscribes[eventName] = [callback];
   }
 
-  emit(eventName: string, state?: IState): void {
+  emit(eventName: string, state?: IEmit): void {
     if (this.subscribes[eventName]) {
-      this.subscribes[eventName].forEach((callback: (state?: IState) => any) => {
+      this.subscribes[eventName].forEach((callback: (state?: IEmit) => any) => {
         callback(state);
       });
     }

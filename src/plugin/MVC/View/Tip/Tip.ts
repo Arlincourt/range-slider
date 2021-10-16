@@ -1,32 +1,32 @@
-import classes from '../../../types/classes'
+import classes from '../../../types/classes';
 
 class Tip {
   private tip: HTMLElement = document.createElement('div')
 
   constructor(text: number) {
-    this.init()
-    this.setText(text)
+    this.init();
+    this.setText(text);
   }
-  
+
   public update(text: number): void {
-    this.setText(text)
+    this.setText(text);
   }
 
   private init(): void {
-    this.addClass()
+    this.addClass();
   }
 
   private addClass(): void {
-    this.tip.classList.add(classes.sliderTip)
+    this.tip.classList.add(classes.sliderTip);
   }
 
   private setText(text: number): void {
-    this.tip.textContent = String(text)
+    this.tip.textContent = String(text);
   }
 
   public getTemplate(): HTMLElement {
-    return this.tip
+    return this.tip;
   }
 }
 
-export default Tip
+export default Tip;
