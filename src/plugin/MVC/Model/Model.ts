@@ -60,14 +60,25 @@ class Model {
   private setPosition(emitData: IEmit): void {
     const value = this.getValueInPercent(emitData)
     const valueInNumber = this.getValueInNumber(value)
-    console.log(valueInNumber)
+    const integerValue = this.state.min + Math.floor((valueInNumber - this.state.min) / this.state.step) * this.state.step
+    
     if(this.state.range) {
       const values = this.getValuesInPercent()
       const getClosestValue = this.getClosestValue(value, values)
-      this.state.value[getClosestValue] = Number(valueInNumber)
+
+      const difference = Math.abs(this.state.value[getClosestValue] - integerValue)
+      if(difference < this.state.step) {
+        return
+      }
+      this.state.value[getClosestValue] = integerValue
       return
     }
-    this.state.value[1] = Number(valueInNumber)
+
+    const difference = Math.abs(this.state.value[1] - integerValue)
+    if(difference < this.state.step) {
+      return
+    }
+    this.state.value[1] = integerValue
   }
 
   private getValueInNumber(value: number): number {
