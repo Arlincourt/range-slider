@@ -27,6 +27,7 @@ class Model {
 
   public update(emitData: IEmit) {
     this.setPosition(emitData)
+    this.emitChanges()
   }
 
   public setMin(min: number): void {
@@ -58,11 +59,27 @@ class Model {
 
   private setPosition(emitData: IEmit): void {
     const value = this.getValueInPercent(emitData)
+    const valueInNumber = this.getValueInNumber(value)
+    console.log(valueInNumber)
     if(this.state.range) {
       const values = this.getValuesInPercent()
       const getClosestValue = this.getClosestValue(value, values)
+      this.state.value[getClosestValue] = Number(valueInNumber)
+      return
     }
-    
+    this.state.value[1] = Number(valueInNumber)
+  }
+
+  private getValueInNumber(value: number): number {
+    if(value <= 0) {
+      return this.state.min
+    }
+
+    if(value >= 100) {
+      return this.state.max
+    }
+    const valueNumber = this.state.min + (this.state.max - this.state.min) / 100 * value
+    return valueNumber
   }
 
   private getValueInPercent(state: IEmit): number {
