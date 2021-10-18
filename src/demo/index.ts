@@ -7,8 +7,35 @@ const slidersData = [
   { min: -200, max: 100, range: false, tips: false, value: [-100, 25], orientation: Orientation.VERTICAL },
 ]
 
+const sliders: any = [
+
+]
+
 $(() => {
   $('.wrapper').each((idx, el) => {
-    $(el).slider(slidersData[idx]);
+    sliders.push($(el).slider(slidersData[idx]));
   })
 });
+
+let range = false
+let tips = false
+
+$('.range').on('change', (evt) => {
+  if(range) {
+    range = false
+  } else {
+    range = true
+  }
+
+  console.log('CHANGED', range)
+  sliders[0].slider('setRange', range)
+})
+$('.tips').on('change', (evt) => {
+  if(tips) {
+    tips = false
+  } else {
+    tips = true
+  }
+  console.log('CHANGED', tips)
+  sliders[0].slider('setTips', tips)
+})

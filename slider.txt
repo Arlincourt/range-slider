@@ -1,0 +1,5 @@
+const slider = $('slider').slider({max: 999, onChange: fn}) IOptions
+const slider = $('slider').slider('getState') // string
+const slider = $('slider').slider('setMax', 999) // string any
+const slider = $('slider').slider('onChange', fn) // string any
+

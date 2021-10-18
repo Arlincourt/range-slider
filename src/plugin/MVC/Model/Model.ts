@@ -36,27 +36,78 @@ class Model {
     if(min < this.state.max) {
       this.state.min = min
     }
+    this.emitChanges()
   }
-  public setMax(): void {
-
+  public setMax(max: number): void {
+    if(max > this.state.min) {
+      this.state.max = max
+      this.updateValues()
+    }
+    this.emitChanges()
   }
-  public setRange(): void {
-
+  public setOrientation(orientation: boolean): void {
+    if(orientation) {
+      this.state.orientation = Orientation.HORIZONTAL
+      this.emitChanges()
+      return 
+    } 
+    this.state.orientation = Orientation.VERTICAL
+    this.emitChanges()
   }
-  public setTips(): void {
-
+  public setTips(isTips: boolean): void {
+    this.state.tips = isTips
+    this.emitChanges()
   }
-  public setOrientation(): void {
-
+  public setRange(isRange: boolean): void {
+    this.state.range = isRange
+    if(!this.state.range) {
+      this.state.value[0] = this.state.min
+    } else if(this.state.value[1] === this.state.value[0]) {
+      this.state.value[1] = this.state.value[0] + this.state.step
+    }
+    this.emitChanges()
   }
-  public setFirstValue(): void {
-
+  public setFirstValue(value: number): void {
+    if(value > this.state.value[1]) {
+      this.state.value[0] = this.state.value[1] - this.state.step
+    }
+    if(value < this.state.min) {
+      this.state.value[0] = this.state.min
+    }
+    this.state.value[0] = value
+    this.emitChanges()
   }
-  public setSecondValue(): void {
-
+  public setSecondValue(value: number): void {
+    if(value < this.state.value[0]) {
+      this.state.value[1] = this.state.value[0] + this.state.step
+    }
+    if(value > this.state.max) {
+      this.state.value[1] = this.state.max
+    }
+    this.state.value[1] = value
+    this.emitChanges()
   }
-  public setStep(): void {
+  public setStep(step: number): void {
+    if(step <= 0) {
+      return
+    }
+    this.state.step = step 
+    this.emitChanges()
+  }
 
+  private updateValues(): void {
+    if(this.state.min > this.state.value[0] ) {
+      this.state.value[0] = this.state.min
+    }
+    if(this.state.min > this.state.value[1] ) {
+      this.state.value[1] = this.state.min + this.state.step
+    }
+    if(this.state.max < this.state.value[0] ) {
+      this.state.value[0] = this.state.max - this.state.step
+    }
+    if(this.state.max < this.state.value[1] ) {
+      this.state.value[1] = this.state.max
+    }
   }
 
   private setPosition(emitData: IEmit): void {

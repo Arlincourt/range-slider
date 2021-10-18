@@ -66,10 +66,9 @@ class View {
         mouseDown: true
       }
       this.emitChanges(emitData)
-    }
-
       document.addEventListener('mousemove', this.onSliderMouseMove);
       document.addEventListener('mouseup', this.onSliderMouseUp);
+    }
   }
 
   private onSliderMouseUp = (evt: MouseEvent): void => {
@@ -108,6 +107,9 @@ class View {
     if(this.isEdge(element)) {
       return true 
     }
+    if(this.isItem(element)) {
+      return true 
+    }
     if(this.isTip(element)) {
       return true 
     }
@@ -123,6 +125,10 @@ class View {
 
   private isEdge(element: HTMLElement): boolean {
     return element.classList.contains(Classes.sliderEdge);
+  }
+  
+  private isItem(element: HTMLElement): boolean {
+    return element.classList.contains(Classes.sliderItem);
   }
 
   private isTip(element: HTMLElement): boolean {

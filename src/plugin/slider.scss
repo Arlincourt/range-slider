@@ -113,8 +113,9 @@
     border-radius: 50%;
     background-color: #222;
     border: 2px solid #fff;
+    order: 1;
   }
-
+  
   &__tip {
     padding: 4px;
     border-radius: 4px;
@@ -123,6 +124,7 @@
     margin-bottom: 5px;
     text-align: center;
     box-sizing: border-box;
+    order: 0;
   }
 
   &__info {
