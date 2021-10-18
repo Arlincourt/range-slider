@@ -56,45 +56,12 @@
     }
   }
 
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////
-
-  &_one_horizontal {
-    .slider__active-line {
-      width: 38%;
-      left: 0%;
-    }
-  }
-  &_one_vertical {
-    .slider__active-line {
-      height: 38%;
-      top: 0%;
-    }
-  }
-
-///////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
   &__active-line {
     position: absolute;
     background-color: #333;
     display: flex;
     border-radius: 5px;
     top: -1px;
-    
-    &_horizontal {
-      height: 8px;
-      width: 38%;
-      left: 35%;
-    }
-
-    &_vertical {
-      height: 38%;
-      top: 35%;
-      width: 7px;
-    }
   }
 
   &__item {

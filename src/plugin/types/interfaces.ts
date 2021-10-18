@@ -78,6 +78,7 @@ interface IEmit {
   clientHeight: number;
   offsetX: number;
   offsetY: number;
+  mouseDown: boolean;
 }
 
 export {

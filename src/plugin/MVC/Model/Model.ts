@@ -6,6 +6,8 @@ import copyObject from '../../helpers/copyObject';
 class Model {
   public observer?: Observer;
 
+  private previousChangeableValue: number = 1
+
   private state: IState = {
     range: false,
     tips: true,
@@ -60,17 +62,33 @@ class Model {
   private setPosition(emitData: IEmit): void {
     const value = this.getValueInPercent(emitData)
     const valueInNumber = this.getValueInNumber(value)
-    const integerValue = this.state.min + Math.floor((valueInNumber - this.state.min) / this.state.step) * this.state.step
-    
+    const integerValue = this.state.min + Math.round((valueInNumber - this.state.min) / this.state.step) * this.state.step
+
     if(this.state.range) {
       const values = this.getValuesInPercent()
-      const getClosestValue = this.getClosestValue(value, values)
-
-      const difference = Math.abs(this.state.value[getClosestValue] - integerValue)
-      if(difference < this.state.step) {
+      const closestValue = this.getClosestValue(value, values)
+      
+      if(emitData.mouseDown) {
+        this.previousChangeableValue = closestValue
+      }
+      
+      const differenceBetweenValueAndFutureValue = Math.abs(this.state.value[closestValue] - integerValue)
+      if(differenceBetweenValueAndFutureValue < this.state.step) {
         return
       }
-      this.state.value[getClosestValue] = integerValue
+      
+      if(this.previousChangeableValue !== closestValue) {
+        const isFirst = this.previousChangeableValue === 0 ? true : false 
+        if(isFirst) {
+          this.state.value[this.previousChangeableValue] = this.state.value[closestValue] - this.state.step
+        } else {
+          this.state.value[this.previousChangeableValue] = this.state.value[closestValue] + this.state.step
+        }
+        return
+      }
+      
+      this.previousChangeableValue = closestValue
+      this.state.value[closestValue] = integerValue
       return
     }
 
@@ -119,10 +137,11 @@ class Model {
   private getClosestValue(value: number, values: number[]): number {
     const firstValue = Math.abs(value - values[0])
     const secondValue = Math.abs(value - values[1])
-    if(firstValue <= secondValue) {
-      return 0
-    } 
-    return 1
+    
+    if(secondValue < firstValue) {
+      return 1
+    }
+    return 0
   }
 
   private emitChanges(): void {

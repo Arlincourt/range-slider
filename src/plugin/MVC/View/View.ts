@@ -48,6 +48,7 @@ class View {
       clientHeight: Number(this.slider.offsetHeight),
       offsetX: this.slider.getBoundingClientRect().left + document.body.scrollLeft,
       offsetY: this.slider.getBoundingClientRect().top + document.body.scrollTop,
+      mouseDown: false
     }
     
     this.emitChanges(emitData)
@@ -55,13 +56,14 @@ class View {
   
   private onSliderMouseDown = (evt: MouseEvent): void => {
     if(this.isElem(evt.target as HTMLElement)) {
-      const emitData = {
+      const emitData: IEmit = {
         clientX: evt.clientX,
         clientY: evt.clientY,
         clientWidth: Number(this.slider.offsetWidth),
         clientHeight: Number(this.slider.offsetHeight),
         offsetX: this.slider.getBoundingClientRect().left + document.body.scrollLeft,
         offsetY: this.slider.getBoundingClientRect().top + document.body.scrollTop,
+        mouseDown: true
       }
       this.emitChanges(emitData)
     }
