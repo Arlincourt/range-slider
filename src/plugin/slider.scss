@@ -62,6 +62,14 @@
     display: flex;
     border-radius: 5px;
     top: -1px;
+    transform: translateY(-1px);
+
+    // &_horizontal {
+    // }
+
+    // &_vertical {
+
+    // }
   }
 
   &__item {
@@ -84,6 +92,10 @@
       .slider__tip {
         margin-left: 4px;
         order: 1;
+      }
+
+      .slider__btn {
+        order: 0;
       }
     }
     

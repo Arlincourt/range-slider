@@ -49,10 +49,11 @@ class Model {
   public setOrientation(orientation: boolean): void {
     if(orientation) {
       this.state.orientation = Orientation.HORIZONTAL
-      this.emitChanges()
+      this.emitChanges() 
       return 
     } 
     this.state.orientation = Orientation.VERTICAL
+    this.updateValues()
     this.emitChanges()
   }
   public setTips(isTips: boolean): void {
@@ -69,38 +70,26 @@ class Model {
     this.emitChanges()
   }
   public setFirstValue(value: number | string): void {
-    const val = Number(value)
+    let val = Number(value)
     if(val >= this.state.value[1]) {
-      this.state.value[0] = this.state.value[1] - this.state.step
-      this.emitChanges()
-      return 
-    }
-    if(val < this.state.min) {
-      this.state.value[0] = this.state.min
-      this.emitChanges()
-      return 
+      val = this.state.value[1] - this.state.step
     }
 
     if(this.isMatchingToStep(val)) {
       this.state.value[0] = val
     }
+    this.updateValues()
     this.emitChanges()
   }
   public setSecondValue(value: number): void {
-    const val = Number(value)
+    let val = Number(value)
     if(val <= this.state.value[0]) {
-      this.state.value[1] = this.state.value[0] + this.state.step
-      this.emitChanges()
-      return 
-    }
-    if(val > this.state.max) {
-      this.state.value[1] = this.state.max
-      this.emitChanges()
-      return 
+      val = this.state.value[0] + this.state.step
     }
     if(this.isMatchingToStep(val)) {
       this.state.value[1] = val
     }
+    this.updateValues()
     this.emitChanges()
   }
   public setStep(step: number | string): void {
@@ -109,6 +98,7 @@ class Model {
     }
     this.state.step = Number(step) 
     this.formatValuesToStep()
+    this.updateValues()
     this.emitChanges()
   }
 
@@ -137,14 +127,23 @@ class Model {
   }
 
   private updateValues(): void {
+    this.checkValuesToMax()
+    this.checkValuesToMin()
     if(this.state.value[0] >= this.state.value[1]) {
-      this.state.value[0] = this.state.value[1] - this.state.step
+      this.state.value[1] = this.state.value[0] + this.state.step
     }
-    if(this.state.value[0] < this.state.min) {
-      this.state.value[0] = this.state.min
-    }
+    this.checkValuesToMax()
+    this.checkValuesToMin()
+  }
+
+  private checkValuesToMax(): void {
     if(this.state.value[1] > this.state.max) {
       this.state.value[1] = this.state.max 
+    }
+  }
+  private checkValuesToMin(): void {
+    if(this.state.value[0] < this.state.min) {
+      this.state.value[0] = this.state.min
     }
   }
 

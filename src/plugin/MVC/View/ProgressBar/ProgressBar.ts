@@ -35,7 +35,7 @@ class ProgressBar {
       this.addElems();
       this.setStyle(progressBarState);
     }
-    if (this.isPositionChanged(progressBarState)) {
+    if (this.isPositionChanged(progressBarState) || this.progressBarState.orientation !== progressBarState.orientation) {
       this.setStyle(progressBarState);
     }
     this.progressBarState = copyObject(progressBarState)

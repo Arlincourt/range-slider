@@ -19,6 +19,7 @@ $(() => {
 
 let range = false
 let tips = false
+let orientation = false
 
 $('.range').on('change', (evt) => {
   if(range) {
@@ -26,8 +27,6 @@ $('.range').on('change', (evt) => {
   } else {
     range = true
   }
-
-  console.log('CHANGED', range)
   sliders[0].slider('setRange', range)
 })
 $('.tips').on('change', (evt) => {
@@ -36,7 +35,6 @@ $('.tips').on('change', (evt) => {
   } else {
     tips = true
   }
-  console.log('CHANGED', tips)
   sliders[0].slider('setTips', tips)
 })
 
@@ -59,4 +57,20 @@ $('.min').on('change', (evt) => {
 $('.max').on('change', (evt) => {
   const input = evt.target as HTMLInputElement
   sliders[0].slider('setMax', input.value)
+})
+$('.first').on('change', (evt) => {
+  const input = evt.target as HTMLInputElement
+  sliders[0].slider('setFirstValue', input.value)
+})
+$('.second').on('change', (evt) => {
+  const input = evt.target as HTMLInputElement
+  sliders[0].slider('setSecondValue', input.value)
+})
+$('.orientation').on('change', (evt) => {
+  if(orientation) {
+    orientation = false
+  } else {
+    orientation = true
+  }
+  sliders[0].slider('setOrientation', orientation)
 })
