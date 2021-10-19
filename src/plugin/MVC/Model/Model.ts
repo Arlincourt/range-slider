@@ -32,18 +32,19 @@ class Model {
     this.emitChanges()
   }
 
-  public setMin(min: number): void {
+  public setMin(min: number | string): void {
     if(min < this.state.max) {
-      this.state.min = min
-    }
-    this.emitChanges()
-  }
-  public setMax(max: number): void {
-    if(max > this.state.min) {
-      this.state.max = max
+      this.state.min = Number(min)
       this.updateValues()
+      this.emitChanges()
     }
-    this.emitChanges()
+  }
+  public setMax(max: number | string): void {
+    if(max > this.state.min) {
+      this.state.max = Number(max)
+      this.updateValues()
+      this.emitChanges()
+    }
   }
   public setOrientation(orientation: boolean): void {
     if(orientation) {
@@ -67,46 +68,83 @@ class Model {
     }
     this.emitChanges()
   }
-  public setFirstValue(value: number): void {
-    if(value > this.state.value[1]) {
+  public setFirstValue(value: number | string): void {
+    const val = Number(value)
+    if(val >= this.state.value[1]) {
       this.state.value[0] = this.state.value[1] - this.state.step
+      this.emitChanges()
+      return 
     }
-    if(value < this.state.min) {
+    if(val < this.state.min) {
       this.state.value[0] = this.state.min
+      this.emitChanges()
+      return 
     }
-    this.state.value[0] = value
+
+    if(this.isMatchingToStep(val)) {
+      this.state.value[0] = val
+    }
     this.emitChanges()
   }
   public setSecondValue(value: number): void {
-    if(value < this.state.value[0]) {
+    const val = Number(value)
+    if(val <= this.state.value[0]) {
       this.state.value[1] = this.state.value[0] + this.state.step
+      this.emitChanges()
+      return 
     }
-    if(value > this.state.max) {
+    if(val > this.state.max) {
       this.state.value[1] = this.state.max
+      this.emitChanges()
+      return 
     }
-    this.state.value[1] = value
+    if(this.isMatchingToStep(val)) {
+      this.state.value[1] = val
+    }
     this.emitChanges()
   }
-  public setStep(step: number): void {
+  public setStep(step: number | string): void {
     if(step <= 0) {
       return
     }
-    this.state.step = step 
+    this.state.step = Number(step) 
+    this.formatValuesToStep()
     this.emitChanges()
   }
 
+  private formatValuesToStep(): void {
+    const differenceBetweenFirstValueAndMin = this.state.value[0] - this.state.min
+    const differenceBetweenSecondValueAndFirstValue = this.state.value[1] - this.state.value[0]
+    if(differenceBetweenFirstValueAndMin > this.state.step) {
+      const remains = differenceBetweenFirstValueAndMin % this.state.step
+      this.state.value[0] = differenceBetweenFirstValueAndMin - remains
+    } else {
+     this.state.value[0] = this.state.min 
+    }
+    
+    if(differenceBetweenSecondValueAndFirstValue % this.state.step === 0) {
+      this.updateValues()
+      return 
+    }
+    
+    const multiplier = this.getIntegerMultiplier(differenceBetweenSecondValueAndFirstValue)
+    this.state.value[1] = this.state.value[0] + multiplier * this.state.step
+    this.updateValues()
+  }
+
+  private getIntegerMultiplier(value: number): number {
+    return Math.ceil(value / this.state.step)
+  }
+
   private updateValues(): void {
-    if(this.state.min > this.state.value[0] ) {
+    if(this.state.value[0] >= this.state.value[1]) {
+      this.state.value[0] = this.state.value[1] - this.state.step
+    }
+    if(this.state.value[0] < this.state.min) {
       this.state.value[0] = this.state.min
     }
-    if(this.state.min > this.state.value[1] ) {
-      this.state.value[1] = this.state.min + this.state.step
-    }
-    if(this.state.max < this.state.value[0] ) {
-      this.state.value[0] = this.state.max - this.state.step
-    }
-    if(this.state.max < this.state.value[1] ) {
-      this.state.value[1] = this.state.max
+    if(this.state.value[1] > this.state.max) {
+      this.state.value[1] = this.state.max 
     }
   }
 
@@ -122,6 +160,12 @@ class Model {
       if(emitData.mouseDown) {
         this.previousChangeableValue = closestValue
       }
+
+      if(valueInNumber === this.state.max) {
+        this.state.value[closestValue] = this.state.max
+      } else if(valueInNumber === this.state.min) {
+        this.state.value[closestValue] = this.state.min
+      }
       
       const differenceBetweenValueAndFutureValue = Math.abs(this.state.value[closestValue] - integerValue)
       if(differenceBetweenValueAndFutureValue < this.state.step) {
@@ -135,11 +179,13 @@ class Model {
         } else {
           this.state.value[this.previousChangeableValue] = this.state.value[closestValue] + this.state.step
         }
+        this.updateValues()
         return
       }
       
       this.previousChangeableValue = closestValue
       this.state.value[closestValue] = integerValue
+      this.updateValues()
       return
     }
 
@@ -148,6 +194,7 @@ class Model {
       return
     }
     this.state.value[1] = integerValue
+    this.updateValues()
   }
 
   private getValueInNumber(value: number): number {
@@ -193,6 +240,13 @@ class Model {
       return 1
     }
     return 0
+  }
+
+  private isMatchingToStep(value: number): boolean {
+    if(value % this.state.step === 0) {
+      return true 
+    }
+    return false
   }
 
   private emitChanges(): void {

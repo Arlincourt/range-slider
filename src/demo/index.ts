@@ -39,3 +39,24 @@ $('.tips').on('change', (evt) => {
   console.log('CHANGED', tips)
   sliders[0].slider('setTips', tips)
 })
+
+$('.first').on('change', (evt) => {
+  const input = evt.target as HTMLInputElement
+  sliders[0].slider('setFirstValue', input.value)
+})
+$('.second').on('change', (evt) => {
+  const input = evt.target as HTMLInputElement
+  sliders[0].slider('setSecondValue', input.value)
+})
+$('.step').on('change', (evt) => {
+  const input = evt.target as HTMLInputElement
+  sliders[0].slider('setStep', input.value)
+})
+$('.min').on('change', (evt) => {
+  const input = evt.target as HTMLInputElement
+  sliders[0].slider('setMin', input.value)
+})
+$('.max').on('change', (evt) => {
+  const input = evt.target as HTMLInputElement
+  sliders[0].slider('setMax', input.value)
+})
