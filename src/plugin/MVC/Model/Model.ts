@@ -176,6 +176,10 @@ class Model {
       this.previousChangeableValue = closestPosition
     }
 
+    if(this.previousChangeableValue !== closestPosition) {
+      return
+    }
+
     if(valueInNumber >= max) {
       value[closestPosition] = max
     } else if(valueInNumber <= min) {
@@ -189,17 +193,6 @@ class Model {
     
     const differenceBetweenValueAndFutureValue = Math.abs(value[closestPosition] - integerValue)
     if(differenceBetweenValueAndFutureValue < step) {
-      return
-    }
-    
-    if(this.previousChangeableValue !== closestPosition) {
-      const isFirst = this.previousChangeableValue === 0 ? true : false 
-      if(isFirst) {
-        value[this.previousChangeableValue] = value[closestPosition] - step
-      } else {
-        value[this.previousChangeableValue] = value[closestPosition] + step
-      }
-      this.updateValues()
       return
     }
     
