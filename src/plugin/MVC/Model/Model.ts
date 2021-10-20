@@ -67,6 +67,7 @@ class Model {
     } else if(this.state.value[1] === this.state.value[0]) {
       this.state.value[1] = this.state.value[0] + this.state.step
     }
+    this.updateValues()
     this.emitChanges()
   }
   public setFirstValue(value: number | string): void {
@@ -129,8 +130,11 @@ class Model {
   private updateValues(): void {
     this.checkValuesToMax()
     this.checkValuesToMin()
-    if(this.state.value[0] >= this.state.value[1]) {
+    if(this.state.value[0] >= this.state.value[1] && this.state.range === true) {
       this.state.value[1] = this.state.value[0] + this.state.step
+    }
+    if(this.state.value[1] <= this.state.value[0]) {
+      this.state.value[0] = this.state.value[1] - this.state.step
     }
     this.checkValuesToMax()
     this.checkValuesToMin()
@@ -140,6 +144,9 @@ class Model {
     if(this.state.value[1] > this.state.max) {
       this.state.value[1] = this.state.max 
     }
+    if(this.state.value[0] > this.state.max) {
+      this.state.value[0] = this.state.max - this.state.step 
+    }
   }
   private checkValuesToMin(): void {
     if(this.state.value[0] < this.state.min) {
@@ -148,51 +155,81 @@ class Model {
   }
 
   private setPosition(emitData: IEmit): void {
-    const value = this.getValueInPercent(emitData)
-    const valueInNumber = this.getValueInNumber(value)
-    const integerValue = this.state.min + Math.round((valueInNumber - this.state.min) / this.state.step) * this.state.step
+    const {range} = this.state
+    if(range) {
+      this.setTwoPosition(emitData)
+    } else {
+      this.setOnePosition(emitData)
+    }
+  }
 
-    if(this.state.range) {
-      const values = this.getValuesInPercent()
-      const closestValue = this.getClosestValue(value, values)
-      
-      if(emitData.mouseDown) {
-        this.previousChangeableValue = closestValue
-      }
+  private setTwoPosition(emitData: IEmit) {
+    const {max, min, step, value} = this.state
+    const percentValue: number = this.getValueInPercent(emitData)
+    const valueInNumber: number = this.getValueInNumber(percentValue)
+    const integerValue: number = min + Math.round((valueInNumber - min) / step) * step
 
-      if(valueInNumber === this.state.max) {
-        this.state.value[closestValue] = this.state.max
-      } else if(valueInNumber === this.state.min) {
-        this.state.value[closestValue] = this.state.min
+    const values = this.getValuesInPercent()
+    const closestPosition = this.getclosestPosition(percentValue, values)
+    
+    if(emitData.mouseDown) {
+      this.previousChangeableValue = closestPosition
+    }
+
+    if(valueInNumber >= max) {
+      value[closestPosition] = max
+    } else if(valueInNumber <= min) {
+      value[closestPosition] = min
+    }
+
+    if(Math.round(valueInNumber) === integerValue) {
+      value[closestPosition] = integerValue
+      return
+    }
+    
+    const differenceBetweenValueAndFutureValue = Math.abs(value[closestPosition] - integerValue)
+    if(differenceBetweenValueAndFutureValue < step) {
+      return
+    }
+    
+    if(this.previousChangeableValue !== closestPosition) {
+      const isFirst = this.previousChangeableValue === 0 ? true : false 
+      if(isFirst) {
+        value[this.previousChangeableValue] = value[closestPosition] - step
+      } else {
+        value[this.previousChangeableValue] = value[closestPosition] + step
       }
-      
-      const differenceBetweenValueAndFutureValue = Math.abs(this.state.value[closestValue] - integerValue)
-      if(differenceBetweenValueAndFutureValue < this.state.step) {
-        return
-      }
-      
-      if(this.previousChangeableValue !== closestValue) {
-        const isFirst = this.previousChangeableValue === 0 ? true : false 
-        if(isFirst) {
-          this.state.value[this.previousChangeableValue] = this.state.value[closestValue] - this.state.step
-        } else {
-          this.state.value[this.previousChangeableValue] = this.state.value[closestValue] + this.state.step
-        }
-        this.updateValues()
-        return
-      }
-      
-      this.previousChangeableValue = closestValue
-      this.state.value[closestValue] = integerValue
       this.updateValues()
       return
     }
+    
+    this.previousChangeableValue = closestPosition
+    value[closestPosition] = integerValue
+    this.updateValues()
+    return
+  }
 
-    const difference = Math.abs(this.state.value[1] - integerValue)
-    if(difference < this.state.step) {
-      return
+  private setOnePosition(emitData: IEmit) {
+    const {max, min, step, value} = this.state
+    const percentValue: number = this.getValueInPercent(emitData)
+    const valueInNumber: number = this.getValueInNumber(percentValue)
+    const differenceBetweenLastPositionAndNewPosition = Math.abs(value[1] - valueInNumber)
+    const integerValue: number = min + Math.round((valueInNumber - min) / step) * step
+
+    if(Math.round(valueInNumber) === integerValue) {
+      value[1] = integerValue
     }
-    this.state.value[1] = integerValue
+
+    if(valueInNumber >= max) {
+      value[1] = max
+    }
+    if(valueInNumber <= min) {
+      value[1] = min
+    }
+
+    if(differenceBetweenLastPositionAndNewPosition > step / 2) {
+      value[1] = integerValue
+    }
     this.updateValues()
   }
 
@@ -231,7 +268,7 @@ class Model {
     return [firstValuePercent, secondValuePercent]
   }
 
-  private getClosestValue(value: number, values: number[]): number {
+  private getclosestPosition(value: number, values: number[]): number {
     const firstValue = Math.abs(value - values[0])
     const secondValue = Math.abs(value - values[1])
     
