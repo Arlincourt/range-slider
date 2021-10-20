@@ -1,5 +1,5 @@
 import Observer from './Observer';
-import Orientation from '../types/orientation'
+import { IEmit } from 'plugin/types/interfaces';
 
 describe('Observer module', () => {
   let observer: Observer;
@@ -9,18 +9,24 @@ describe('Observer module', () => {
   });
 
   test('Observer must be called with certain parameters twice for each subscribes', () => {
-    const options1 = {
-      clientHeight: 300,
-      clientWidth: 952,
-      clientX: 19,
-      clientY: 35,
+    const options1: IEmit = {
+      clientX: 300,
+      clientY: 400,
+      clientWidth: 800,
+      clientHeight: 400,
+      offsetX: 763,
+      offsetY: 46,
+      mouseDown: true
     }
 
-    const options2 = {
-      clientHeight: 400,
-      clientWidth: 1052,
-      clientX: 619,
-      clientY: 135,
+    const options2: IEmit = {
+      clientX: 312,
+      clientY: 300,
+      clientWidth: 700,
+      clientHeight: 440,
+      offsetX: 723,
+      offsetY: 41,
+      mouseDown: false
     }
 
     const mockFn1: any = jest.fn(options => options.min)

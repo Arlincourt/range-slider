@@ -2,6 +2,7 @@ import { IState, IOptions, IEmit } from '../../types/interfaces';
 import Observer from '../../Observer/Observer';
 import Orientation from '../../types/orientation';
 import copyObject from '../../helpers/copyObject';
+import getSymbols from '../../helpers/getSymbols';
 
 class Model {
   public observer?: Observer;
@@ -20,7 +21,6 @@ class Model {
 
   constructor(options: IOptions) {
     this.state = copyObject({ ...this.state, ...options });
-    
   }
 
   public getState(): IState {
@@ -34,6 +34,7 @@ class Model {
 
   public setMin(min: number | string): void {
     if(min < this.state.max) {
+      console.log('min')
       this.state.min = Number(min)
       this.updateValues()
       this.emitChanges()
@@ -104,22 +105,23 @@ class Model {
   }
 
   private formatValuesToStep(): void {
-    const differenceBetweenFirstValueAndMin = this.state.value[0] - this.state.min
-    const differenceBetweenSecondValueAndFirstValue = this.state.value[1] - this.state.value[0]
-    if(differenceBetweenFirstValueAndMin > this.state.step) {
-      const remains = differenceBetweenFirstValueAndMin % this.state.step
-      this.state.value[0] = differenceBetweenFirstValueAndMin - remains
+    const {min, max, step, value} = this.state
+    const differenceBetweenFirstValueAndMin = value[0] - min
+    const differenceBetweenSecondValueAndFirstValue = value[1] - value[0]
+    if(differenceBetweenFirstValueAndMin > step) {
+      const remains = differenceBetweenFirstValueAndMin % step
+      value[0] = Number((differenceBetweenFirstValueAndMin - remains).toFixed(getSymbols(step)))
     } else {
-     this.state.value[0] = this.state.min 
+      value[0] = min 
     }
     
-    if(differenceBetweenSecondValueAndFirstValue % this.state.step === 0) {
+    if(differenceBetweenSecondValueAndFirstValue % step === 0) {
       this.updateValues()
       return 
     }
     
     const multiplier = this.getIntegerMultiplier(differenceBetweenSecondValueAndFirstValue)
-    this.state.value[1] = this.state.value[0] + multiplier * this.state.step
+    value[1] = value[0] + multiplier * step
     this.updateValues()
   }
 
@@ -152,6 +154,9 @@ class Model {
     if(this.state.value[0] < this.state.min) {
       this.state.value[0] = this.state.min
     }
+    if(this.state.value[1] < this.state.min) {
+      this.state.value[1] = this.state.min
+    }
   }
 
   private setPosition(emitData: IEmit): void {
@@ -163,7 +168,7 @@ class Model {
     }
   }
 
-  private setTwoPosition(emitData: IEmit) {
+  private setTwoPosition(emitData: IEmit): void {
     const {max, min, step, value} = this.state
     const percentValue: number = this.getValueInPercent(emitData)
     const valueInNumber: number = this.getValueInNumber(percentValue)
@@ -177,6 +182,13 @@ class Model {
     }
 
     if(this.previousChangeableValue !== closestPosition) {
+      const isFirst = this.previousChangeableValue === 0 ? true : false 
+      if(isFirst) {
+        value[this.previousChangeableValue] = Number((value[closestPosition] - step).toFixed(getSymbols(step)))
+      } else {
+        value[this.previousChangeableValue] = Number((value[closestPosition] + step).toFixed(getSymbols(step)))
+      }
+      this.updateValues()
       return
     }
 
@@ -187,7 +199,7 @@ class Model {
     }
 
     if(Math.round(valueInNumber) === integerValue) {
-      value[closestPosition] = integerValue
+      value[closestPosition] = Number(integerValue.toFixed(getSymbols(step)))
       return
     }
     
@@ -197,12 +209,12 @@ class Model {
     }
     
     this.previousChangeableValue = closestPosition
-    value[closestPosition] = integerValue
+    value[closestPosition] = Number(integerValue.toFixed(getSymbols(step)))
     this.updateValues()
     return
   }
 
-  private setOnePosition(emitData: IEmit) {
+  private setOnePosition(emitData: IEmit): void {
     const {max, min, step, value} = this.state
     const percentValue: number = this.getValueInPercent(emitData)
     const valueInNumber: number = this.getValueInNumber(percentValue)
@@ -210,7 +222,7 @@ class Model {
     const integerValue: number = min + Math.round((valueInNumber - min) / step) * step
 
     if(Math.round(valueInNumber) === integerValue) {
-      value[1] = integerValue
+      value[1] = Number(integerValue.toFixed(getSymbols(step)))
     }
 
     if(valueInNumber >= max) {
@@ -221,7 +233,7 @@ class Model {
     }
 
     if(differenceBetweenLastPositionAndNewPosition > step / 2) {
-      value[1] = integerValue
+      value[1] = Number(integerValue.toFixed(getSymbols(step)))
     }
     this.updateValues()
   }
