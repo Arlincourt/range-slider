@@ -1,7 +1,7 @@
 import Orientation from "../plugin/types/orientation";
 
 const slidersData = [
-  { min: 0, max: 20, range: false, value: [8, 16], orientation: Orientation.HORIZONTAL, step: 16 },
+  { min: -21, max: -1, range: true, value: [-21, 16], orientation: Orientation.HORIZONTAL, step: 16 },
   { min: 0, max: 110, range: true, value: [10, 25], orientation: Orientation.VERTICAL, step: 0.5 },
   { min: -200, max: 100, range: false, tips: false, value: [-100, 25], orientation: Orientation.HORIZONTAL },
   { min: -200, max: 100, range: false, tips: false, value: [-100, 25], orientation: Orientation.VERTICAL },

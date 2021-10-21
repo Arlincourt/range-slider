@@ -21,10 +21,11 @@ class Model {
 
   constructor(options: IOptions) {
     this.state = copyObject({ ...this.state, ...options });
+    this.updateValues()
   }
 
   public getState(): IState {
-    return this.state;
+    return copyObject(this.state);
   }
 
   public update(emitData: IEmit) {
@@ -34,7 +35,6 @@ class Model {
 
   public setMin(min: number | string): void {
     if(min < this.state.max) {
-      console.log('min')
       this.state.min = Number(min)
       this.updateValues()
       this.emitChanges()
@@ -77,9 +77,7 @@ class Model {
       val = this.state.value[1] - this.state.step
     }
 
-    if(this.isMatchingToStep(val)) {
-      this.state.value[0] = val
-    }
+    this.state.value[0] = val
     this.updateValues()
     this.emitChanges()
   }
@@ -88,9 +86,8 @@ class Model {
     if(val <= this.state.value[0]) {
       val = this.state.value[0] + this.state.step
     }
-    if(this.isMatchingToStep(val)) {
-      this.state.value[1] = val
-    }
+    
+    this.state.value[1] = val
     this.updateValues()
     this.emitChanges()
   }
@@ -104,8 +101,16 @@ class Model {
     this.emitChanges()
   }
 
+  private formatValueToStep(number: number, id: number): number {
+    const {min, max, step, value} = this.state 
+
+    
+
+    return 3
+  }
+
   private formatValuesToStep(): void {
-    const {min, max, step, value} = this.state
+    const {min, step, value} = this.state
     const differenceBetweenFirstValueAndMin = value[0] - min
     const differenceBetweenSecondValueAndFirstValue = value[1] - value[0]
     if(differenceBetweenFirstValueAndMin > step) {
@@ -130,32 +135,41 @@ class Model {
   }
 
   private updateValues(): void {
+    const {value, range, min} = this.state
     this.checkValuesToMax()
     this.checkValuesToMin()
-    if(this.state.value[0] >= this.state.value[1] && this.state.range === true) {
-      this.state.value[1] = this.state.value[0] + this.state.step
-    }
-    if(this.state.value[1] <= this.state.value[0]) {
-      this.state.value[0] = this.state.value[1] - this.state.step
+    if(range) {
+      this.checkValuesToRange()
+    } else if(value[1] < min) {
+      value[1] = min
     }
     this.checkValuesToMax()
     this.checkValuesToMin()
+  }
+
+  private checkValuesToRange(): void {
+    const {value, step, min, max} = this.state
+    const isMaxMore = max > value[0] + step 
+    const firstValueWithStep = value[0] + step
+    const isMinLess = min < value[1] - step 
+    if(value[1] <= firstValueWithStep && isMinLess) {
+      value[0] = value[1] - step
+    } else if(value[1] <= firstValueWithStep && isMaxMore) {
+      value[1] = value[0] + step
+    } else {
+      value[0] = min 
+      value[1] = max 
+    }
   }
 
   private checkValuesToMax(): void {
     if(this.state.value[1] > this.state.max) {
       this.state.value[1] = this.state.max 
     }
-    if(this.state.value[0] > this.state.max) {
-      this.state.value[0] = this.state.max - this.state.step 
-    }
   }
   private checkValuesToMin(): void {
     if(this.state.value[0] < this.state.min) {
       this.state.value[0] = this.state.min
-    }
-    if(this.state.value[1] < this.state.min) {
-      this.state.value[1] = this.state.min
     }
   }
 
@@ -169,7 +183,7 @@ class Model {
   }
 
   private setTwoPosition(emitData: IEmit): void {
-    const {max, min, step, value} = this.state
+    const {min, max, step, value} = this.state
     const percentValue: number = this.getValueInPercent(emitData)
     const valueInNumber: number = this.getValueInNumber(percentValue)
     const integerValue: number = min + Math.round((valueInNumber - min) / step) * step
@@ -192,14 +206,22 @@ class Model {
       return
     }
 
-    if(valueInNumber >= max) {
-      value[closestPosition] = max
-    } else if(valueInNumber <= min) {
-      value[closestPosition] = min
+    const isSameValues = Math.round(valueInNumber) === integerValue
+    const isMoreThanStep = integerValue - value[0] >= step
+
+    if(isSameValues && isMoreThanStep) {
+      value[closestPosition] = Number(integerValue.toFixed(getSymbols(step)))
+      this.updateValues()
+      return
     }
 
-    if(Math.round(valueInNumber) === integerValue) {
-      value[closestPosition] = Number(integerValue.toFixed(getSymbols(step)))
+    if(valueInNumber >= max) {
+      value[closestPosition] = max
+      this.updateValues()
+      return
+    } else if(valueInNumber <= min) {
+      value[closestPosition] = min
+      this.updateValues()
       return
     }
     
