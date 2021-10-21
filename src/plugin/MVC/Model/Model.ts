@@ -6,7 +6,6 @@ import getSymbols from '../../helpers/getSymbols';
 
 class Model {
   public observer?: Observer;
-
   private previousChangeableValue: number = 1
 
   private state: IState = {
@@ -99,14 +98,6 @@ class Model {
     this.formatValuesToStep()
     this.updateValues()
     this.emitChanges()
-  }
-
-  private formatValueToStep(number: number, id: number): number {
-    const {min, max, step, value} = this.state 
-
-    
-
-    return 3
   }
 
   private formatValuesToStep(): void {
@@ -303,13 +294,6 @@ class Model {
       return 1
     }
     return 0
-  }
-
-  private isMatchingToStep(value: number): boolean {
-    if(value % this.state.step === 0) {
-      return true 
-    }
-    return false
   }
 
   private emitChanges(): void {
