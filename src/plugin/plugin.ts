@@ -7,15 +7,13 @@ import Slider from './Slider';
     const $element: JQuery = $(this);
     const element = this[0]
 
-
-    if(!!$element.data('slider')) {
+    if (typeof options === 'object') {
+      createSlider(options, element);
+    } else if($element.data('slider') === undefined || typeof options === 'object') {
       $element.each((_, elem) => {
         createSlider({}, elem)
       })
-    } else if (typeof options === 'object') {
-      createSlider(options, element);
     } else if (typeof options === 'string' && args.length === 0) {
-      console.log($(element).data('slider'))
       return $(element).data('slider')[options]()
     } else if(typeof options === 'string' && args.length !== 0) {
       return $(element).data('slider')[options](...args)

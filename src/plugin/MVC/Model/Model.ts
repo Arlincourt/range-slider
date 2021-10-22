@@ -143,13 +143,11 @@ class Model {
     const isMaxMore = max > value[0] + step 
     const firstValueWithStep = value[0] + step
     const isMinLess = min < value[1] - step 
+
     if(value[1] <= firstValueWithStep && isMinLess) {
       value[0] = value[1] - step
     } else if(value[1] <= firstValueWithStep && isMaxMore) {
       value[1] = value[0] + step
-    } else {
-      value[0] = min 
-      value[1] = max 
     }
   }
 
