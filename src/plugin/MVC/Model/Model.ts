@@ -19,7 +19,7 @@ class Model {
   };
 
   constructor(options: IOptions) {
-    this.state = copyObject({ ...this.state, ...options });
+    this.state = copyObject({ ...this.state, ...options  });
     this.updateValues()
   }
 
