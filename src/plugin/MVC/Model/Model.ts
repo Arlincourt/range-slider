@@ -71,12 +71,13 @@ class Model {
     this.emitChanges()
   }
   public setFirstValue(value: number | string): void {
+    const {min, max, step} = this.state
     let val = Number(value)
-    if(val >= this.state.value[1]) {
+    if(val + step >= this.state.value[1]) {
       val = this.state.value[1] - this.state.step
     }
 
-    this.state.value[0] = val
+    this.state.value[0] = Number(val.toFixed(getSymbols(step)))
     this.updateValues()
     this.emitChanges()
   }
