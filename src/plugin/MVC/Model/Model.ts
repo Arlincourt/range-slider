@@ -192,11 +192,17 @@ class Model {
     if (this.state.value[1] > this.state.max) {
       this.state.value[1] = this.state.max;
     }
+    if (this.state.value[0] > this.state.max) {
+      this.state.value[0] = this.state.value[1] - this.state.step;
+    }
   }
 
   private checkValuesToMin(): void {
     if (this.state.value[0] < this.state.min) {
       this.state.value[0] = this.state.min;
+    }
+    if (this.state.value[1] < this.state.min) {
+      this.state.value[1] = this.state.min + this.state.step;
     }
   }
 

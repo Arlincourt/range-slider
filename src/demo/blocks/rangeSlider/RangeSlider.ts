@@ -33,12 +33,56 @@ class RangeSlider {
 
   private addEvents(): void {
     this.$minInput?.on('change', this.handleMinInputChange)
+    this.$maxInput?.on('change', this.handleMaxInputChange)
+    this.$stepInput?.on('change', this.handleStepInputChange)
+    this.$firstValueInput?.on('change', this.handleFirstValueInputChange)
+    this.$secondValueInput?.on('change', this.handleSecondValueInputChange)
+    this.$tipsInput?.on('change', this.handleTipsInputChange)
+    this.$rangeInput?.on('change', this.handleRangeInputChange)
+    this.$orientationInput?.on('change', this.handleOrientationInputChange)
   }
 
-  private handleMinInputChange = (evt: Event): void => {
+  private handleMinInputChange = (): void => {
     const value = Number(this.$minInput?.val())
     this.$slider.slider('setMin', value)
     this.$minInput?.val(String(this.$slider.slider('getMin')))
+  }
+  private handleMaxInputChange = (): void => {
+    const value = Number(this.$maxInput?.val())
+    this.$slider.slider('setMax', value)
+    this.$maxInput?.val(String(this.$slider.slider('getMax')))
+  }
+  private handleStepInputChange = (): void => {
+    const value = Number(this.$stepInput?.val())
+    this.$slider.slider('setStep', value)
+    this.$stepInput?.val(String(this.$slider.slider('getStep')))
+  }
+  private handleFirstValueInputChange = (): void => {
+    const value = Number(this.$firstValueInput?.val())
+    this.$slider.slider('setFirstValue', value)
+    this.$firstValueInput?.val(String(this.$slider.slider('getFirstValue')))
+  }
+  private handleSecondValueInputChange = (): void => {
+    const value = Number(this.$secondValueInput?.val())
+    this.$slider.slider('setSecondValue', value)
+    this.$secondValueInput?.val(String(this.$slider.slider('getSecondValue')))
+  }
+  private handleTipsInputChange = (): void => {
+    const value = this.$tipsInput?.is(':checked')
+    this.$slider.slider('setTips', value)
+  }
+  private handleRangeInputChange = (): void => {
+    const value = this.$rangeInput?.is(':checked')
+    this.$slider.slider('setRange', value)
+  }
+  private handleOrientationInputChange = (): void => {
+    let value: boolean | string | undefined = this.$orientationInput?.is(':checked')
+    if(value) {
+      value = Orientation.VERTICAL
+    } else {
+      value = Orientation.HORIZONTAL
+    }
+    this.$slider.slider('setOrientation', value)
   }
 }
 
