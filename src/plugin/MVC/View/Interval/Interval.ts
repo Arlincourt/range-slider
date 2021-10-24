@@ -23,8 +23,8 @@ class Interval {
   private infoData: IInfo
 
   constructor(intervalState: IInterval) {
-    this.intervalState = copyObject(intervalState)
-    this.progressBarData = {...setType(InterfacesNames.IProgressBar, this.intervalState)};
+    this.intervalState = copyObject(intervalState);
+    this.progressBarData = { ...setType(InterfacesNames.IProgressBar, this.intervalState) };
     this.infoData = setType(InterfacesNames.IInfo, this.intervalState);
     this.progressBar = new ProgressBar(this.progressBarData);
     this.info = new Info(this.infoData);
@@ -36,7 +36,7 @@ class Interval {
     if (this.intervalState.orientation !== intervalState.orientation) {
       this.addClass(intervalState.orientation);
     }
-    this.intervalState = copyObject(intervalState)
+    this.intervalState = copyObject(intervalState);
     this.progressBarData = setType(InterfacesNames.IProgressBar, this.intervalState);
     this.infoData = setType(InterfacesNames.IInfo, this.intervalState);
     this.progressBar.update(this.progressBarData);

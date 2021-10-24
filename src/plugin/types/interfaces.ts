@@ -82,5 +82,5 @@ interface IEmit {
 }
 
 export {
-  IState, IOptions, IRunnerService, IRunner, IProgressBar, IEdge, IEdgeService, IInfo, IInterval, IEmit
+  IState, IOptions, IRunnerService, IRunner, IProgressBar, IEdge, IEdgeService, IInfo, IInterval, IEmit,
 };

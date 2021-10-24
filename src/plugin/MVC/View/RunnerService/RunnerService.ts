@@ -23,7 +23,7 @@ class RunnerService {
   private runnerServiceState: IRunnerService;
 
   constructor(runnerServiceState: IRunnerService) {
-    this.runnerServiceState = copyObject(runnerServiceState)
+    this.runnerServiceState = copyObject(runnerServiceState);
     this.firstRunnerData = this.setClass(setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first);
     this.secondRunnerData = this.setClass(setType(InterfacesNames.IRunner, this.runnerServiceState, 1), Orders.second);
     this.firstRunner = new Runner(this.firstRunnerData);
@@ -31,7 +31,7 @@ class RunnerService {
   }
 
   public update(runnerServiceState: IRunnerService): void {
-    this.runnerServiceState = copyObject(runnerServiceState)
+    this.runnerServiceState = copyObject(runnerServiceState);
     this.firstRunnerData = this.setClass(setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first);
     this.secondRunnerData = this.setClass(setType(InterfacesNames.IRunner, this.runnerServiceState, 1), Orders.second);
     this.firstRunner.update(this.firstRunnerData);

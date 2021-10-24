@@ -8,7 +8,7 @@ class Edge {
   private edgeState: IEdge;
 
   constructor(edgeState: IEdge) {
-    this.edgeState = copyObject(edgeState)
+    this.edgeState = copyObject(edgeState);
     this.addClass(this.edgeState.classList);
     this.setEdge(this.edgeState.edge);
   }
@@ -21,7 +21,7 @@ class Edge {
     if (!isArraysEqual(this.edgeState.classList, edgeState.classList)) {
       this.addClass(edgeState.classList);
     }
-    this.edgeState = copyObject(edgeState)
+    this.edgeState = copyObject(edgeState);
     this.setEdge(this.edgeState.edge);
   }
 

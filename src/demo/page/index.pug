@@ -1,3 +1,5 @@
+include ../blocks/rangeSlider/index.pug
+
 doctype html
 html(lang="en")
   head
@@ -6,24 +8,6 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Document
   body 
-    h1(data-text="test text" data-id="2") Hello
-
-    .form 
-      input(type="number", placeholder="firstValue").first
-      input(type="number", placeholder="secondValue").second 
-      input(type="number", placeholder="step").step 
-      input(type="number", placeholder="min").min 
-      input(type="number", placeholder="max").max 
-
-      p orientation 
-      input(type="checkbox" name="orientation").orientation 
-      p tips 
-      input(type="checkbox" name="tips").tips 
-      p range
-      input(type="checkbox" name="range").range
-
-    .wrapper 
-    .wrapper 
-    .wrapper 
-    .wrapper
-              
+    .container
+      +range-slider({})
+           

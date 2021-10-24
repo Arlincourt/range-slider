@@ -1,9 +1,9 @@
 function copyObject(obj: any): any {
   let clObj: any = {};
-  if(Array.isArray(obj)) {
-    clObj = []
+  if (Array.isArray(obj)) {
+    clObj = [];
   }
-  for(const i in obj) {
+  for (const i in obj) {
     if (obj[i] instanceof Object) {
       clObj[i] = copyObject(obj[i]);
       continue;
@@ -13,4 +13,4 @@ function copyObject(obj: any): any {
   return clObj;
 }
 
-export default copyObject
+export default copyObject;

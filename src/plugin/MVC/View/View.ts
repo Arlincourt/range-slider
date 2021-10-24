@@ -16,7 +16,7 @@ class View {
   private interval: Interval
 
   constructor(element: HTMLElement, state: IState) {
-    this.state = copyObject(state)
+    this.state = copyObject(state);
     this.rootElement = element;
     this.interval = new Interval(this.state);
     this.init();
@@ -29,15 +29,16 @@ class View {
   }
 
   public update(state: IState) {
-    this.state = copyObject(state)
-    this.interval.update(this.state)
+    this.state = copyObject(state);
+    this.interval.update(this.state);
   }
 
   get getTemplate(): HTMLElement {
-    return this.slider
+    return this.slider;
   }
+
   get getState(): IState {
-    return this.state
+    return this.state;
   }
 
   private onSliderMouseMove = (evt: MouseEvent): void => {
@@ -48,14 +49,14 @@ class View {
       clientHeight: Number(this.slider.offsetHeight),
       offsetX: this.slider.getBoundingClientRect().left + document.body.scrollLeft,
       offsetY: this.slider.getBoundingClientRect().top + document.body.scrollTop,
-      mouseDown: false
-    }
-    
-    this.emitChanges(emitData)
+      mouseDown: false,
+    };
+
+    this.emitChanges(emitData);
   }
-  
+
   private onSliderMouseDown = (evt: MouseEvent): void => {
-    if(this.isElem(evt.target as HTMLElement)) {
+    if (this.isElem(evt.target as HTMLElement)) {
       const emitData: IEmit = {
         clientX: evt.clientX,
         clientY: evt.clientY,
@@ -63,9 +64,9 @@ class View {
         clientHeight: Number(this.slider.offsetHeight),
         offsetX: this.slider.getBoundingClientRect().left + document.body.scrollLeft,
         offsetY: this.slider.getBoundingClientRect().top + document.body.scrollTop,
-        mouseDown: true
-      }
-      this.emitChanges(emitData)
+        mouseDown: true,
+      };
+      this.emitChanges(emitData);
       document.addEventListener('mousemove', this.onSliderMouseMove);
       document.addEventListener('mouseup', this.onSliderMouseUp);
     }
@@ -104,29 +105,29 @@ class View {
   }
 
   private isElem(element: HTMLElement): boolean {
-    if(this.isEdge(element)) {
-      return true 
+    if (this.isEdge(element)) {
+      return true;
     }
-    if(this.isItem(element)) {
-      return true 
+    if (this.isItem(element)) {
+      return true;
     }
-    if(this.isTip(element)) {
-      return true 
+    if (this.isTip(element)) {
+      return true;
     }
-    if(this.isPoint(element)) {
-      return true 
+    if (this.isPoint(element)) {
+      return true;
     }
-    if(this.isLine(element)) {
-      return true 
+    if (this.isLine(element)) {
+      return true;
     }
 
-    return false
+    return false;
   }
 
   private isEdge(element: HTMLElement): boolean {
     return element.classList.contains(Classes.sliderEdge);
   }
-  
+
   private isItem(element: HTMLElement): boolean {
     return element.classList.contains(Classes.sliderItem);
   }

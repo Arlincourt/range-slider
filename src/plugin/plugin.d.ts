@@ -1,4 +1,4 @@
-import {IOptions, IState} from './types/interfaces';
+import { IOptions, IState } from './types/interfaces';
 
 declare global {
   interface JQuery {

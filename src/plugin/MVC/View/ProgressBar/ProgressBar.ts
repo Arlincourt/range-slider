@@ -16,7 +16,7 @@ class ProgressBar {
   private runnerServiceData: IRunnerService;
 
   constructor(progressBarState: IProgressBar) {
-    this.progressBarState = copyObject(progressBarState)
+    this.progressBarState = copyObject(progressBarState);
     this.runnerServiceData = setType(InterfacesNames.IRunnerService, this.progressBarState);
     this.runnerService = new RunnerService(this.runnerServiceData);
     this.addClass();
@@ -38,7 +38,7 @@ class ProgressBar {
     if (this.isPositionChanged(progressBarState) || this.progressBarState.orientation !== progressBarState.orientation) {
       this.setStyle(progressBarState);
     }
-    this.progressBarState = copyObject(progressBarState)
+    this.progressBarState = copyObject(progressBarState);
   }
 
   public getTemplate(): HTMLElement {
@@ -62,17 +62,17 @@ class ProgressBar {
     this.progressBar.style.top = `${0}%`;
     this.progressBar.style.height = `${8}px`;
     this.progressBar.style.width = `${this.getSize(progressBarState)}%`;
-    
+
     if (progressBarState.range === false) {
       this.progressBar.style.left = `${0}%`;
       return;
     }
-    
+
     this.progressBar.style.left = `${this.getOffset(progressBarState)}%`;
   }
 
   private getOffset(progressBarState: IProgressBar): number | void {
-    if(progressBarState.range === true) {
+    if (progressBarState.range === true) {
       const { max, min, value } = progressBarState;
       const firstValue = value[0];
       const all = max - min;

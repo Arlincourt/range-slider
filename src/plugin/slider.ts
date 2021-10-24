@@ -15,33 +15,65 @@ class Slider {
   init() {
 
   }
-  
+
+  public getMin(): number {
+    return this.getState().min
+  }
+  public getMax(): number {
+    return this.getState().max
+  }
+  public getStep(): number {
+    return this.getState().step
+  }
+  public getFirstValue(): number {
+    return this.getState().value[0]
+  }
+  public getSecondValue(): number {
+    return this.getState().value[1]
+  }
+  public getOrientation(): string {
+    return this.getState().orientation
+  }
+  public getTips(): boolean {
+    return this.getState().tips
+  }
+  public getRange(): boolean {
+    return this.getState().range
+  }
   public getState(): IState {
-    return this.model.getState()
+    return this.model.getState();
   }
+
   public setMin(value: number): void {
-    this.model.setMin(value)
+    this.model.setMin(value);
   }
+
   public setMax(value: number): void {
-    this.model.setMax(value)
+    this.model.setMax(value);
   }
+
   public setFirstValue(value: number): void {
-    this.model.setFirstValue(value)
+    this.model.setFirstValue(value);
   }
+
   public setSecondValue(value: number): void {
-    this.model.setSecondValue(value)
+    this.model.setSecondValue(value);
   }
+
   public setStep(value: number): void {
-    this.model.setStep(value)
+    this.model.setStep(value);
   }
-  public setOrientation(orientation: boolean): void {
-    this.model.setOrientation(orientation)
+
+  public setOrientation(orientation: string): void {
+    this.model.setOrientation(orientation);
   }
+
   public setRange(range: boolean): void {
-    this.model.setRange(range)
+    this.model.setRange(range);
   }
+
   public setTips(tips: boolean): void {
-    this.model.setTips(tips)
+    this.model.setTips(tips);
   }
 }
 

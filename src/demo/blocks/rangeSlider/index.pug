@@ -1,0 +1,37 @@
+
+mixin range-slider({ min=0, max=100, step=1, range="true", orientation="HORIZONTAL", tips="true", values=[0,100]})
+  .range-slider.js-range-slider
+    .range-slider__panel
+      p.range-slider__control
+        label.range-slider__label Минимум
+          input.range-slider__input.js-range-slider__min(type="number")
+      p.range-slider__control
+        label.range-slider__label Максимум
+          input.range-slider__input.js-range-slider__max(type="number")
+      p.range-slider__control
+        label.range-slider__label Шаг
+          input.range-slider__input.js-range-slider__step(type="number")
+      p.range-slider__control
+        label.range-slider__label Первое значение
+          input.range-slider__input.js-range-slider__first-value(type="number")
+      p.range-slider__control
+        label.range-slider__label Второе значение
+          input.range-slider__input.js-range-slider__second-value(type="number")
+      p.range-slider__control
+        label.range-slider__label Интервал
+          input.range-slider__input.js-range-slider__range(type="checkbox")
+      p.range-slider__control
+        label.range-slider__label Вертикальный вид
+          input.range-slider__input.js-range-slider__orientation(type="checkbox")
+      p.range-slider__control
+        label.range-slider__label Подсказки
+          input.range-slider__input.js-range-slider__tips(type="checkbox")
+    .range-slider__slider-container.js-range-slider__slider-container(
+			data-min= min
+			data-max= max
+			data-step= step
+			data-orientation= orientation
+			data-tips= tips
+			data-values= values
+			data-range= range
+		)

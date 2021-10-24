@@ -14,7 +14,7 @@ class Runner {
   private runnerState: IRunner;
 
   constructor(runnerState: IRunner) {
-    this.runnerState = copyObject(runnerState)
+    this.runnerState = copyObject(runnerState);
     this.tip = new Tip(this.runnerState.value);
     this.init();
   }
@@ -27,7 +27,7 @@ class Runner {
     if (!isArraysEqual(this.runnerState.classList, runnerState.classList)) {
       this.addClass(runnerState.classList);
     }
-    this.runnerState = copyObject(runnerState)
+    this.runnerState = copyObject(runnerState);
     this.setTipText(this.runnerState.value);
     this.removeElems();
     this.addTip();

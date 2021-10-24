@@ -23,7 +23,7 @@ class EdgeService {
   private edgeServiceState: IEdgeService
 
   constructor(edgeServiceState: IEdgeService) {
-    this.edgeServiceState = copyObject(edgeServiceState)
+    this.edgeServiceState = copyObject(edgeServiceState);
     this.minEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'min'), Orders.min);
     this.maxEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'max'), Orders.max);
     this.minEdge = new Edge(this.minEdgeData);
@@ -31,7 +31,7 @@ class EdgeService {
   }
 
   public update(edgeServiceState: IEdgeService): void {
-    this.edgeServiceState = copyObject(edgeServiceState)
+    this.edgeServiceState = copyObject(edgeServiceState);
     this.minEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'min'), Orders.min);
     this.maxEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'max'), Orders.max);
     this.minEdge.update(this.minEdgeData);

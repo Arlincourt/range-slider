@@ -16,7 +16,7 @@ class Info {
   private edgeServiceData: IEdgeService
 
   constructor(infoState: IInfo) {
-    this.infoState = copyObject(infoState)
+    this.infoState = copyObject(infoState);
     this.edgeServiceData = setType(InterfacesNames.IEdgeService, this.infoState);
     this.edgeService = new EdgeService(this.edgeServiceData);
     this.addClass();
@@ -27,7 +27,7 @@ class Info {
     if (this.infoState.orientation !== infoState.orientation) {
       this.addClass(infoState.orientation);
     }
-    this.infoState = copyObject(infoState)
+    this.infoState = copyObject(infoState);
     this.edgeServiceData = setType(InterfacesNames.IEdgeService, this.infoState);
     this.edgeService.update(this.edgeServiceData);
   }
