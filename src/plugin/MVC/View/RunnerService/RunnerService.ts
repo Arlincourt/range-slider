@@ -24,16 +24,24 @@ class RunnerService {
 
   constructor(runnerServiceState: IRunnerService) {
     this.runnerServiceState = copyObject(runnerServiceState);
-    this.firstRunnerData = this.setClass(setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first);
-    this.secondRunnerData = this.setClass(setType(InterfacesNames.IRunner, this.runnerServiceState, 1), Orders.second);
+    this.firstRunnerData = this.setClass(
+      setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first,
+    );
+    this.secondRunnerData = this.setClass(
+      setType(InterfacesNames.IRunner, this.runnerServiceState, 1), Orders.second,
+    );
     this.firstRunner = new Runner(this.firstRunnerData);
     this.secondRunner = new Runner(this.secondRunnerData);
   }
 
   public update(runnerServiceState: IRunnerService): void {
     this.runnerServiceState = copyObject(runnerServiceState);
-    this.firstRunnerData = this.setClass(setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first);
-    this.secondRunnerData = this.setClass(setType(InterfacesNames.IRunner, this.runnerServiceState, 1), Orders.second);
+    this.firstRunnerData = this.setClass(
+      setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first,
+    );
+    this.secondRunnerData = this.setClass(
+      setType(InterfacesNames.IRunner, this.runnerServiceState, 1), Orders.second,
+    );
     this.firstRunner.update(this.firstRunnerData);
     this.secondRunner.update(this.secondRunnerData);
   }
@@ -45,29 +53,30 @@ class RunnerService {
     return [this.secondRunner.getTemplate()];
   }
 
-  get getFirstRunner() {
+  get getFirstRunner(): Runner {
     return this.firstRunner;
   }
 
-  get getSecondRunner() {
+  get getSecondRunner(): Runner {
     return this.secondRunner;
   }
 
-  get getSecondRunnerData() {
+  get getSecondRunnerData(): IRunner {
     return this.secondRunnerData;
   }
 
-  get getFirstRunnerData() {
+  get getFirstRunnerData(): IRunner {
     return this.firstRunnerData;
   }
 
-  get getRunnerServiceState() {
+  get getRunnerServiceState(): IRunnerService {
     return this.runnerServiceState;
   }
 
   private setClass(runnerData: IRunner, order: string): IRunner {
     const isFirst = order === Orders.first;
     if (runnerData.orientation === Orientation.VERTICAL) {
+      /* eslint no-param-reassign: "error" */
       runnerData.classList = [Classes.sliderItem, Classes.sliderItemVertical];
 
       if (isFirst) {
@@ -76,6 +85,7 @@ class RunnerService {
         runnerData.classList.push(Classes.sliderItemBottom);
       }
     } else {
+      /* eslint no-param-reassign: "error" */
       runnerData.classList = [Classes.sliderItem, Classes.sliderItemHorizontal];
 
       if (isFirst) {

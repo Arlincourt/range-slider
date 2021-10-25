@@ -1,7 +1,7 @@
 import { IEmit } from 'plugin/types/interfaces';
 
 interface ISubscribes {
-  [key: string]: Array<() => any>
+  [key: string]: Array<() => void>
 }
 
 class Observer {
@@ -22,7 +22,7 @@ class Observer {
 
   emit(eventName: string, state?: IEmit): void {
     if (this.subscribes[eventName]) {
-      this.subscribes[eventName].forEach((callback: (state?: IEmit) => any) => {
+      this.subscribes[eventName].forEach((callback: (state?: IEmit) => void) => {
         callback(state);
       });
     }

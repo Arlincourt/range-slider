@@ -2,26 +2,16 @@
 import { IState, IOptions } from './types/interfaces';
 import Slider from './Slider';
 
-(function ($) {
-  $.fn.slider = function (options: IOptions | string, ...args: any): IState | JQuery {
-    const $element: JQuery = $(this);
-    const element = this[0];
-
-    if (typeof options === 'object') {
-      createSlider(options, element);
-    } else if ($element.data('slider') === undefined || typeof options === 'object') {
-      $element.each((_, elem) => {
-        createSlider({}, elem);
-      });
-    } else if (typeof options === 'string' && args.length === 0) {
-      return $(element).data('slider')[options]();
-    } else if (typeof options === 'string' && args.length !== 0) {
-      return $(element).data('slider')[options](...args);
+function removeUndefinedFields(state: IOptions) {
+  const obj: any = { ...state };
+  Object.keys(obj).forEach((key) => {
+    if (obj[key] === undefined) {
+      delete obj[key];
     }
+  });
 
-    return this;
-  };
-}(jQuery));
+  return obj;
+}
 
 function createSlider(options: IOptions, element: HTMLElement): void {
   const $element = $(element);
@@ -42,13 +32,24 @@ function createSlider(options: IOptions, element: HTMLElement): void {
   $element.data('slider', slider);
 }
 
-function removeUndefinedFields(state: IOptions) {
-  const obj: any = { ...state };
-  for (const prop in obj) {
-    if (obj[prop] === undefined) {
-      delete obj[prop];
-    }
-  }
+(function IIFE($) {
+  /* eslint no-param-reassign: "error" */
+  $.fn.slider = function slider(options: IOptions | string, ...args: any): IState | JQuery {
+    const $element: JQuery = $(this);
+    const element = this[0];
 
-  return obj;
-}
+    if (typeof options === 'object') {
+      createSlider(options, element);
+    } else if ($element.data('slider') === undefined || typeof options === 'object') {
+      $element.each((_, elem) => {
+        createSlider({}, elem);
+      });
+    } else if (typeof options === 'string' && args.length === 0) {
+      return $(element).data('slider')[options]();
+    } else if (typeof options === 'string' && args.length !== 0) {
+      return $(element).data('slider')[options](...args);
+    }
+
+    return this;
+  };
+}(jQuery));

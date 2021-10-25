@@ -1,7 +1,9 @@
 import { IEdgeService, IRunnerService, IState } from 'plugin/types/interfaces';
 import InterfacesNames from '../types/interfacesNames';
 
-function setType(type: string, parentType: IState | IRunnerService | IEdgeService | any, count?: number | string): any {
+function setType(
+  type: string, parentType: IState | IRunnerService | IEdgeService | any, count?: number | string,
+): any | void {
   switch (type) {
     case InterfacesNames.IRunnerService:
       return {
@@ -10,7 +12,6 @@ function setType(type: string, parentType: IState | IRunnerService | IEdgeServic
         orientation: parentType.orientation,
         value: parentType.value,
       };
-      break;
     case InterfacesNames.IRunner:
       if (count !== undefined) {
         return {
@@ -37,7 +38,6 @@ function setType(type: string, parentType: IState | IRunnerService | IEdgeServic
         min: parentType.min,
         orientation: parentType.orientation,
       };
-      break;
     case InterfacesNames.IProgressBar:
       return {
         min: parentType.min,
@@ -47,17 +47,16 @@ function setType(type: string, parentType: IState | IRunnerService | IEdgeServic
         orientation: parentType.orientation,
         value: parentType.value,
       };
-      break;
     case InterfacesNames.IInfo:
       return {
         min: parentType.min,
         max: parentType.max,
         orientation: parentType.orientation,
       };
-      break;
     default:
       return { ...parentType };
   }
+  return { ...parentType };
 }
 
 export default setType;

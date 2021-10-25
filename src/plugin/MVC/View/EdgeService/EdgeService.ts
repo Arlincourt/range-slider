@@ -38,23 +38,23 @@ class EdgeService {
     this.maxEdge.update(this.maxEdgeData);
   }
 
-  get getEdgeServiceState() {
+  get getEdgeServiceState(): IEdgeService {
     return this.edgeServiceState;
   }
 
-  get getMinEdge() {
+  get getMinEdge(): Edge {
     return this.minEdge;
   }
 
-  get getMaxEdge() {
+  get getMaxEdge(): Edge {
     return this.maxEdge;
   }
 
-  get getMinEdgeData() {
+  get getMinEdgeData(): IEdge {
     return this.minEdgeData;
   }
 
-  get getMaxEdgeData() {
+  get getMaxEdgeData(): IEdge {
     return this.maxEdgeData;
   }
 
@@ -65,6 +65,7 @@ class EdgeService {
   private setClass(edgeData: IEdge, order: string): IEdge {
     const isMin = order === Orders.min;
     if (edgeData.orientation === Orientation.VERTICAL) {
+      /* eslint no-param-reassign: "error" */
       edgeData.classList = [Classes.sliderEdge];
 
       if (isMin) {
@@ -73,6 +74,7 @@ class EdgeService {
         edgeData.classList.push(Classes.sliderEdgeBottom);
       }
     } else {
+      /* eslint no-param-reassign: "error" */
       edgeData.classList = [Classes.sliderEdge];
 
       if (isMin) {

@@ -43,7 +43,7 @@ class Interval {
     this.info.update(this.infoData);
   }
 
-  get getIntervalState() {
+  get getIntervalState(): IInterval {
     return this.intervalState;
   }
 

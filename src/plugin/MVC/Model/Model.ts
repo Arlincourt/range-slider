@@ -66,7 +66,7 @@ class Model {
     return copyObject(this.state);
   }
 
-  public update(emitData: IEmit) {
+  public update(emitData: IEmit): void {
     this.setPosition(emitData);
     this.emitChanges();
   }
@@ -115,7 +115,7 @@ class Model {
   }
 
   public setFirstValue(value: number | string): void {
-    const { min, max, step } = this.state;
+    const { step } = this.state;
     let val = Number(value);
     if (val + step >= this.state.value[1]) {
       val = this.state.value[1] - this.state.step;
@@ -236,7 +236,7 @@ class Model {
     const integerValue: number = min + Math.round((valueInNumber - min) / step) * step;
 
     const values = this.getValuesInPercent();
-    const closestPosition = this.getclosestPosition(percentValue, values);
+    const closestPosition = this.getClosestPosition(percentValue, values);
 
     if (emitData.mouseDown) {
       this.previousChangeableValue = closestPosition;
@@ -245,9 +245,11 @@ class Model {
     if (this.previousChangeableValue !== closestPosition) {
       const isFirst = this.previousChangeableValue === 0;
       if (isFirst) {
-        value[this.previousChangeableValue] = Number((value[closestPosition] - step).toFixed(getSymbols(step)));
+        value[this.previousChangeableValue] = Number((value[closestPosition] - step)
+          .toFixed(getSymbols(step)));
       } else {
-        value[this.previousChangeableValue] = Number((value[closestPosition] + step).toFixed(getSymbols(step)));
+        value[this.previousChangeableValue] = Number((value[closestPosition] + step)
+          .toFixed(getSymbols(step)));
       }
       this.updateValues();
       return;
@@ -313,10 +315,10 @@ class Model {
       return this.state.min;
     }
 
-    if (value >= 100) {
+    if (value > 100 || value === 100) {
       return this.state.max;
     }
-    const valueNumber = this.state.min + (this.state.max - this.state.min) / 100 * value;
+    const valueNumber = this.state.min + ((this.state.max - this.state.min) / 100) * value;
     return valueNumber;
   }
 
@@ -324,11 +326,12 @@ class Model {
     let value: number;
     if (this.state.orientation === Orientation.HORIZONTAL) {
       value = state.clientX - state.offsetX;
-      value = Number((value / state.clientWidth * 100).toFixed(2));
+      value = (value / state.clientWidth) * 100;
+      value = Number(value.toFixed(2));
       return value;
     }
     value = state.clientY - state.offsetY;
-    value = Number((value / state.clientHeight * 100).toFixed(2));
+    value = Number(((value / state.clientHeight) * 100).toFixed(2));
     return value;
   }
 
@@ -336,13 +339,13 @@ class Model {
     const all = this.state.max - this.state.min;
     const firstValue = this.state.value[0] - this.state.min;
     const secondValue = this.state.value[1] - this.state.min;
-    const firstValuePercent = Math.abs(firstValue / all * 100);
-    const secondValuePercent = Math.abs(secondValue / all * 100);
+    const firstValuePercent = Math.abs((firstValue / all) * 100);
+    const secondValuePercent = Math.abs((secondValue / all) * 100);
 
     return [firstValuePercent, secondValuePercent];
   }
 
-  private getclosestPosition(value: number, values: number[]): number {
+  private getClosestPosition(value: number, values: number[]): number {
     const firstValue = Math.abs(value - values[0]);
     const secondValue = Math.abs(value - values[1]);
 

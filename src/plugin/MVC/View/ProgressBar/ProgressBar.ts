@@ -35,7 +35,10 @@ class ProgressBar {
       this.addElems();
       this.setStyle(progressBarState);
     }
-    if (this.isPositionChanged(progressBarState) || this.progressBarState.orientation !== progressBarState.orientation) {
+    if (this.isPositionChanged(progressBarState)
+        || this.progressBarState.orientation
+        !== progressBarState.orientation
+    ) {
       this.setStyle(progressBarState);
     }
     this.progressBarState = copyObject(progressBarState);
@@ -71,16 +74,14 @@ class ProgressBar {
     this.progressBar.style.left = `${this.getOffset(progressBarState)}%`;
   }
 
-  private getOffset(progressBarState: IProgressBar): number | void {
-    if (progressBarState.range === true) {
-      const { max, min, value } = progressBarState;
-      const firstValue = value[0];
-      const all = max - min;
-      const second = max - firstValue;
-      const secondOffset = (second / all) * 100;
-      const firstOffset = 100 - secondOffset;
-      return firstOffset;
-    }
+  private getOffset(progressBarState: IProgressBar): number {
+    const { max, min, value } = progressBarState;
+    const firstValue = value[0];
+    const all = max - min;
+    const second = max - firstValue;
+    const secondOffset = (second / all) * 100;
+    const firstOffset = 100 - secondOffset;
+    return firstOffset;
   }
 
   private getSize(progressBarState: IProgressBar): number {
@@ -89,12 +90,12 @@ class ProgressBar {
 
     if (progressBarState.range) {
       const rangeValue = value[1] - value[0];
-      const size = (rangeValue / all) * 100;
+      const size = ((rangeValue / all) * 100);
       return size;
     }
 
     const rightSide = Math.abs(max - value[1]);
-    const size = (all - rightSide) / all * 100;
+    const size = ((all - rightSide) / all) * 100;
 
     return size;
   }

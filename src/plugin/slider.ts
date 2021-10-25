@@ -10,10 +10,6 @@ class Slider {
     new Controller(element, this.model);
   }
 
-  init() {
-
-  }
-
   public getMin(): number {
     return this.getState().min;
   }
@@ -50,7 +46,7 @@ class Slider {
     return this.model.getState();
   }
 
-  public onChange(callback: (...args: any) => {}): void {
+  public onChange(callback: <T>(...args: Array<T>) => Record<string, unknown>): void {
     this.model.setOnChangeMethod(callback);
     callback(this.model.getState());
   }

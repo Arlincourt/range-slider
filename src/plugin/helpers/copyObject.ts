@@ -1,15 +1,15 @@
-function copyObject(obj: any): any {
+function copyObject<T>(obj: any): T {
   let clObj: any = {};
   if (Array.isArray(obj)) {
     clObj = [];
   }
-  for (const i in obj) {
-    if (obj[i] instanceof Object) {
-      clObj[i] = copyObject(obj[i]);
-      continue;
+  Object.keys(obj).forEach((key) => {
+    if (obj[key] instanceof Object) {
+      clObj[key] = copyObject(obj[key]);
+    } else {
+      clObj[key] = obj[key];
     }
-    clObj[i] = obj[i];
-  }
+  });
   return clObj;
 }
 

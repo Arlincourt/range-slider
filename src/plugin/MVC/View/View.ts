@@ -22,13 +22,13 @@ class View {
     this.init();
   }
 
-  public init() {
+  public init(): void {
     this.addClass();
     this.addEvents();
     this.addElems();
   }
 
-  public update(state: IState) {
+  public update(state: IState): void {
     this.state = copyObject(state);
     this.interval.update(this.state);
   }
@@ -72,7 +72,7 @@ class View {
     }
   }
 
-  private onSliderMouseUp = (evt: MouseEvent): void => {
+  private onSliderMouseUp = (): void => {
     this.removeMoveAndUpEvents();
   }
 
@@ -141,7 +141,8 @@ class View {
   }
 
   private isLine(element: HTMLElement): boolean {
-    return element.classList.contains(Classes.sliderActiveLine) || element.classList.contains(Classes.sliderLine);
+    return element.classList.contains(Classes.sliderActiveLine)
+      || element.classList.contains(Classes.sliderLine);
   }
 
   private addClass() {

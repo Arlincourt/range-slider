@@ -23,6 +23,7 @@ module.exports = {
     "no-undef": "off",
     "no-shadow": "off",
     "no-new": "off",
+    "class-methods-use-this": "off",
   },
   settings: {
     'import/resolver': {
