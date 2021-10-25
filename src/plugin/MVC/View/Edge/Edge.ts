@@ -1,6 +1,6 @@
-import { IEdge } from '../../../types/interfaces';
-import isArraysEqual from '../../../helpers/isArraysEqual';
 import copyObject from '../../../helpers/copyObject';
+import isArraysEqual from '../../../helpers/isArraysEqual';
+import { IEdge } from '../../../types/interfaces';
 
 class Edge {
   private edge: HTMLElement = document.createElement('div')

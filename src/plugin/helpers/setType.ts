@@ -1,5 +1,5 @@
-import { IEdgeService, IRunnerService, IState } from 'plugin/types/interfaces';
 import InterfacesNames from '../types/interfacesNames';
+import { IEdgeService, IRunnerService, IState } from '../types/interfaces';
 
 function setType(
   type: string, parentType: IState | IRunnerService | IEdgeService | any, count?: number | string,

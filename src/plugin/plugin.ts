@@ -1,6 +1,6 @@
 /// <reference path="plugin.d.ts"/>;
-import { IState, IOptions } from './types/interfaces';
 import Slider from './Slider';
+import { IState, IOptions } from './types/interfaces';
 
 function removeUndefinedFields(state: IOptions) {
   const obj: any = { ...state };

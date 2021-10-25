@@ -1,7 +1,7 @@
-import { IEmit } from '../types/interfaces';
-import Model from '../MVC/Model/Model';
 import View from '../MVC/View/View';
+import Model from '../MVC/Model/Model';
 import Observer from '../Observer/Observer';
+import { IEmit } from '../types/interfaces';
 
 class ObserverService {
   private readonly observer: Observer;

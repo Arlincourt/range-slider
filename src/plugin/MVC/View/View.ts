@@ -1,8 +1,8 @@
 import { IState, IEmit } from '../../types/interfaces';
-import Observer from '../../Observer/Observer';
 import Classes from '../../types/classes';
-import Interval from './Interval/Interval';
+import Observer from '../../Observer/Observer';
 import copyObject from '../../helpers/copyObject';
+import Interval from './Interval/Interval';
 
 class View {
   public observer?: Observer;

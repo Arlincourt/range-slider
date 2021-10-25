@@ -1,8 +1,8 @@
-import Tip from '../Tip/Tip';
-import Point from '../Point/Point';
-import { IRunner } from '../../../types/interfaces';
-import isArraysEqual from '../../../helpers/isArraysEqual';
 import copyObject from '../../../helpers/copyObject';
+import isArraysEqual from '../../../helpers/isArraysEqual';
+import { IRunner } from '../../../types/interfaces';
+import Point from '../Point/Point';
+import Tip from '../Tip/Tip';
 
 class Runner {
   private tip: Tip;

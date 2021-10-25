@@ -1,10 +1,10 @@
-import Runner from '../Runner/Runner';
-import { IRunner, IRunnerService } from '../../../types/interfaces';
-import setType from '../../../helpers/setType';
 import InterfacesNames from '../../../types/interfacesNames';
 import Orientation from '../../../types/orientation';
 import Classes from '../../../types/classes';
+import { IRunner, IRunnerService } from '../../../types/interfaces';
+import setType from '../../../helpers/setType';
 import copyObject from '../../../helpers/copyObject';
+import Runner from '../Runner/Runner';
 
 enum Orders {
   first = 'first',

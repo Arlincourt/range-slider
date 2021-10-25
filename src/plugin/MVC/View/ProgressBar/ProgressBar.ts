@@ -1,10 +1,10 @@
 import Classes from '../../../types/classes';
-import setType from '../../../helpers/setType';
-import { IRunnerService, IProgressBar } from '../../../types/interfaces';
-import RunnerService from '../RunnerService/RunnerService';
 import InterfacesNames from '../../../types/interfacesNames';
 import Orientation from '../../../types/orientation';
+import { IRunnerService, IProgressBar } from '../../../types/interfaces';
+import setType from '../../../helpers/setType';
 import copyObject from '../../../helpers/copyObject';
+import RunnerService from '../RunnerService/RunnerService';
 
 class ProgressBar {
   private progressBar: HTMLElement = document.createElement('div')

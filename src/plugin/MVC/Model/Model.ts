@@ -1,8 +1,8 @@
-import { IState, IOptions, IEmit } from '../../types/interfaces';
-import Observer from '../../Observer/Observer';
 import Orientation from '../../types/orientation';
+import { IState, IOptions, IEmit } from '../../types/interfaces';
 import copyObject from '../../helpers/copyObject';
 import getSymbols from '../../helpers/getSymbols';
+import Observer from '../../Observer/Observer';
 
 class Model {
   public observer?: Observer;

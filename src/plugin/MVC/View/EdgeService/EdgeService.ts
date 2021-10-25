@@ -1,10 +1,10 @@
-import Edge from '../Edge/Edge';
-import { IEdge, IEdgeService } from '../../../types/interfaces';
-import setType from '../../../helpers/setType';
+import Classes from '../../../types/classes';
 import Orientation from '../../../types/orientation';
 import InterfacesNames from '../../../types/interfacesNames';
-import Classes from '../../../types/classes';
+import { IEdge, IEdgeService } from '../../../types/interfaces';
+import setType from '../../../helpers/setType';
 import copyObject from '../../../helpers/copyObject';
+import Edge from '../Edge/Edge';
 
 enum Orders {
   max = 'max',

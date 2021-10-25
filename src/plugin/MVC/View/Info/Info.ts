@@ -1,10 +1,10 @@
-import EdgeService from '../EdgeService/EdgeService';
-import { IEdgeService, IInfo } from '../../../types/interfaces';
 import Classes from '../../../types/classes';
-import setType from '../../../helpers/setType';
 import InterfacesNames from '../../../types/interfacesNames';
 import Orientation from '../../../types/orientation';
+import { IEdgeService, IInfo } from '../../../types/interfaces';
+import setType from '../../../helpers/setType';
 import copyObject from '../../../helpers/copyObject';
+import EdgeService from '../EdgeService/EdgeService';
 
 class Info {
   private info: HTMLElement = document.createElement('div')

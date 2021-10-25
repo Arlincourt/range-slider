@@ -1,11 +1,11 @@
 import Classes from '../../../types/classes';
-import setType from '../../../helpers/setType';
-import { IProgressBar, IInterval, IInfo } from '../../../types/interfaces';
-import Info from '../Info/Info';
 import InterfacesNames from '../../../types/interfacesNames';
 import Orientation from '../../../types/orientation';
-import ProgressBar from '../ProgressBar/ProgressBar';
+import { IProgressBar, IInterval, IInfo } from '../../../types/interfaces';
+import setType from '../../../helpers/setType';
 import copyObject from '../../../helpers/copyObject';
+import ProgressBar from '../ProgressBar/ProgressBar';
+import Info from '../Info/Info';
 
 class Interval {
   private interval: HTMLElement = document.createElement('div')
