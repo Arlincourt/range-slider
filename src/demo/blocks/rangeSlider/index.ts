@@ -1,4 +1,3 @@
-import Orientation from "../../../plugin/types/orientation";
 import RangeSlider from './RangeSlider'
 
 $(() => {
