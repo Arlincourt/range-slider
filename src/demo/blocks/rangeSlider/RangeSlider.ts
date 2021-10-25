@@ -40,6 +40,19 @@ class RangeSlider {
     this.$tipsInput?.on('change', this.handleTipsInputChange)
     this.$rangeInput?.on('change', this.handleRangeInputChange)
     this.$orientationInput?.on('change', this.handleOrientationInputChange)
+    this.$slider.slider('onChange', this.onModelChange.bind(this))
+  }
+
+  private onModelChange(state: IState): void {
+    this.$minInput?.val(state.min)
+    this.$maxInput?.val(state.max)
+    this.$stepInput?.val(state.step)
+    this.$firstValueInput?.val(state.value[0])
+    this.$secondValueInput?.val(state.value[1])
+    this.$rangeInput?.prop('checked', state.range)
+    this.$tipsInput?.prop('checked', state.tips)
+    const orientation = state.orientation === Orientation.VERTICAL ? true : false
+    this.$orientationInput?.prop('checked', orientation)
   }
 
   private handleMinInputChange = (): void => {

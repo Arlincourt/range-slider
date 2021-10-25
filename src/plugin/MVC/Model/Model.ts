@@ -9,6 +9,8 @@ class Model {
 
   private previousChangeableValue: number = 1
 
+  private callback?: (state: IState) => {}
+
   private state: IState = {
     range: false,
     tips: true,
@@ -47,6 +49,10 @@ class Model {
   }
   get getRange(): boolean {
     return this.state.range
+  }
+
+  public setOnChangeMethod(callback: () => {}): void {
+    this.callback = callback
   }
 
   public getState(): IState {
@@ -341,6 +347,9 @@ class Model {
   }
 
   private emitChanges(): void {
+    if(this.callback) {
+      this.callback({...this.state})
+    }
     this.observer?.emit('modelChange');
   }
 }
