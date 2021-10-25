@@ -34,7 +34,7 @@ function createSlider(options: IOptions, element: HTMLElement): void {
     orientation: $element.data('orientation'),
     value: $element.data('value'),
   };
-  
+
   let state = $.extend(dataAttrs, options);
   state = removeUndefinedFields(state);
 

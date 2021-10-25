@@ -15,36 +15,44 @@ class Slider {
   }
 
   public getMin(): number {
-    return this.getState().min
+    return this.getState().min;
   }
+
   public getMax(): number {
-    return this.getState().max
+    return this.getState().max;
   }
+
   public getStep(): number {
-    return this.getState().step
+    return this.getState().step;
   }
+
   public getFirstValue(): number {
-    return this.getState().value[0]
+    return this.getState().value[0];
   }
+
   public getSecondValue(): number {
-    return this.getState().value[1]
+    return this.getState().value[1];
   }
+
   public getOrientation(): string {
-    return this.getState().orientation
+    return this.getState().orientation;
   }
+
   public getTips(): boolean {
-    return this.getState().tips
+    return this.getState().tips;
   }
+
   public getRange(): boolean {
-    return this.getState().range
+    return this.getState().range;
   }
+
   public getState(): IState {
     return this.model.getState();
   }
 
   public onChange(callback: (...args: any) => {}): void {
-    this.model.setOnChangeMethod(callback)
-    callback(this.model.getState())
+    this.model.setOnChangeMethod(callback);
+    callback(this.model.getState());
   }
 
   public setMin(value: number): void {

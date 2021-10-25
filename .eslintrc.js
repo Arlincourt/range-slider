@@ -18,6 +18,18 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     "@typescript-eslint/no-inferrable-types": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "no-unused-vars": "off",
+    "no-undef": "off",
+    "no-shadow": "off",
+    "no-new": "off",
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+          moduleDirectory: ['node_modules', 'src/'],
+      },
+  },
   }
 };

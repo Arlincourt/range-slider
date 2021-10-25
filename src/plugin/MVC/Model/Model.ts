@@ -9,7 +9,7 @@ class Model {
 
   private previousChangeableValue: number = 1
 
-  private callback?: (state: IState) => {}
+  private callback?: (state: IState) => Record<string, unknown>
 
   private state: IState = {
     range: false,
@@ -27,32 +27,39 @@ class Model {
   }
 
   get getMin(): number {
-    return this.state.min
-  }
-  get getMax(): number {
-    return this.state.max
-  }
-  get getStep(): number {
-    return this.state.step
-  }
-  get getFirstValue(): number {
-    return this.state.value[0]
-  }
-  get getSecondValue(): number {
-    return this.state.value[1]
-  }
-  get getOrientation(): string {
-    return this.state.orientation
-  }
-  get getTips(): boolean {
-    return this.state.tips
-  }
-  get getRange(): boolean {
-    return this.state.range
+    return this.state.min;
   }
 
-  public setOnChangeMethod(callback: () => {}): void {
-    this.callback = callback
+  get getMax(): number {
+    return this.state.max;
+  }
+
+  get getStep(): number {
+    return this.state.step;
+  }
+
+  get getFirstValue(): number {
+    return this.state.value[0];
+  }
+
+  get getSecondValue(): number {
+    return this.state.value[1];
+  }
+
+  get getOrientation(): string {
+    return this.state.orientation;
+  }
+
+  get getTips(): boolean {
+    return this.state.tips;
+  }
+
+  get getRange(): boolean {
+    return this.state.range;
+  }
+
+  public setOnChangeMethod(callback: () => Record<string, unknown>): void {
+    this.callback = callback;
   }
 
   public getState(): IState {
@@ -84,8 +91,7 @@ class Model {
     if (orientation === Orientation.HORIZONTAL) {
       this.state.orientation = Orientation.HORIZONTAL;
       this.emitChanges();
-      return;
-    } else if(orientation === Orientation.VERTICAL) {
+    } else if (orientation === Orientation.VERTICAL) {
       this.state.orientation = Orientation.VERTICAL;
       this.updateValues();
       this.emitChanges();
@@ -347,8 +353,8 @@ class Model {
   }
 
   private emitChanges(): void {
-    if(this.callback) {
-      this.callback({...this.state})
+    if (this.callback) {
+      this.callback({ ...this.state });
     }
     this.observer?.emit('modelChange');
   }
