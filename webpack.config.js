@@ -1,9 +1,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCssWebpackPlugin = require('optimize-css-assets-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const webpack = require('webpack')
 
@@ -18,7 +17,6 @@ const optimization = () => {
 
 	if(!isDev) {
 		config.minimizer = [
-			new OptimizeCssWebpackPlugin(),
 			new TerserWebpackPlugin()
 		]
 	}
@@ -51,6 +49,16 @@ module.exports = {
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					context: path.resolve(__dirname, 'src/assets/'),
+					from: '*',
+					to: path.resolve(__dirname, 'dist'),
+					noErrorOnMissing: true,
+				},
+			]
+		}),
 		new HtmlWebpackPlugin({
 			template: './src/demo/page/index.pug',
 			filename: 'index.html',
@@ -91,7 +99,7 @@ module.exports = {
 					loader: 'css-loader',
 					options: {
 						url: {
-							filter: (url, resourcePath) => {
+							filter: (url) => {
 								if (url.includes(".png")) {
 									return false;
 								}
