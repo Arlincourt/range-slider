@@ -42,7 +42,7 @@
     display: flex;
     border-radius: 5px;
     top: -1px;
-    transform: translateY(-1px);
+    transform: translateY(-1px) translateX(-1px);
   }
 
   &__item {

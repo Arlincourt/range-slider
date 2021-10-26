@@ -51,16 +51,6 @@ module.exports = {
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
-		// new CopyWebpackPlugin({
-		// 	patterns: [
-		// 		{
-		// 			context: path.resolve(__dirname, 'src/assets/'),
-		// 			from: '*',
-		// 			to: path.resolve(__dirname, 'dist'),
-		// 			noErrorOnMissing: true,
-		// 		},
-		// 	]
-		// }),
 		new HtmlWebpackPlugin({
 			template: './src/demo/page/index.pug',
 			filename: 'index.html',

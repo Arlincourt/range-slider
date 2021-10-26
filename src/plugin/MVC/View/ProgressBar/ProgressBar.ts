@@ -51,7 +51,7 @@ class ProgressBar {
   private setStyle(progressBarState: IProgressBar): void {
     if (progressBarState.orientation === Orientation.VERTICAL) {
       this.progressBar.style.left = `${0}%`;
-      this.progressBar.style.width = `${7}px`;
+      this.progressBar.style.width = `${8}px`;
       this.progressBar.style.height = `${this.getSize(progressBarState)}%`;
 
       if (progressBarState.range === false) {

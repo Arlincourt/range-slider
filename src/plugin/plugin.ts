@@ -1,4 +1,3 @@
-/// <reference path="plugin.d.ts"/>;
 import Slider from './Slider';
 import { IState, IOptions } from './types/interfaces';
 
