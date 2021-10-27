@@ -80,11 +80,6 @@ class View {
     this.slider.addEventListener('mousedown', this.onSliderMouseDown);
   }
 
-  private removeEvents(): void {
-    this.slider.removeEventListener('mousedown', this.onSliderMouseDown);
-    this.removeMoveAndUpEvents();
-  }
-
   private removeMoveAndUpEvents(): void {
     document.removeEventListener('mousemove', this.onSliderMouseMove);
     document.removeEventListener('mouseup', this.onSliderMouseUp);
@@ -93,11 +88,6 @@ class View {
   private addElems(): void {
     this.slider.append(this.interval.getTemplate());
     this.rootElement.append(this.slider);
-  }
-
-  private destroy(): void {
-    this.removeEvents();
-    this.slider.remove();
   }
 
   private emitChanges(data: IEmit) {
