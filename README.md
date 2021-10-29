@@ -84,6 +84,16 @@
  4. **JEST**
  5. **SCSS**
  6. **PUG**
+
+ ### Версии зависимостей
+
+ 1. jQuery - ^3.6.0
+ 2. Typescript - ^4.4.3
+ 3. Pug - ^2.0.4
+ 4. SCSS - ^6.0.1
+ 5. Webpack - ^5.44.0
+ 6. Webpack-cli - ^4.7.2
+ 7. Webpack-dev-server - ^3.11.2
  
  ### Отвязка слоев
  
