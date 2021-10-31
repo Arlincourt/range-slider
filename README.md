@@ -94,6 +94,8 @@
  5. Webpack - **^5.44.0**
  6. Webpack-cli - **^4.7.2**
  7. Webpack-dev-server - **^3.11.2**
+ 8. npm - 7.20.3
+ 9. node - v16.6.2
  
  ### Отвязка слоев
  
