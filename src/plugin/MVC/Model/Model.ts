@@ -4,6 +4,13 @@ import copyObject from '../../helpers/copyObject';
 import getSymbols from '../../helpers/getSymbols';
 import Observer from '../../Observer/Observer';
 
+interface ISetTwoPosition {
+  emitData: IEmit;
+  percentValue: number;
+  valueInNumber: number;
+  integerValue: number;
+}
+
 class Model {
   public observer?: Observer;
 
@@ -172,31 +179,8 @@ class Model {
   }
 
   private updateValues(): void {
-    const { value, range, min } = this.state;
     this.checkValuesToMax();
     this.checkValuesToMin();
-    if (range) {
-      this.checkValuesToRange();
-    } else if (value[1] < min) {
-      value[1] = min;
-    }
-    this.checkValuesToMax();
-    this.checkValuesToMin();
-  }
-
-  private checkValuesToRange(): void {
-    const {
-      value, step, min, max,
-    } = this.state;
-    const isMaxMore = max > value[0] + step;
-    const firstValueWithStep = value[0] + step;
-    const isMinLess = min < value[1] - step;
-
-    if (value[1] <= firstValueWithStep && isMinLess) {
-      value[0] = value[1] - step;
-    } else if (value[1] <= firstValueWithStep && isMaxMore) {
-      value[1] = value[0] + step;
-    }
   }
 
   private checkValuesToMax(): void {
@@ -204,7 +188,7 @@ class Model {
       this.state.value[1] = this.state.max;
     }
     if (this.state.value[0] > this.state.max) {
-      this.state.value[0] = this.state.value[1] - this.state.step;
+      this.state.value[0] = this.state.max;
     }
   }
 
@@ -213,44 +197,42 @@ class Model {
       this.state.value[0] = this.state.min;
     }
     if (this.state.value[1] < this.state.min) {
-      this.state.value[1] = this.state.min + this.state.step;
+      this.state.value[1] = this.state.min;
     }
   }
 
   private setPosition(emitData: IEmit): void {
-    const { range } = this.state;
-    if (range) {
-      this.setTwoPosition(emitData);
-    } else {
-      this.setOnePosition(emitData);
-    }
-  }
-
-  private setTwoPosition(emitData: IEmit): void {
     const {
-      min, max, step, value,
+      min, step, range
     } = this.state;
     const percentValue: number = this.getValueInPercent(emitData);
     const valueInNumber: number = this.getValueInNumber(percentValue);
     const integerValue: number = min + Math.round((valueInNumber - min) / step) * step;
 
+    if (range) {
+      this.setTwoPosition({integerValue, valueInNumber, percentValue, emitData});
+    } else {
+      this.setOnePosition(integerValue, valueInNumber);
+    }
+  }
+
+  private setTwoPosition(data: ISetTwoPosition): void {
+    const {
+      min, max, step, value,
+    } = this.state;
+    const {
+      percentValue, emitData, valueInNumber, integerValue
+    } = data
+
     const values = this.getValuesInPercent();
     const closestPosition = this.getClosestPosition(percentValue, values);
-
+    
     if (emitData.mouseDown) {
       this.previousChangeableValue = closestPosition;
     }
 
     if (this.previousChangeableValue !== closestPosition) {
-      const isFirst = this.previousChangeableValue === 0;
-      if (isFirst) {
-        value[this.previousChangeableValue] = Number((value[closestPosition] - step)
-          .toFixed(getSymbols(step)));
-      } else {
-        value[this.previousChangeableValue] = Number((value[closestPosition] + step)
-          .toFixed(getSymbols(step)));
-      }
-      this.updateValues();
+      value[this.previousChangeableValue] = value[closestPosition]
       return;
     }
 
@@ -278,18 +260,15 @@ class Model {
       return;
     }
 
-    this.previousChangeableValue = closestPosition;
     value[closestPosition] = Number(integerValue.toFixed(getSymbols(step)));
     this.updateValues();
   }
 
-  private setOnePosition(emitData: IEmit): void {
+  private setOnePosition(integerValue: number, valueInNumber: number): void {
     const {
       max, min, step, value,
     } = this.state;
-    const percentValue: number = this.getValueInPercent(emitData);
-    const valueInNumber: number = this.getValueInNumber(percentValue);
-    const integerValue: number = min + Math.round((valueInNumber - min) / step) * step;
+    
 
     value[1] = Number(integerValue.toFixed(getSymbols(step)));
     if (valueInNumber >= max) {
@@ -338,9 +317,12 @@ class Model {
   private getClosestPosition(value: number, values: number[]): number {
     const firstValue = Math.abs(value - values[0]);
     const secondValue = Math.abs(value - values[1]);
-
+    
     if (secondValue < firstValue) {
       return 1;
+    } else if (values[0] === values[1]) {
+      const result = value > values[1] ? 1 : 0
+      return result
     }
     return 0;
   }
