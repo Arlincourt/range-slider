@@ -26,7 +26,7 @@ const optimization = () => {
 
 module.exports = {
 	entry: {
-		main: ['@babel/polyfill', './src/index.js'],
+		main: ['@babel/polyfill', './src/index.ts'],
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),

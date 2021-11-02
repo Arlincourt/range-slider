@@ -90,12 +90,11 @@ class Model {
   public setOrientation(orientation: string): void {
     if (orientation === Orientation.HORIZONTAL) {
       this.state.orientation = Orientation.HORIZONTAL;
-      this.emitChanges();
     } else if (orientation === Orientation.VERTICAL) {
       this.state.orientation = Orientation.VERTICAL;
       this.updateValues();
-      this.emitChanges();
     }
+    this.emitChanges();
   }
 
   public setTips(isTips: boolean): void {
@@ -290,24 +289,15 @@ class Model {
     } = this.state;
     const percentValue: number = this.getValueInPercent(emitData);
     const valueInNumber: number = this.getValueInNumber(percentValue);
-    const differenceBetweenLastPositionAndNewPosition = Math.abs(value[1] - valueInNumber);
     const integerValue: number = min + Math.round((valueInNumber - min) / step) * step;
 
-    if (Math.round(valueInNumber) === integerValue) {
-      value[1] = Number(integerValue.toFixed(getSymbols(step)));
-    }
-
+    value[1] = Number(integerValue.toFixed(getSymbols(step)));
     if (valueInNumber >= max) {
       value[1] = max;
     }
     if (valueInNumber <= min) {
       value[1] = min;
     }
-
-    if (differenceBetweenLastPositionAndNewPosition > step / 2) {
-      value[1] = Number(integerValue.toFixed(getSymbols(step)));
-    }
-    this.updateValues();
   }
 
   private getValueInNumber(value: number): number {
