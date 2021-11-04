@@ -144,7 +144,8 @@ class Model {
   }
 
   public setStep(step: number | string): void {
-    if (step <= 0) {
+    const {max, min} = this.state
+    if (step <= 0 || step > (max - min)) {
       return;
     }
     this.state.step = Number(step);
@@ -208,7 +209,7 @@ class Model {
     const percentValue: number = this.getValueInPercent(emitData);
     const valueInNumber: number = this.getValueInNumber(percentValue);
     const integerValue: number = min + Math.round((valueInNumber - min) / step) * step;
-
+    
     if (range) {
       this.setTwoPosition({integerValue, valueInNumber, percentValue, emitData});
     } else {
@@ -220,13 +221,18 @@ class Model {
     const {
       min, max, step, value,
     } = this.state;
-    const {
+    let {
       percentValue, emitData, valueInNumber, integerValue
     } = data
 
     const values = this.getValuesInPercent();
     const closestPosition = this.getClosestPosition(percentValue, values);
     
+    if(this.isLastPosition(integerValue, valueInNumber, closestPosition)) {
+      value[0] = max; 
+      return;
+    }
+
     if (emitData.mouseDown) {
       this.previousChangeableValue = closestPosition;
     }
@@ -236,27 +242,13 @@ class Model {
       return;
     }
 
-    const isSameValues = Math.round(valueInNumber) === integerValue;
-    const isMoreThanStep = integerValue - value[0] >= step;
-
-    if (isSameValues && isMoreThanStep) {
-      value[closestPosition] = Number(integerValue.toFixed(getSymbols(step)));
-      this.updateValues();
-      return;
-    }
-
     if (valueInNumber >= max) {
       value[closestPosition] = max;
       this.updateValues();
       return;
-    } if (valueInNumber <= min) {
+    } else if (valueInNumber <= min) {
       value[closestPosition] = min;
       this.updateValues();
-      return;
-    }
-
-    const differenceBetweenValueAndFutureValue = Math.abs(value[closestPosition] - integerValue);
-    if (differenceBetweenValueAndFutureValue < step) {
       return;
     }
 
@@ -296,11 +288,10 @@ class Model {
     if (this.state.orientation === Orientation.HORIZONTAL) {
       value = state.clientX - state.offsetX;
       value = (value / state.clientWidth) * 100;
-      value = Number(value.toFixed(2));
       return value;
     }
     value = state.clientY - state.offsetY;
-    value = Number(((value / state.clientHeight) * 100).toFixed(2));
+    value = (value / state.clientHeight) * 100;
     return value;
   }
 
@@ -317,7 +308,7 @@ class Model {
   private getClosestPosition(value: number, values: number[]): number {
     const firstValue = Math.abs(value - values[0]);
     const secondValue = Math.abs(value - values[1]);
-    
+
     if (secondValue < firstValue) {
       return 1;
     } else if (values[0] === values[1]) {
@@ -325,6 +316,20 @@ class Model {
       return result
     }
     return 0;
+  }
+
+  private isLastPosition(integerValue: number, valueInNumber: number, closestPosition: number): boolean {
+    const {min, max, step} = this.state
+    const halfIntegerValue: number = min + Math.round((valueInNumber - min) / (step / 2)) * (step / 2);
+    const isLastPosition = (integerValue + step) >= max
+    const isHalfPosition = (integerValue + step / 2) === halfIntegerValue
+    const isFirstCurrent = closestPosition === 0
+
+    if(isLastPosition && isHalfPosition && isFirstCurrent) {
+      return true
+    }
+
+    return false 
   }
 
   private emitChanges(): void {

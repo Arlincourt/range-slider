@@ -1,3 +1,4 @@
+import { data } from 'jquery';
 import Slider from './Slider';
 import { IState, IOptions } from './types/interfaces';
 
@@ -21,12 +22,13 @@ function createSlider(options: IOptions, element: HTMLElement): void {
     step: $element.data('step'),
     range: $element.data('range'),
     orientation: $element.data('orientation'),
-    value: $element.data('value'),
+    value: $element.data('values'),
   };
 
+  
   let state = $.extend(dataAttrs, options);
   state = removeUndefinedFields(state);
-
+  
   const slider = new Slider(state, element);
   $element.data('slider', slider);
 }
