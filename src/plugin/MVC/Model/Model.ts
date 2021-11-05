@@ -235,34 +235,20 @@ class Model {
     } = data
 
     const values = this.getValuesInPercent();
-    const closestPosition = this.getClosestPosition(percentValue, values);
-    
-    if(this.isLastPosition(integerValue, valueInNumber, closestPosition)) {
-      value[0] = max; 
-      return;
-    }
 
     if (emitData.mouseDown) {
-      this.previousChangeableValue = closestPosition;
+      this.previousChangeableValue = this.getClosestPosition(percentValue, values);
     }
 
-    if (this.previousChangeableValue !== closestPosition) {
-      value[this.previousChangeableValue] = value[closestPosition]
-      return;
-    }
-
+    value[this.previousChangeableValue] = Number(integerValue.toFixed(getSymbols(step)));
     if (valueInNumber >= max) {
-      value[closestPosition] = max;
-      this.updateValues();
-      return;
+      value[this.previousChangeableValue] = max;
     } else if (valueInNumber <= min) {
-      value[closestPosition] = min;
-      this.updateValues();
-      return;
+      value[this.previousChangeableValue] = min;
     }
-
-    value[closestPosition] = Number(integerValue.toFixed(getSymbols(step)));
+    this.isSame(this.previousChangeableValue)
     this.updateValues();
+    return;
   }
 
   private setOnePosition(integerValue: number, valueInNumber: number): void {
@@ -327,18 +313,14 @@ class Model {
     return 0;
   }
 
-  private isLastPosition(integerValue: number, valueInNumber: number, closestPosition: number): boolean {
-    const {min, max, step} = this.state
-    const halfIntegerValue: number = min + Math.round((valueInNumber - min) / (step / 2)) * (step / 2);
-    const isLastPosition = (integerValue + step) >= max
-    const isHalfPosition = (integerValue + step / 2) === halfIntegerValue
-    const isFirstCurrent = closestPosition === 0
-
-    if(isLastPosition && isHalfPosition && isFirstCurrent) {
-      return true
-    }
-
-    return false 
+  private isSame(closestPosition: number): void {
+    const {value} = this.state 
+    const isFirst = closestPosition === 0 ? true : false 
+    if(isFirst) {
+      value[closestPosition] = value[closestPosition] > value[1] ? value[1] : value[closestPosition]
+      return
+    } 
+    value[closestPosition] = value[closestPosition] < value[0] ? value[0] : value[closestPosition]
   }
 
   private emitChanges(): void {
