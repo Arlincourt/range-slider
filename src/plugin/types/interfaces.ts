@@ -1,5 +1,10 @@
 import Orientation from './orientation';
 
+interface ICombinedTip {
+  value: number[];
+  orientation: Orientation
+}
+
 interface IInterval {
   min: number;
   max: number;
@@ -92,4 +97,5 @@ export {
   IInfo,
   IInterval,
   IEmit,
+  ICombinedTip
 };

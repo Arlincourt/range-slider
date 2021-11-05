@@ -4,7 +4,8 @@ enum InterfacesNames {
   IEdge = 'IEdge',
   IProgressBar = 'IProgressBar',
   IInfo = 'IInfo',
-  IEdgeService = 'IIdgeService'
+  IEdgeService = 'IIdgeService',
+  ICombinedTip = 'ICombinedTip',
 }
 
 export default InterfacesNames;

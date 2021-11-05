@@ -47,12 +47,17 @@ function setType(
         orientation: parentType.orientation,
         value: parentType.value,
       };
-    case InterfacesNames.IInfo:
-      return {
-        min: parentType.min,
-        max: parentType.max,
-        orientation: parentType.orientation,
-      };
+      case InterfacesNames.IInfo:
+        return {
+          min: parentType.min,
+          max: parentType.max,
+          orientation: parentType.orientation,
+        };
+      case InterfacesNames.ICombinedTip:
+        return {
+          orientation: parentType.orientation,
+          value: parentType.value,
+        };
     default:
       return { ...parentType };
   }

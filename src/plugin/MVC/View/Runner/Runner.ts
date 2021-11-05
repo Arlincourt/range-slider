@@ -4,6 +4,13 @@ import { IRunner } from '../../../types/interfaces';
 import Point from '../Point/Point';
 import Tip from '../Tip/Tip';
 
+interface ITipSize {
+  height: number;
+  width: number;
+  x: number;
+  y: number;
+}
+
 class Runner {
   private tip: Tip;
 
@@ -17,6 +24,16 @@ class Runner {
     this.runnerState = copyObject(runnerState);
     this.tip = new Tip(this.runnerState.value);
     this.init();
+  }
+
+  get getTipSize(): ITipSize {
+    const {width, height, x, y} = this.tip.getTemplate().getBoundingClientRect()
+    return {
+      height,
+      width,
+      x,
+      y
+    }
   }
 
   public getTemplate(): HTMLElement {
@@ -63,7 +80,7 @@ class Runner {
     });
   }
 
-  private setTipText(text: number): void {
+  private setTipText(text: number | number[]): void {
     this.tip.update(text);
   }
 

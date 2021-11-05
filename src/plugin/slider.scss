@@ -112,6 +112,27 @@
     order: 0;
   }
 
+  &__combined-tip {
+    padding: 4px;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+    position: absolute;
+    white-space: nowrap;
+
+    &_position_horizontal {
+      top: -39px;
+      right: 50%;
+      transform: translateX(50%);
+    }
+
+    &_position_vertical {
+      left: 31px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
   &__info {
     display: flex;
     justify-content: space-between;

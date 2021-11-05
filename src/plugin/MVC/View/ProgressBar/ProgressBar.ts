@@ -25,27 +25,25 @@ class ProgressBar {
   }
 
   public update(progressBarState: IProgressBar): void {
-    this.runnerServiceData = setType(InterfacesNames.IRunnerService, progressBarState);
-    this.runnerService.update(this.runnerServiceData);
-    if (this.progressBarState.orientation !== progressBarState.orientation) {
+    this.setStyle(progressBarState);
+    this.updateRunnerService(progressBarState)
+    if (this.isOrientationChanged(progressBarState.orientation)) {
       this.addClass(progressBarState.orientation);
     }
-    if (this.progressBarState.range !== progressBarState.range) {
+    if (this.isChildrenChanged(this.runnerService.getTemplate())) {
       this.removeElems();
       this.addElems();
-      this.setStyle(progressBarState);
-    }
-    if (this.isPositionChanged(progressBarState)
-        || this.progressBarState.orientation
-        !== progressBarState.orientation
-    ) {
-      this.setStyle(progressBarState);
     }
     this.progressBarState = copyObject(progressBarState);
   }
 
   public getTemplate(): HTMLElement {
     return this.progressBar;
+  }
+
+  private updateRunnerService(progressBarState: IProgressBar) {
+    this.runnerServiceData = setType(InterfacesNames.IRunnerService, progressBarState);
+    this.runnerService.update(this.runnerServiceData);
   }
 
   private setStyle(progressBarState: IProgressBar): void {
@@ -100,24 +98,6 @@ class ProgressBar {
     return size;
   }
 
-  private isPositionChanged(progressBarState: IProgressBar): boolean {
-    let isChanged = false;
-
-    if (this.progressBarState.min !== progressBarState.min) {
-      isChanged = true;
-    }
-    if (this.progressBarState.max !== progressBarState.max) {
-      isChanged = true;
-    }
-    this.progressBarState.value.forEach((value, idx) => {
-      if (value !== progressBarState.value[idx]) {
-        isChanged = true;
-      }
-    });
-
-    return isChanged;
-  }
-
   private addElems(): void {
     this.runnerService.getTemplate().forEach((runner) => {
       this.progressBar.append(runner);
@@ -146,6 +126,14 @@ class ProgressBar {
     } else {
       this.progressBar.classList.add(Classes.sliderActiveLineHorizontal);
     }
+  }
+
+  private isOrientationChanged(orientation: Orientation): boolean {
+    return this.progressBarState.orientation !== orientation
+  }
+
+  private isChildrenChanged(children: HTMLElement[]): boolean {
+    return this.progressBar.childElementCount !== children.length
   }
 }
 
