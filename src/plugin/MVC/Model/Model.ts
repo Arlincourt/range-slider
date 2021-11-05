@@ -81,6 +81,7 @@ class Model {
   public setMin(min: number | string): void {
     if (min < this.state.max) {
       this.state.min = Number(min);
+      this.checkStepToValues()
       this.updateValues();
       this.emitChanges();
     }
@@ -89,6 +90,7 @@ class Model {
   public setMax(max: number | string): void {
     if (max > this.state.min) {
       this.state.max = Number(max);
+      this.checkStepToValues()
       this.updateValues();
       this.emitChanges();
     }
@@ -144,14 +146,21 @@ class Model {
   }
 
   public setStep(step: number | string): void {
-    const {max, min} = this.state
-    if (step <= 0 || step > (max - min)) {
-      return;
-    }
     this.state.step = Number(step);
+    this.checkStepToValues()
     this.formatValuesToStep();
     this.updateValues();
     this.emitChanges();
+  }
+  
+  private checkStepToValues(): void {
+    const {max, min} = this.state
+    if (this.state.step > (max - min)) {
+      this.state.step = max
+      return;
+    } else if(this.state.step <= 0) {
+      this.state.step = 1
+    }
   }
 
   private formatValuesToStep(): void {
