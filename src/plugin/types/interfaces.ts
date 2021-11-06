@@ -15,7 +15,7 @@ interface IInterval {
   value: number[]
 }
 
-interface IInfo {
+interface IScale {
   min: number;
   max: number;
   orientation: Orientation;
@@ -94,7 +94,7 @@ export {
   IProgressBar,
   IEdge,
   IEdgeService,
-  IInfo,
+  IScale,
   IInterval,
   IEmit,
   ICombinedTip

@@ -26,9 +26,9 @@ enum Classes {
   sliderEdgeLeft = 'slider__edge_side_left',
   sliderEdgeTop = 'slider__edge_side_top',
   sliderEdgeBottom = 'slider__edge_side_bottom',
-  sliderInfo = 'slider__info',
-  sliderInfoVertical = 'slider__info_orientation_vertical',
-  sliderInfoHorizontal = 'slider__info_orientation_horizontal',
+  sliderScale = 'slider__info',
+  sliderScaleVertical = 'slider__info_orientation_vertical',
+  sliderScaleHorizontal = 'slider__info_orientation_horizontal',
 }
 
 export default Classes;

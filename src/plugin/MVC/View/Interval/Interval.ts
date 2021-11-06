@@ -1,11 +1,11 @@
 import Classes from '../../../types/classes';
 import InterfacesNames from '../../../types/interfacesNames';
 import Orientation from '../../../types/orientation';
-import { IProgressBar, IInterval, IInfo } from '../../../types/interfaces';
+import { IProgressBar, IInterval, IScale } from '../../../types/interfaces';
 import setType from '../../../helpers/setType';
 import copyObject from '../../../helpers/copyObject';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import Info from '../Info/Info';
+import Scale from '../Scale/Scale';
 
 class Interval {
   private interval: HTMLElement = document.createElement('div')
@@ -18,16 +18,16 @@ class Interval {
 
   private progressBarData: IProgressBar;
 
-  private info: Info;
+  private scale: Scale;
 
-  private infoData: IInfo
+  private infoData: IScale
 
   constructor(intervalState: IInterval) {
     this.intervalState = copyObject(intervalState);
     this.progressBarData = { ...setType(InterfacesNames.IProgressBar, this.intervalState) };
-    this.infoData = setType(InterfacesNames.IInfo, this.intervalState);
+    this.infoData = setType(InterfacesNames.IScale, this.intervalState);
     this.progressBar = new ProgressBar(this.progressBarData);
-    this.info = new Info(this.infoData);
+    this.scale = new Scale(this.infoData);
     this.addClass();
     this.addElems();
   }
@@ -38,9 +38,9 @@ class Interval {
     }
     this.intervalState = copyObject(intervalState);
     this.progressBarData = setType(InterfacesNames.IProgressBar, this.intervalState);
-    this.infoData = setType(InterfacesNames.IInfo, this.intervalState);
+    this.infoData = setType(InterfacesNames.IScale, this.intervalState);
     this.progressBar.update(this.progressBarData);
-    this.info.update(this.infoData);
+    this.scale.update(this.infoData);
   }
 
   get getIntervalState(): IInterval {
@@ -54,7 +54,7 @@ class Interval {
   private addElems(): void {
     this.interval.append(this.progressBar.getTemplate());
     this.sliderBody.append(this.interval);
-    this.sliderBody.append(this.info.getTemplate());
+    this.sliderBody.append(this.scale.getTemplate());
   }
 
   private addClass(orientation?: Orientation): void {

@@ -58,7 +58,7 @@ class RunnerService {
   }
 
   private isOverlap(): boolean {
-    if(this.runnerServiceState.range === false) {
+    if(this.runnerServiceState.range === false || this.runnerServiceState.tips === false) {
       return false
     }
     const firstTipSize = this.firstRunner.getTipSize

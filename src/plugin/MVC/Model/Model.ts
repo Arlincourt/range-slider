@@ -115,8 +115,6 @@ class Model {
     this.state.range = isRange;
     if (!this.state.range) {
       this.state.value[0] = this.state.min;
-    } else if (this.state.value[1] === this.state.value[0]) {
-      this.state.value[1] = this.state.value[0] + this.state.step;
     }
     this.updateValues();
     this.emitChanges();

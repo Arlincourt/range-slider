@@ -3,7 +3,7 @@ enum InterfacesNames {
   IRunner = 'IRunner',
   IEdge = 'IEdge',
   IProgressBar = 'IProgressBar',
-  IInfo = 'IInfo',
+  IScale = 'IScale',
   IEdgeService = 'IIdgeService',
   ICombinedTip = 'ICombinedTip',
 }
