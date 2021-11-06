@@ -1,4 +1,4 @@
-import { IState, IEmit } from '../../types/interfaces';
+import { IState, IEmit, IEmitEdge } from '../../types/interfaces';
 import Classes from '../../types/classes';
 import Observer from '../../Observer/Observer';
 import copyObject from '../../helpers/copyObject';
@@ -57,7 +57,7 @@ class View {
 
   private onSliderMouseDown = (evt: MouseEvent): void => {
     if (this.isElem(evt.target as HTMLElement)) {
-      const emitData: IEmit = {
+      let emitData: IEmit | IEmitEdge = {
         clientX: evt.clientX,
         clientY: evt.clientY,
         clientWidth: Number(this.slider.offsetWidth),
@@ -66,6 +66,9 @@ class View {
         offsetY: this.slider.getBoundingClientRect().top + document.body.scrollTop,
         mouseDown: true,
       };
+      if(this.isEdge(evt.target as HTMLElement)) {
+        (emitData as IEmitEdge).value = Number((evt.target as HTMLElement).textContent) 
+      }
       this.emitChanges(emitData);
       document.addEventListener('mousemove', this.onSliderMouseMove);
       document.addEventListener('mouseup', this.onSliderMouseUp);

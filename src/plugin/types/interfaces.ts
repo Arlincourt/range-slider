@@ -86,6 +86,17 @@ interface IEmit {
   mouseDown: boolean;
 }
 
+interface IEmitEdge {
+  value: number,
+  clientX: number;
+  clientY: number;
+  clientWidth: number;
+  clientHeight: number;
+  offsetX: number;
+  offsetY: number;
+  mouseDown: boolean;
+}
+
 export {
   IState,
   IOptions,
@@ -97,5 +108,6 @@ export {
   IScale,
   IInterval,
   IEmit,
+  IEmitEdge,
   ICombinedTip
 };

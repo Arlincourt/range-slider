@@ -1,4 +1,4 @@
-import { IEmit } from 'plugin/types/interfaces';
+import { IEmit } from '../types/interfaces';
 
 interface ISubscribes {
   [key: string]: Array<() => void>
@@ -30,6 +30,3 @@ class Observer {
 }
 
 export default Observer;
-
-// emit('modelChange', data)
-// observer.subscribe('modelChange', updateView)

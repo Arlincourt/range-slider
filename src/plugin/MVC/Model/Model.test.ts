@@ -44,7 +44,7 @@ describe('View module', () => {
   })
 
   test('orientation should be horizontal', () => {
-    model.setOrientation(true)
+    model.setOrientation('HORIZONTAL')
     expect(model.getState().orientation).toBe(Orientation.HORIZONTAL)
   })
 

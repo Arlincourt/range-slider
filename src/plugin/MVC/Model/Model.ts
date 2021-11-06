@@ -1,5 +1,5 @@
 import Orientation from '../../types/orientation';
-import { IState, IOptions, IEmit } from '../../types/interfaces';
+import { IState, IOptions, IEmit, IEmitEdge } from '../../types/interfaces';
 import copyObject from '../../helpers/copyObject';
 import getSymbols from '../../helpers/getSymbols';
 import Observer from '../../Observer/Observer';
@@ -210,8 +210,9 @@ class Model {
     } = this.state;
     const percentValue: number = this.getValueInPercent(emitData);
     const valueInNumber: number = this.getValueInNumber(percentValue);
-    const integerValue: number = min + Math.round((valueInNumber - min) / step) * step;
-    
+    let integerValue: number = min + Math.round((valueInNumber - min) / step) * step;
+    integerValue = (emitData as IEmitEdge).value !== undefined ? (emitData as IEmitEdge).value : integerValue
+
     if (range) {
       this.setTwoPosition({integerValue, valueInNumber, percentValue, emitData});
     } else {
@@ -309,7 +310,7 @@ class Model {
   private isSame(closestPosition: number): void {
     const {value} = this.state 
     const isFirst = closestPosition === 0 ? true : false 
-    if(isFirst) {
+    if (isFirst) {
       value[closestPosition] = value[closestPosition] > value[1] ? value[1] : value[closestPosition]
       return
     } 
