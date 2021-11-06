@@ -125,22 +125,17 @@ class Model {
   public setFirstValue(value: number | string): void {
     const { step } = this.state;
     let val = Number(value);
-    if (val + step >= this.state.value[1]) {
-      val = this.state.value[1] - this.state.step;
-    }
-
     this.state.value[0] = Number(val.toFixed(getSymbols(step)));
+    this.isSame(0)
     this.updateValues();
     this.emitChanges();
   }
 
   public setSecondValue(value: number): void {
+    const { step } = this.state;
     let val = Number(value);
-    if (val <= this.state.value[0]) {
-      val = this.state.value[0] + this.state.step;
-    }
-
-    this.state.value[1] = val;
+    this.state.value[1] = Number(val.toFixed(getSymbols(step)));
+    this.isSame(1)
     this.updateValues();
     this.emitChanges();
   }
