@@ -10,6 +10,12 @@ interface ISetTwoPosition {
   valueInNumber: number;
   integerValue: number;
 }
+interface ISetOnePosition {
+  value: number;
+  percentValue: number;
+  valueInNumber: number;
+  integerValue: number;
+}
 
 class Model {
   public observer?: Observer;
@@ -216,7 +222,7 @@ class Model {
     if (range) {
       this.setTwoPosition({integerValue, valueInNumber, percentValue, emitData});
     } else {
-      this.setOnePosition(integerValue, valueInNumber);
+      this.setOnePosition(integerValue, valueInNumber, (emitData as IEmitEdge).value);
     }
   }
 
@@ -233,31 +239,39 @@ class Model {
     if (emitData.mouseDown) {
       this.previousChangeableValue = this.getClosestPosition(percentValue, values);
     }
+    integerValue = this.checkValueToEdge((emitData as IEmitEdge).value, integerValue)
+    integerValue = this.checkValueToLimits(valueInNumber, integerValue)
 
-    value[this.previousChangeableValue] = Number(integerValue.toFixed(getSymbols(step)));
-    if (valueInNumber >= max) {
-      value[this.previousChangeableValue] = max;
-    } else if (valueInNumber <= min) {
-      value[this.previousChangeableValue] = min;
-    }
+    value[this.previousChangeableValue] = integerValue;
     this.isSame(this.previousChangeableValue)
     this.updateValues();
     return;
   }
 
-  private setOnePosition(integerValue: number, valueInNumber: number): void {
+  private setOnePosition(integerValue: number, valueInNumber: number, edge: number | undefined): void {
     const {
-      max, min, step, value,
+      step, value,
     } = this.state;
-    
+    integerValue = this.checkValueToEdge(edge, integerValue)
+    integerValue = this.checkValueToLimits(valueInNumber, integerValue)
+    value[1] = integerValue
+  }
 
-    value[1] = Number(integerValue.toFixed(getSymbols(step)));
-    if (valueInNumber >= max) {
-      value[1] = max;
+  private checkValueToEdge(edge: number | undefined, integerValue: number): number {
+    if(edge === undefined) {
+      return Number(integerValue.toFixed(getSymbols(this.state.step)));
     }
-    if (valueInNumber <= min) {
-      value[1] = min;
+    return integerValue
+  }
+
+  private checkValueToLimits(valueInNumber: number, integerValue: number): number {
+    const {max, min} = this.state 
+    if(valueInNumber >= max) {
+      return max
+    } else if(valueInNumber <= min) {
+      return min 
     }
+    return integerValue
   }
 
   private getValueInNumber(value: number): number {
