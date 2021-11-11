@@ -14,6 +14,10 @@
     npm run lint // запуск eslint
     npm run lint-fix // запуск автоматического исправления eslint
     
+### Демо страница
+
+[Смотреть демо](https://arlincourt.github.io/range-slider/index.html)
+
 ### Использование
 
     $('#slider').slider() // опции по умолчанию
