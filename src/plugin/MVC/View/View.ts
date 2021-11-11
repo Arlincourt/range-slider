@@ -66,7 +66,7 @@ class View {
         offsetY: this.slider.getBoundingClientRect().top + document.body.scrollTop,
         mouseDown: true,
       };
-      if(this.isEdge(evt.target as HTMLElement)) {
+      if(this.isValue(evt.target as HTMLElement)) {
         (emitData as IEmitEdge).value = Number((evt.target as HTMLElement).textContent) 
       }
       this.emitChanges(emitData);
@@ -98,7 +98,7 @@ class View {
   }
 
   private isElem(element: HTMLElement): boolean {
-    if (this.isEdge(element)) {
+    if (this.isValue(element)) {
       return true;
     }
     if (this.isItem(element)) {
@@ -117,8 +117,8 @@ class View {
     return false;
   }
 
-  private isEdge(element: HTMLElement): boolean {
-    return element.classList.contains(Classes.sliderEdge);
+  private isValue(element: HTMLElement): boolean {
+    return element.classList.contains(Classes.sliderValue);
   }
 
   private isItem(element: HTMLElement): boolean {

@@ -1,5 +1,9 @@
 import Orientation from './orientation';
 
+interface IPossibleValues {
+  [key: number]: number
+}
+
 interface ICombinedTip {
   value: number[];
   orientation: Orientation
@@ -12,25 +16,30 @@ interface IInterval {
   step: number;
   range: boolean;
   orientation: Orientation;
-  value: number[]
+  value: number[],
+  possibleValues: IPossibleValues;
 }
 
 interface IScale {
   min: number;
   max: number;
   orientation: Orientation;
+  possibleValues: IPossibleValues;
 }
 
 interface IEdgeService {
   min: number;
   max: number;
   orientation: Orientation;
+  possibleValues: {}
 }
 
 interface IEdge {
   edge: number;
+  offset: number;
   orientation: Orientation;
-  classList: string[]
+  edgeClassList: string[];
+  valueClassList: string[];
 }
 
 interface IProgressBar {
@@ -73,7 +82,8 @@ interface IState {
   step: number;
   range: boolean;
   orientation: Orientation;
-  value: number[]
+  value: number[],
+  possibleValues: IPossibleValues;
 }
 
 interface IEmit {
@@ -109,5 +119,6 @@ export {
   IInterval,
   IEmit,
   IEmitEdge,
-  ICombinedTip
+  ICombinedTip,
+  IPossibleValues
 };

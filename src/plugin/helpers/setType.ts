@@ -37,6 +37,7 @@ function setType(
         max: parentType.max,
         min: parentType.min,
         orientation: parentType.orientation,
+        possibleValues: parentType.possibleValues
       };
     case InterfacesNames.IProgressBar:
       return {
@@ -47,11 +48,12 @@ function setType(
         orientation: parentType.orientation,
         value: parentType.value,
       };
-      case InterfacesNames.IInfo:
+      case InterfacesNames.IScale:
         return {
           min: parentType.min,
           max: parentType.max,
           orientation: parentType.orientation,
+          possibleValues: parentType.possibleValues
         };
       case InterfacesNames.ICombinedTip:
         return {

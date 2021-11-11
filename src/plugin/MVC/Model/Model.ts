@@ -10,12 +10,6 @@ interface ISetTwoPosition {
   valueInNumber: number;
   integerValue: number;
 }
-interface ISetOnePosition {
-  value: number;
-  percentValue: number;
-  valueInNumber: number;
-  integerValue: number;
-}
 
 class Model {
   public observer?: Observer;
@@ -32,11 +26,13 @@ class Model {
     orientation: Orientation.HORIZONTAL,
     step: 1,
     value: [0, 100],
+    possibleValues: {}
   };
 
   constructor(options: IOptions) {
     this.state = copyObject({ ...this.state, ...options });
     this.updateValues();
+    this.setPossibleValues()
   }
 
   get getMin(): number {
@@ -81,6 +77,7 @@ class Model {
 
   public update(emitData: IEmit): void {
     this.setPosition(emitData);
+    this.setPossibleValues()
     this.emitChanges();
   }
 
@@ -89,6 +86,7 @@ class Model {
       this.state.min = Number(min);
       this.checkStepToValues()
       this.updateValues();
+      this.setPossibleValues()
       this.emitChanges();
     }
   }
@@ -98,6 +96,7 @@ class Model {
       this.state.max = Number(max);
       this.checkStepToValues()
       this.updateValues();
+      this.setPossibleValues()
       this.emitChanges();
     }
   }
@@ -147,9 +146,70 @@ class Model {
   public setStep(step: number | string): void {
     this.state.step = Number(step);
     this.checkStepToValues()
-    this.formatValuesToStep();
+    this.state.value[0] = this.formatToStep(this.state.value[0]);
+    this.state.value[1] = this.formatToStep(this.state.value[1]);
     this.updateValues();
+    this.setPossibleValues()
     this.emitChanges();
+  }
+
+  private setPossibleValues(): void {
+    const {min, max} = this.state 
+    this.state.possibleValues = {}
+    const numberOfValidValues = this.getNumberOfValidValues()
+    const all = this.getAll()
+    this.state.possibleValues[min] = 0
+    for(let i = 1; i <= numberOfValidValues; i++) {
+      let key = min + (Math.floor(all / numberOfValidValues) * i)
+      key = this.formatToStep(key)
+      const value = this.getValueInPercent(key)
+      this.state.possibleValues[key] = value
+    }
+    this.state.possibleValues[max] = 100
+  }
+
+  private getNumberOfValidValues(): number {
+    const {step} = this.state 
+    let numberOfValidValues = this.getAll() / step
+    const roundedNumber = Math.floor(numberOfValidValues)
+    if(numberOfValidValues <= 1) {
+      return 0 
+    } else if(numberOfValidValues >= 8) {
+      return this.divideToInteger(roundedNumber, 7)
+    } else if(Number.isInteger(numberOfValidValues)) {
+      return numberOfValidValues - 1
+    }
+    return Math.floor(numberOfValidValues)
+  }
+
+  private divideToInteger(value: number, divider: number): number {
+    for(let i = divider; i > 1; i--) {
+      const isInteger = Number.isInteger(value / i)
+      if(isInteger) {
+        return i
+      }
+    }
+    return 1
+  }
+
+  private formatToStep(value: number): number {
+    const {min, step} = this.state
+    let result = value
+    const difference = value - min
+    const divideRemaining = difference % step
+    const prevPossibleValue = Math.floor(difference / step)
+    const nextPossibleValue = Math.ceil(difference / step)
+
+    if(divideRemaining >= 5) {
+      result = min + (step * nextPossibleValue)
+    } else {
+      result = min + (step * prevPossibleValue)
+    }
+    return Number(result.toFixed(getSymbols(step)))
+  }
+
+  private getAll(): number {
+    return this.state.max - this.state.min
   }
   
   private checkStepToValues(): void {
@@ -160,31 +220,6 @@ class Model {
     } else if(this.state.step <= 0) {
       this.state.step = 1
     }
-  }
-
-  private formatValuesToStep(): void {
-    const { min, step, value } = this.state;
-    const differenceBetweenFirstValueAndMin = value[0] - min;
-    const differenceBetweenSecondValueAndFirstValue = value[1] - value[0];
-    if (differenceBetweenFirstValueAndMin > step) {
-      const remains = differenceBetweenFirstValueAndMin % step;
-      value[0] = Number((differenceBetweenFirstValueAndMin - remains).toFixed(getSymbols(step)));
-    } else {
-      value[0] = min;
-    }
-
-    if (differenceBetweenSecondValueAndFirstValue % step === 0) {
-      this.updateValues();
-      return;
-    }
-
-    const multiplier = this.getIntegerMultiplier(differenceBetweenSecondValueAndFirstValue);
-    value[1] = value[0] + multiplier * step;
-    this.updateValues();
-  }
-
-  private getIntegerMultiplier(value: number): number {
-    return Math.ceil(value / this.state.step);
   }
 
   private updateValues(): void {
@@ -214,7 +249,7 @@ class Model {
     const {
       min, step, range
     } = this.state;
-    const percentValue: number = this.getValueInPercent(emitData);
+    const percentValue: number = this.getCoorInPercent(emitData);
     const valueInNumber: number = this.getValueInNumber(percentValue);
     let integerValue: number = min + Math.round((valueInNumber - min) / step) * step;
     integerValue = (emitData as IEmitEdge).value !== undefined ? (emitData as IEmitEdge).value : integerValue
@@ -234,7 +269,7 @@ class Model {
       percentValue, emitData, valueInNumber, integerValue
     } = data
 
-    const values = this.getValuesInPercent();
+    const values = [this.getValueInPercent(value[0]), this.getValueInPercent(value[1])];
 
     if (emitData.mouseDown) {
       this.previousChangeableValue = this.getClosestPosition(percentValue, values);
@@ -286,7 +321,7 @@ class Model {
     return valueNumber;
   }
 
-  private getValueInPercent(state: IEmit): number {
+  private getCoorInPercent(state: IEmit): number {
     let value: number;
     if (this.state.orientation === Orientation.HORIZONTAL) {
       value = state.clientX - state.offsetX;
@@ -298,14 +333,12 @@ class Model {
     return value;
   }
 
-  private getValuesInPercent(): number[] {
-    const all = this.state.max - this.state.min;
-    const firstValue = this.state.value[0] - this.state.min;
-    const secondValue = this.state.value[1] - this.state.min;
-    const firstValuePercent = Math.abs((firstValue / all) * 100);
-    const secondValuePercent = Math.abs((secondValue / all) * 100);
-
-    return [firstValuePercent, secondValuePercent];
+  private getValueInPercent(value: number): number {
+    const {max, min} = this.state 
+    const all = max - min;
+    const differentValue = value - min;
+    const valueInPercent = Math.abs((differentValue / all) * 100);
+    return valueInPercent
   }
 
   private getClosestPosition(value: number, values: number[]): number {

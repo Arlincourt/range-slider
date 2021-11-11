@@ -22,13 +22,14 @@ enum Classes {
   sliderActiveLineHorizontal = 'slider__active-line_orientation_horizontal',
   sliderActiveLineVertical = 'slider__active-line_orientation_vertical',
   sliderEdge = 'slider__edge',
-  sliderEdgeRight = 'slider__edge_side_right',
-  sliderEdgeLeft = 'slider__edge_side_left',
-  sliderEdgeTop = 'slider__edge_side_top',
-  sliderEdgeBottom = 'slider__edge_side_bottom',
-  sliderScale = 'slider__info',
-  sliderScaleVertical = 'slider__info_orientation_vertical',
-  sliderScaleHorizontal = 'slider__info_orientation_horizontal',
+  sliderEdgeHorizontal = 'slider__edge_position_horizontal',
+  sliderEdgeVertical = 'slider__edge_position_vertical',
+  sliderValue = 'slider__value',
+  sliderValueHorizontal = 'slider__value_position_horizontal',
+  sliderValueVertical = 'slider__value_position_vertical',
+  sliderScale = 'slider__scale',
+  sliderScaleVertical = 'slider__scale_orientation_vertical',
+  sliderScaleHorizontal = 'slider__scale_orientation_horizontal',
 }
 
 export default Classes;

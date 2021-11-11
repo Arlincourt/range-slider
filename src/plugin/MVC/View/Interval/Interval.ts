@@ -20,14 +20,14 @@ class Interval {
 
   private scale: Scale;
 
-  private infoData: IScale
+  private scaleData: IScale
 
   constructor(intervalState: IInterval) {
     this.intervalState = copyObject(intervalState);
     this.progressBarData = { ...setType(InterfacesNames.IProgressBar, this.intervalState) };
-    this.infoData = setType(InterfacesNames.IScale, this.intervalState);
+    this.scaleData = setType(InterfacesNames.IScale, this.intervalState);
     this.progressBar = new ProgressBar(this.progressBarData);
-    this.scale = new Scale(this.infoData);
+    this.scale = new Scale(this.scaleData);
     this.addClass();
     this.addElems();
   }
@@ -38,9 +38,9 @@ class Interval {
     }
     this.intervalState = copyObject(intervalState);
     this.progressBarData = setType(InterfacesNames.IProgressBar, this.intervalState);
-    this.infoData = setType(InterfacesNames.IScale, this.intervalState);
+    this.scaleData = setType(InterfacesNames.IScale, this.intervalState);
     this.progressBar.update(this.progressBarData);
-    this.scale.update(this.infoData);
+    this.scale.update(this.scaleData);
   }
 
   get getIntervalState(): IInterval {

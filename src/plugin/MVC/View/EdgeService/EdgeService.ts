@@ -1,89 +1,93 @@
 import Classes from '../../../types/classes';
 import Orientation from '../../../types/orientation';
-import InterfacesNames from '../../../types/interfacesNames';
-import { IEdge, IEdgeService } from '../../../types/interfaces';
-import setType from '../../../helpers/setType';
+import { IEdge, IEdgeService, IPossibleValues } from '../../../types/interfaces';
 import copyObject from '../../../helpers/copyObject';
 import Edge from '../Edge/Edge';
 
-enum Orders {
-  max = 'max',
-  min = 'min'
-}
-
 class EdgeService {
-  private minEdge: Edge
+  
+  private edgeServiceState: IEdgeService;
 
-  private minEdgeData: IEdge
+  private edgeElements: Edge[];
 
-  private maxEdge: Edge
+  private edgeStates: IEdge[];
 
-  private maxEdgeData: IEdge
+  private valueClassList: string[];
 
-  private edgeServiceState: IEdgeService
+  private edgeClassList: string[];
 
   constructor(edgeServiceState: IEdgeService) {
-    this.edgeServiceState = copyObject(edgeServiceState);
-    this.minEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'min'), Orders.min);
-    this.maxEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'max'), Orders.max);
-    this.minEdge = new Edge(this.minEdgeData);
-    this.maxEdge = new Edge(this.maxEdgeData);
-  }
-
+    this.edgeServiceState = copyObject(edgeServiceState)
+    this.valueClassList = this.setValueClassLists()
+    this.edgeClassList = this.setEdgeClassLists()
+    this.edgeStates = this.setStates()
+    this.edgeElements = this.setEdges()
+  } 
+  
   public update(edgeServiceState: IEdgeService): void {
-    this.edgeServiceState = copyObject(edgeServiceState);
-    this.minEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'min'), Orders.min);
-    this.maxEdgeData = this.setClass(setType(InterfacesNames.IEdge, this.edgeServiceState, 'max'), Orders.max);
-    this.minEdge.update(this.minEdgeData);
-    this.maxEdge.update(this.maxEdgeData);
-  }
-
-  get getEdgeServiceState(): IEdgeService {
-    return this.edgeServiceState;
-  }
-
-  get getMinEdge(): Edge {
-    return this.minEdge;
-  }
-
-  get getMaxEdge(): Edge {
-    return this.maxEdge;
-  }
-
-  get getMinEdgeData(): IEdge {
-    return this.minEdgeData;
-  }
-
-  get getMaxEdgeData(): IEdge {
-    return this.maxEdgeData;
+    this.edgeServiceState = copyObject(edgeServiceState)
+    this.edgeClassList = this.setEdgeClassLists()
+    this.valueClassList = this.setValueClassLists()
+    this.edgeStates = this.setStates()
+    this.updateEdgeElements()
   }
 
   public getTemplate(): HTMLElement[] {
-    return [this.minEdge.getTemplate(), this.maxEdge.getTemplate()];
+    return this.edgeElements.map((edge: Edge) => {
+      return edge.getTemplate()
+    })
   }
 
-  private setClass(edgeData: IEdge, order: string): IEdge {
-    const isMin = order === Orders.min;
-    if (edgeData.orientation === Orientation.VERTICAL) {
-      /* eslint no-param-reassign: "error" */
-      edgeData.classList = [Classes.sliderEdge];
-
-      if (isMin) {
-        edgeData.classList.push(Classes.sliderEdgeTop);
-      } else {
-        edgeData.classList.push(Classes.sliderEdgeBottom);
-      }
-    } else {
-      /* eslint no-param-reassign: "error" */
-      edgeData.classList = [Classes.sliderEdge];
-
-      if (isMin) {
-        edgeData.classList.push(Classes.sliderEdgeLeft);
-      } else {
-        edgeData.classList.push(Classes.sliderEdgeRight);
-      }
+  private updateEdgeElements(): void {
+    if(this.edgeStates.length !== this.edgeElements.length) {
+      this.edgeElements = this.setEdges()
+      return 
     }
-    return edgeData;
+    this.edgeStates.forEach((state, idx) => {
+      this.edgeElements[idx].update(state)
+    })
+  }
+
+  private setStates(): IEdge[] {
+    const {possibleValues, orientation} = this.edgeServiceState
+    const states: IEdge[] = []
+    Object.keys(possibleValues as IPossibleValues).forEach((key) => {
+      const edgeState: IEdge = {
+        offset: (possibleValues as IPossibleValues)[Number(key)],
+        edge: Number(key),
+        orientation: orientation,
+        valueClassList: this.valueClassList,
+        edgeClassList: this.edgeClassList
+      }
+      states.push(edgeState)
+    })
+    return states
+  }
+
+  private setValueClassLists(): string[] {
+    this.valueClassList = []
+    if(this.isHorizontal()) {
+      return [Classes.sliderValue, Classes.sliderValueHorizontal]
+    }
+    return [Classes.sliderValue, Classes.sliderValueVertical]
+  }
+
+  private setEdgeClassLists(): string[] {
+    this.edgeClassList = []
+    if(this.isHorizontal()) {
+      return [Classes.sliderEdge, Classes.sliderEdgeHorizontal]
+    }
+    return [Classes.sliderEdge, Classes.sliderEdgeVertical]
+  }
+
+  private setEdges(): Edge[] {
+    return this.edgeStates.map((state) => {
+      return new Edge(state)
+    })
+  }
+
+  private isHorizontal(): boolean {
+    return this.edgeServiceState.orientation === Orientation.HORIZONTAL
   }
 }
 

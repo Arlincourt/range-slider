@@ -25,10 +25,8 @@ function createSlider(options: IOptions, element: HTMLElement): void {
     value: $element.data('values'),
   };
 
-  
   let state = $.extend(dataAttrs, options);
   state = removeUndefinedFields(state);
-  
   const slider = new Slider(state, element);
   $element.data('slider', slider);
 }

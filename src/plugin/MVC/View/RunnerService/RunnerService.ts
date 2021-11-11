@@ -41,7 +41,8 @@ class RunnerService {
     );
     this.firstRunner = new Runner(this.firstRunnerData);
     this.secondRunner = new Runner(this.secondRunnerData);
-    this.elements = [this.firstRunner.getTemplate(), this.secondRunner.getTemplate()]
+    this.elements = []
+    this.setElements()
   }
 
   public update(runnerServiceState: IRunnerService): void {

@@ -1,6 +1,5 @@
 import Classes from '../../../types/classes';
 import InterfacesNames from '../../../types/interfacesNames';
-import Orientation from '../../../types/orientation';
 import { IEdgeService, IScale } from '../../../types/interfaces';
 import setType from '../../../helpers/setType';
 import copyObject from '../../../helpers/copyObject';
@@ -15,51 +14,40 @@ class Scale {
 
   private edgeServiceData: IEdgeService
 
-  constructor(infoState: IScale) {
-    this.scaleState = copyObject(infoState);
+  constructor(scaleState: IScale) {
+    this.scaleState = copyObject(scaleState);
     this.edgeServiceData = setType(InterfacesNames.IEdgeService, this.scaleState);
     this.edgeService = new EdgeService(this.edgeServiceData);
     this.addClass();
     this.addElems();
   }
 
-  public update(infoState: IScale): void {
-    if (this.scaleState.orientation !== infoState.orientation) {
-      this.addClass(infoState.orientation);
-    }
-    this.scaleState = copyObject(infoState);
+  public update(scaleState: IScale): void {
+    this.scaleState = copyObject(scaleState);
     this.edgeServiceData = setType(InterfacesNames.IEdgeService, this.scaleState);
     this.edgeService.update(this.edgeServiceData);
+    if(this.isChanged()) {
+      this.addElems()
+    }
   }
 
   public getTemplate(): HTMLElement {
     return this.scale;
   }
 
-  private addClass(orientation?: Orientation): void {
-    this.scale.className = '';
+  private addClass(): void {
     this.scale.classList.add(Classes.sliderScale);
-    if (orientation) {
-      if (orientation === Orientation.VERTICAL) {
-        this.scale.classList.add(Classes.sliderScaleVertical);
-        return;
-      }
-
-      this.scale.classList.add(Classes.sliderScaleHorizontal);
-      return;
-    }
-
-    if (this.scaleState.orientation === Orientation.VERTICAL) {
-      this.scale.classList.add(Classes.sliderScaleVertical);
-      return;
-    }
-    this.scale.classList.add(Classes.sliderScaleHorizontal);
   }
 
   private addElems(): void {
+    this.scale.innerHTML = ''
     this.edgeService.getTemplate().forEach((edge) => {
       this.scale.append(edge);
     });
+  }
+
+  private isChanged(): boolean {
+    return this.scale.childElementCount !== this.edgeService.getTemplate().length
   }
 }
 
