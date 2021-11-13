@@ -1,11 +1,20 @@
 {
-  "name": "range slider",
+  "name": "range-slider",
   "jest": {
     "preset": "ts-jest"
   },
   "version": "1.0.0",
-  "description": "",
+  "description": "jQuery slider plugin",
+  "engines": {
+    "node": "v16.6.2",
+    "npm": "7.20.3"
+  },
   "main": "index.js",
+  "readme": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Arlincourt/range-slider.git"
+  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "prod": "cross-env NODE_ENV=production webpack --mode production",
