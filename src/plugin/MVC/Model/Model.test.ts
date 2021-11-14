@@ -12,16 +12,9 @@ describe('View module', () => {
     min: 0,
     max: 100,
     step: 1,
-    range: true
-  }
-  const modelData2: IState = {
-    tips: false,
-    orientation: Orientation.HORIZONTAL,
-    value: [1, 24],
-    min: 10,
-    max: 70,
-    step: 2,
-    range: false
+    range: true,
+    progressBar: true,
+    possibleValues: {}
   }
 
   const options1: IEmit = {
@@ -86,5 +79,18 @@ describe('View module', () => {
     expect(model.getState().step).toBe(0.2)
     expect(model.getState().value[1]).toBe(11.8)
     expect(model.getState().value[0]).toBe(2.8)
+  })
+
+  test('should correct calculate prossible values', () => {
+    const possibleValues = {
+      10: 0, 
+      20: 16.666666666666664, 
+      30: 33.33333333333333, 
+      40: 50, 
+      50: 66.66666666666666, 
+      60: 83.33333333333334, 
+      70: 100
+    }
+    expect(model.getPossibleValues).toEqual(possibleValues)
   })
 })

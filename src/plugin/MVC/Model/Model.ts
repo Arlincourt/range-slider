@@ -1,5 +1,5 @@
 import Orientation from '../../types/orientation';
-import { IState, IOptions, IEmit, IEmitEdge } from '../../types/interfaces';
+import { IState, IOptions, IEmit, IEmitEdge, IPossibleValues } from '../../types/interfaces';
 import copyObject from '../../helpers/copyObject';
 import getSymbols from '../../helpers/getSymbols';
 import Observer from '../../Observer/Observer';
@@ -70,6 +70,10 @@ class Model {
 
   get getProgress(): boolean {
     return this.state.progressBar;
+  }
+
+  get getPossibleValues(): IPossibleValues {
+    return this.state.possibleValues;
   }
 
   public setOnChangeMethod(callback: () => Record<string, unknown>): void {
@@ -176,6 +180,7 @@ class Model {
       this.state.possibleValues[key] = value
     }
     this.state.possibleValues[max] = 100
+    console.log(this.state.possibleValues)
   }
 
   private getNumberOfValidValues(): number {
@@ -185,18 +190,18 @@ class Model {
     if(numberOfValidValues <= 1) {
       return 0 
     } else if(numberOfValidValues >= 8) {
-      return this.divideToInteger(roundedNumber, 7)
+      return this.divideToInteger(roundedNumber)
     } else if(Number.isInteger(numberOfValidValues)) {
       return numberOfValidValues - 1
     }
     return Math.floor(numberOfValidValues)
   }
 
-  private divideToInteger(value: number, divider: number): number {
-    for(let i = divider; i > 1; i--) {
-      const isInteger = Number.isInteger(value / i)
-      if(isInteger) {
-        return i
+  private divideToInteger(value: number): number {
+    for(let i = 2; i < value; i++) {
+      const result = value / i
+      if(result < 7) {
+        return Math.floor(result)
       }
     }
     return 1
