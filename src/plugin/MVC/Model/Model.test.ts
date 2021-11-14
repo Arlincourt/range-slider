@@ -23,7 +23,7 @@ describe('View module', () => {
     clientWidth: 800,
     clientHeight: 400,
     offsetX: 763,
-    offsetY: 46,
+    offsetY: 46,  
     mouseDown: true
   }
 

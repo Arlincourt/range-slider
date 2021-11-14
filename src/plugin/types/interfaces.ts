@@ -22,15 +22,11 @@ interface IInterval {
 }
 
 interface IScale {
-  min: number;
-  max: number;
   orientation: Orientation;
   possibleValues: IPossibleValues;
 }
 
 interface IEdgeService {
-  min: number;
-  max: number;
   orientation: Orientation;
   possibleValues: {}
 }

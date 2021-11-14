@@ -180,7 +180,6 @@ class Model {
       this.state.possibleValues[key] = value
     }
     this.state.possibleValues[max] = 100
-    console.log(this.state.possibleValues)
   }
 
   private getNumberOfValidValues(): number {

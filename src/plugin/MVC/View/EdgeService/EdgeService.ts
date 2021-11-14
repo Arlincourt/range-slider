@@ -23,6 +23,22 @@ class EdgeService {
     this.edgeStates = this.setStates()
     this.edgeElements = this.setEdges()
   } 
+
+  get getState(): IEdgeService {
+    return this.edgeServiceState
+  }
+  get getElements(): Edge[] {
+    return this.edgeElements
+  }
+  get getStates(): IEdge[] {
+    return this.edgeStates
+  }
+  get getValueClass(): string[] {
+    return this.valueClassList
+  }
+  get getEdgeClass(): string[] {
+    return this.edgeClassList
+  }
   
   public update(edgeServiceState: IEdgeService): void {
     this.edgeServiceState = copyObject(edgeServiceState)

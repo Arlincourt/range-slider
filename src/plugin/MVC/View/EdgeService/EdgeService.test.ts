@@ -5,18 +5,17 @@
 import { IEdgeService } from "../../../types/interfaces";
 import EdgeService from "./EdgeService";
 import Orientation from '../../../types/orientation'
+import Classes from "../../../types/classes";
 
 describe('EdgeService module', () => {
   let edgeService: EdgeService;
   const edgeServiceData1: IEdgeService = {
-    min: 0,
-    max: 100,
     orientation: Orientation.VERTICAL,
+    possibleValues: {16: 16, 32: 32, 48: 48, 64: 64, 80: 80}
   }
   const edgeServiceData2: IEdgeService = {
-    min: 10,
-    max: 80,
     orientation: Orientation.HORIZONTAL,
+    possibleValues: {16: 16, 32: 32, 48: 48, 64: 64, 80: 80, 96: 96}
   }
 
   beforeEach(() => { 
@@ -24,21 +23,18 @@ describe('EdgeService module', () => {
   });
 
   test('should update private fields', () => {
-    const minEdge = {...edgeService.getMinEdge}
-    const maxEdge = {...edgeService.getMaxEdge}
-    const maxEdgeData = {...edgeService.getMaxEdgeData}
-    const minEdgeData = {...edgeService.getMinEdgeData}
-    const edgeServiceState = {...edgeService.getEdgeServiceState}
-
-    expect(edgeServiceState).toEqual(edgeServiceData1)
-
+    expect(edgeService.getState).not.toBe(edgeServiceData1)
+    expect(edgeService.getState).toEqual(edgeServiceData1)
+    expect(edgeService.getValueClass).toEqual([Classes.sliderValue, Classes.sliderValueVertical])
+    expect(edgeService.getEdgeClass).toEqual([Classes.sliderEdge, Classes.sliderEdgeVertical])
+    expect(edgeService.getElements.length).toBe(5)
+    
     edgeService.update(edgeServiceData2)
-
-    expect(edgeService.getEdgeServiceState).not.toEqual(edgeServiceState)
-    expect(edgeService.getEdgeServiceState).toEqual(edgeServiceData2)
-    expect(edgeService.getMinEdge).not.toEqual(minEdge)
-    expect(edgeService.getMaxEdge).not.toEqual(maxEdge)
-    expect(edgeService.getMaxEdgeData).not.toEqual(maxEdgeData)
-    expect(edgeService.getMinEdgeData).not.toEqual(minEdgeData)
+    
+    expect(edgeService.getState).not.toBe(edgeServiceData2)
+    expect(edgeService.getState).toEqual(edgeServiceData2)
+    expect(edgeService.getValueClass).toEqual([Classes.sliderValue, Classes.sliderValueHorizontal])
+    expect(edgeService.getEdgeClass).toEqual([Classes.sliderEdge, Classes.sliderEdgeHorizontal])
+    expect(edgeService.getElements.length).toBe(6)
   })
 })

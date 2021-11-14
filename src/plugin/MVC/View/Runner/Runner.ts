@@ -80,7 +80,7 @@ class Runner {
     });
   }
 
-  private setTipText(text: number | number[]): void {
+  private setTipText(text: number): void {
     this.tip.update(text);
   }
 

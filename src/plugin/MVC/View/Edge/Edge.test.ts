@@ -9,41 +9,44 @@ import Classes from '../../../types/classes'
 
 describe('Edge module', () => {
   let edge: Edge;
-  const edgeData: IEdge = {
+  const edgeData1: IEdge = {
     edge: 0,
+    offset: 13,
     orientation: Orientation.VERTICAL,
-    classList: [Classes.sliderEdge, Classes.sliderEdgeTop]
+    edgeClassList: [Classes.sliderEdge, Classes.sliderEdgeVertical],
+    valueClassList: [Classes.sliderValue, Classes.sliderValueVertical]
+  }
+  const edgeData2: IEdge = {
+    edge: 3,
+    offset: 19,
+    orientation: Orientation.HORIZONTAL,
+    edgeClassList: [Classes.sliderEdge, Classes.sliderEdgeHorizontal],
+    valueClassList: [Classes.sliderValue, Classes.sliderValueHorizontal]
   }
 
   beforeEach(() => { 
-    edge = new Edge(edgeData); 
+    edge = new Edge(edgeData1); 
   });
 
   test('should return html element with class', () => {
 
-    expect(edge.getTemplate().classList.contains(Classes.sliderEdgeTop)).toBe(true)
     expect(edge.getTemplate().classList.contains(Classes.sliderEdge)).toBe(true)
+    expect(edge.getTemplate().classList.contains(Classes.sliderEdgeVertical)).toBe(true)
+    expect(edge.getTemplate().children[0].classList.contains(Classes.sliderValue)).toBe(true)
+    expect(edge.getTemplate().children[0].classList.contains(Classes.sliderValueVertical)).toBe(true)
   })
 
   test('should set text', () => {
-    expect(edge.getTemplate().textContent).toBe('0')
+    expect(edge.getTemplate().children[0].textContent).toBe('0')
   })
 
   test('should update class and text', () => {
-    const edgeData2 = {
-      edge: 66,
-      orientation: Orientation.HORIZONTAL,
-      classList: [Classes.sliderEdge, Classes.sliderEdgeLeft]
-    }
-
-    expect(edge.getTemplate().classList.contains(Classes.sliderEdgeTop)).toBe(true)
-    expect(edge.getTemplate().classList.contains(Classes.sliderEdge)).toBe(true)
-    expect(edge.getTemplate().textContent).toBe('0')
-    
     edge.update(edgeData2)
-    
-    expect(edge.getTemplate().classList.contains(Classes.sliderEdgeLeft)).toBe(true)
+
     expect(edge.getTemplate().classList.contains(Classes.sliderEdge)).toBe(true)
-    expect(edge.getTemplate().textContent).toBe('66')
+    expect(edge.getTemplate().classList.contains(Classes.sliderEdgeHorizontal)).toBe(true)
+    expect(edge.getTemplate().classList.contains(Classes.sliderValue)).toBe(true)
+    expect(edge.getTemplate().classList.contains(Classes.sliderValueHorizontal)).toBe(true)
+    expect(edge.getTemplate().children[0].textContent).toBe('3')
   })
 })

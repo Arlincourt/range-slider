@@ -34,8 +34,6 @@ function setType(
       break;
     case InterfacesNames.IEdgeService:
       return {
-        max: parentType.max,
-        min: parentType.min,
         orientation: parentType.orientation,
         possibleValues: parentType.possibleValues
       };
@@ -51,8 +49,6 @@ function setType(
       };
       case InterfacesNames.IScale:
         return {
-          min: parentType.min,
-          max: parentType.max,
           orientation: parentType.orientation,
           possibleValues: parentType.possibleValues
         };
