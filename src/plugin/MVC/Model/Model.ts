@@ -26,7 +26,8 @@ class Model {
     orientation: Orientation.HORIZONTAL,
     step: 1,
     value: [0, 100],
-    possibleValues: {}
+    possibleValues: {},
+    progressBar: true
   };
 
   constructor(options: IOptions) {
@@ -65,6 +66,10 @@ class Model {
 
   get getRange(): boolean {
     return this.state.range;
+  }
+
+  get getProgress(): boolean {
+    return this.state.progressBar;
   }
 
   public setOnChangeMethod(callback: () => Record<string, unknown>): void {
@@ -150,6 +155,11 @@ class Model {
     this.state.value[1] = this.formatToStep(this.state.value[1]);
     this.updateValues();
     this.setPossibleValues()
+    this.emitChanges();
+  }
+
+  public setProgress(isProgress: boolean): void {
+    this.state.progressBar = isProgress;
     this.emitChanges();
   }
 

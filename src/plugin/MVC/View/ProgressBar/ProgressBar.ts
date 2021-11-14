@@ -19,7 +19,7 @@ class ProgressBar {
     this.progressBarState = copyObject(progressBarState);
     this.runnerServiceData = setType(InterfacesNames.IRunnerService, this.progressBarState);
     this.runnerService = new RunnerService(this.runnerServiceData);
-    this.addClass();
+    this.addClass(progressBarState.orientation, progressBarState.progressBar);
     this.addElems();
     this.setStyle(this.progressBarState);
   }
@@ -27,8 +27,9 @@ class ProgressBar {
   public update(progressBarState: IProgressBar): void {
     this.setStyle(progressBarState);
     this.updateRunnerService(progressBarState)
-    if (this.isOrientationChanged(progressBarState.orientation)) {
-      this.addClass(progressBarState.orientation);
+    if (this.isOrientationChanged(progressBarState.orientation) 
+      || this.isProgressChanged(progressBarState.progressBar)) {
+      this.addClass(progressBarState.orientation, progressBarState.progressBar);
     }
     if (this.isChildrenChanged(this.runnerService.getTemplate())) {
       this.removeElems();
@@ -108,28 +109,33 @@ class ProgressBar {
     this.progressBar.innerHTML = '';
   }
 
-  private addClass(orientation?: Orientation): void {
+  private addClass(orientation: Orientation, progressBar: boolean): void {
     this.progressBar.className = '';
     this.progressBar.classList.add(Classes.sliderActiveLine);
-    if (orientation) {
-      if (orientation === Orientation.VERTICAL) {
-        this.progressBar.classList.add(Classes.sliderActiveLineVertical);
-        return;
-      }
+    this.updateOrientationClass(orientation)
+    this.updateProgressClass(progressBar)
+  }
 
-      this.progressBar.classList.add(Classes.sliderActiveLineHorizontal);
+  private updateOrientationClass(orientation: Orientation): void {
+    if (orientation === Orientation.VERTICAL) {
+      this.progressBar.classList.add(Classes.sliderActiveLineVertical);
       return;
     }
+    this.progressBar.classList.add(Classes.sliderActiveLineHorizontal);
+  }
 
-    if (this.progressBarState.orientation === Orientation.VERTICAL) {
-      this.progressBar.classList.add(Classes.sliderActiveLineVertical);
-    } else {
-      this.progressBar.classList.add(Classes.sliderActiveLineHorizontal);
+  private updateProgressClass(progressBar: boolean): void {
+    if (!progressBar) {
+      this.progressBar.classList.add(Classes.sliderActiveLineTransparent);
     }
   }
 
   private isOrientationChanged(orientation: Orientation): boolean {
     return this.progressBarState.orientation !== orientation
+  }
+
+  private isProgressChanged(progressBar: boolean): boolean {
+    return this.progressBarState.progressBar !== progressBar
   }
 
   private isChildrenChanged(children: HTMLElement[]): boolean {

@@ -43,6 +43,10 @@
     border-radius: 5px;
     top: -1px;
     transform: translateY(-1px) translateX(-1px);
+    
+    &_visibility_transparent {
+      background-color: transparent;
+    }
   }
 
   &__item {

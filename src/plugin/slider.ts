@@ -42,6 +42,10 @@ class Slider {
     return this.getState().range;
   }
 
+  public getProgress(): boolean {
+    return this.getState().progressBar;
+  }
+
   public getState(): IState {
     return this.model.getState();
   }
@@ -77,6 +81,10 @@ class Slider {
 
   public setRange(range: boolean): void {
     this.model.setRange(range);
+  }
+  
+  public setProgress(progress: boolean): void {
+    this.model.setProgress(progress);
   }
 
   public setTips(tips: boolean): void {

@@ -18,6 +18,7 @@ interface IInterval {
   orientation: Orientation;
   value: number[],
   possibleValues: IPossibleValues;
+  progressBar: boolean;
 }
 
 interface IScale {
@@ -49,6 +50,7 @@ interface IProgressBar {
   range: boolean;
   orientation: Orientation;
   value: number[];
+  progressBar: boolean;
 }
 
 interface IRunnerService {
@@ -69,6 +71,7 @@ interface IOptions {
   min?: number;
   max?: number;
   tips?: boolean;
+  progressBar?: boolean;
   step?: number;
   range?: boolean;
   orientation?: Orientation;
@@ -84,6 +87,7 @@ interface IState {
   orientation: Orientation;
   value: number[],
   possibleValues: IPossibleValues;
+  progressBar: boolean;
 }
 
 interface IEmit {

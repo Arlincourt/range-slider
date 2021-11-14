@@ -21,6 +21,7 @@ enum Classes {
   sliderActiveLine = 'slider__active-line',
   sliderActiveLineHorizontal = 'slider__active-line_orientation_horizontal',
   sliderActiveLineVertical = 'slider__active-line_orientation_vertical',
+  sliderActiveLineTransparent = 'slider__active-line_visibility_transparent',
   sliderEdge = 'slider__edge',
   sliderEdgeHorizontal = 'slider__edge_position_horizontal',
   sliderEdgeVertical = 'slider__edge_position_vertical',

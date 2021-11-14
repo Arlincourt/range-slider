@@ -47,6 +47,7 @@ function setType(
         range: parentType.range,
         orientation: parentType.orientation,
         value: parentType.value,
+        progressBar: parentType.progressBar
       };
       case InterfacesNames.IScale:
         return {
