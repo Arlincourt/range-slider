@@ -3,7 +3,7 @@
 ### Установка
 
     git clone https://github.com/Arlincourt/range-slider.git
-    npm install
+    npm ci
     
 ### Команды
 
