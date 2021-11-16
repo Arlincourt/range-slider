@@ -45,8 +45,8 @@ describe('Edge module', () => {
 
     expect(edge.getTemplate().classList.contains(Classes.sliderEdge)).toBe(true)
     expect(edge.getTemplate().classList.contains(Classes.sliderEdgeHorizontal)).toBe(true)
-    expect(edge.getTemplate().classList.contains(Classes.sliderValue)).toBe(true)
-    expect(edge.getTemplate().classList.contains(Classes.sliderValueHorizontal)).toBe(true)
+    expect(edge.getTemplate().children[0].classList.contains(Classes.sliderValue)).toBe(true)
+    expect(edge.getTemplate().children[0].classList.contains(Classes.sliderValueHorizontal)).toBe(true)
     expect(edge.getTemplate().children[0].textContent).toBe('3')
   })
 })

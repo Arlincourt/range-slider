@@ -3,7 +3,7 @@ import Model from './Model'
 import Orientation from '../../types/orientation'
 
 
-describe('View module', () => {
+describe('Model module', () => {
   let model: Model;
   const modelData1: IState = {
     tips: true,
@@ -14,7 +14,7 @@ describe('View module', () => {
     step: 1,
     range: true,
     progressBar: true,
-    possibleValues: {}
+    possibleValues: {0: 0, 16: 16, 32: 32, 48: 48, 64: 64, 80: 80, 96: 96, 100: 100}
   }
 
   const options1: IEmit = {
@@ -74,22 +74,23 @@ describe('View module', () => {
     expect(model.getState().value[1]).toBe(14)
   })
 
-  test('step should be 0.2 and second value should be 11.98 and first value 2.98', () => {
+  test('step should be 0.2 and second value should be 12 and first value 3', () => {
     model.setStep(0.2)
     expect(model.getState().step).toBe(0.2)
-    expect(model.getState().value[1]).toBe(11.8)
-    expect(model.getState().value[0]).toBe(2.8)
+    expect(model.getState().value[1]).toBe(12)
+    expect(model.getState().value[0]).toBe(3)
   })
 
   test('should correct calculate prossible values', () => {
     const possibleValues = {
-      10: 0, 
-      20: 16.666666666666664, 
-      30: 33.33333333333333, 
-      40: 50, 
-      50: 66.66666666666666, 
-      60: 83.33333333333334, 
-      70: 100
+      0: 0, 
+      16: 16, 
+      32: 32, 
+      48: 48, 
+      64: 64, 
+      80: 80, 
+      96: 96,
+      100: 100
     }
     expect(model.getPossibleValues).toEqual(possibleValues)
   })

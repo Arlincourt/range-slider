@@ -16,7 +16,8 @@ describe('ProgressBar module', () => {
     min: 0,
     max: 100,
     value: [15, 70],
-    range: true 
+    range: true ,
+    progressBar: true
   }
   const progressBarData2: IProgressBar = {
     tips: false,
@@ -24,7 +25,8 @@ describe('ProgressBar module', () => {
     min: 10,
     max: 90,
     value: [25, 60],
-    range: false
+    range: false,
+    progressBar: false
   }
 
   beforeEach(() => { 
@@ -34,7 +36,7 @@ describe('ProgressBar module', () => {
   test('should return html element with class and childs', () => {
     expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLine)).toBe(true)
     expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLineVertical)).toBe(true)
-    expect(progressBar.getTemplate().children.length).toBe(2)
+    expect(progressBar.getTemplate().children.length).toBe(3)
     expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItem)).toBe(true)
     expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemVertical)).toBe(true)
     expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemTop)).toBe(true)

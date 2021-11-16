@@ -46,7 +46,7 @@ describe('RunnerService module', () => {
   })
 
   test('should return array of html elements', () => {
-    expect(runnerService.getTemplate().length).toBe(2)
+    expect(runnerService.getTemplate().length).toBe(3)
     expect(runnerService.getTemplate()[0].classList.contains(Classes.sliderItem)).toBe(true)
     expect(runnerService.getTemplate()[0].classList.contains(Classes.sliderItemTop)).toBe(true)
     expect(runnerService.getTemplate()[0].classList.contains(Classes.sliderItemHorizontal)).toBe(false)

@@ -29,8 +29,6 @@ enum Classes {
   sliderValueHorizontal = 'slider__value_position_horizontal',
   sliderValueVertical = 'slider__value_position_vertical',
   sliderScale = 'slider__scale',
-  sliderScaleVertical = 'slider__scale_orientation_vertical',
-  sliderScaleHorizontal = 'slider__scale_orientation_horizontal',
 }
 
 export default Classes;

@@ -15,7 +15,9 @@ describe('Interval module', () => {
     step: 3,
     range: true,
     orientation: Orientation.VERTICAL,
-    value: [2, 6]
+    value: [2, 6],
+    possibleValues: {},
+    progressBar: true
   }
   const intervalData2: IInterval = {
     min: 0,
@@ -24,7 +26,9 @@ describe('Interval module', () => {
     step: 1,
     range: false,
     orientation: Orientation.HORIZONTAL,
-    value: [1, 12]
+    value: [1, 12],
+    possibleValues: {},
+    progressBar: false
   }
 
   beforeEach(() => { 
@@ -32,6 +36,7 @@ describe('Interval module', () => {
   });
   test('should return html element with children and class', () => {
     expect(interval.getIntervalState).toEqual(intervalData1)
+    expect(interval.getIntervalState).not.toBe(intervalData1)
     expect(interval.getTemplate().classList.contains(Classes.sliderBody)).toBe(true)
     expect(interval.getTemplate().classList.contains(Classes.sliderBodyVertical)).toBe(true)
     expect(interval.getTemplate().children.length).toBe(2)
@@ -42,7 +47,8 @@ describe('Interval module', () => {
   test('should correct update', () => {
     interval.update(intervalData2)
     expect(interval.getIntervalState).toEqual(intervalData2)
-    expect(interval.getIntervalState).not.toBe(intervalData1)
+    expect(interval.getIntervalState).not.toBe(intervalData2)
+    expect(interval.getIntervalState).not.toEqual(intervalData1)
     expect(interval.getTemplate().classList.contains(Classes.sliderBody)).toBe(true)
     expect(interval.getTemplate().classList.contains(Classes.sliderBodyVertical)).toBe(false)
     expect(interval.getTemplate().classList.contains(Classes.sliderBodyHorizontal)).toBe(true)

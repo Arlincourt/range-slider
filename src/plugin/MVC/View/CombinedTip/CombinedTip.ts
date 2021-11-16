@@ -35,7 +35,8 @@ class CombinedTip {
   }
 
   private setText(text: number[]): void {
-    this.combinedTip.textContent = text.join(' - ')
+    const value = text[0] === text[1] ? [text[0]] : text;
+    this.combinedTip.textContent = value.join(' - ')
   }
 
   private isOrientationChanged(orientation: Orientation): boolean {
