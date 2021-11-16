@@ -135,18 +135,16 @@ class Model {
   }
 
   public setFirstValue(value: number | string): void {
-    const { step } = this.state;
     let val = Number(value);
-    this.state.value[0] = Number(val.toFixed(getSymbols(step)));
+    this.state.value[0] = this.formatToStep(val);
     this.isSame(0)
     this.updateValues();
     this.emitChanges();
   }
 
   public setSecondValue(value: number): void {
-    const { step } = this.state;
     let val = Number(value);
-    this.state.value[1] = Number(val.toFixed(getSymbols(step)));
+    this.state.value[1] = this.formatToStep(val);
     this.isSame(1)
     this.updateValues();
     this.emitChanges();
@@ -207,14 +205,18 @@ class Model {
   }
 
   private formatToStep(value: number): number {
-    const {min, step} = this.state
+    const {min, max, step} = this.state
     let result = value
     const difference = value - min
     const divideRemaining = difference % step
     const prevPossibleValue = Math.floor(difference / step)
     const nextPossibleValue = Math.ceil(difference / step)
 
-    if(divideRemaining >= 5) {
+    if(value >= max) {
+      result = max
+    } else if(value <= min) {
+      result = min
+    } else if(divideRemaining >= 5) {
       result = min + (step * nextPossibleValue)
     } else {
       result = min + (step * prevPossibleValue)
