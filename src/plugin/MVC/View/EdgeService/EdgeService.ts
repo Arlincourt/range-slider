@@ -22,6 +22,7 @@ class EdgeService {
     this.edgeClassList = this.setEdgeClassLists()
     this.edgeStates = this.setStates()
     this.edgeElements = this.setEdges()
+    this.addEvent();
   } 
 
   get getState(): IEdgeService {
@@ -54,6 +55,34 @@ class EdgeService {
     })
   }
 
+  private onWindowResize = (): void => {
+    this.isOverlap()
+  }
+
+  private isOverlap(): boolean {
+    let isOverlap = false
+    this.edgeElements.forEach((edge: Edge, idx: number) => {
+      if(this.edgeElements[idx + 1] === undefined) {
+        return
+      }
+      const currentCoor = edge.getTemplate().getBoundingClientRect()
+      const nextCoor = this.edgeElements[idx + 1].getTemplate().getBoundingClientRect()
+      const isXOverlap = (currentCoor.x + currentCoor.width + 5) >= nextCoor.x
+      const isYOverlap = (currentCoor.y + currentCoor.height + 5) >= nextCoor.y
+      if(this.edgeServiceState.orientation === Orientation.HORIZONTAL) {
+        isOverlap = isXOverlap ? true : isOverlap
+        return 
+      }
+      isOverlap = isYOverlap ? true : isOverlap
+    })
+    
+    return isOverlap
+  }
+
+  private addEvent(): void {
+    window.addEventListener('resize', this.onWindowResize)
+  }
+
   private updateEdgeElements(): void {
     if(this.edgeStates.length !== this.edgeElements.length) {
       this.edgeElements = this.setEdges()
@@ -66,7 +95,7 @@ class EdgeService {
 
   private setStates(): IEdge[] {
     const {possibleValues, orientation} = this.edgeServiceState
-    const states: IEdge[] = []
+    let states: IEdge[] = []
     Object.keys(possibleValues as IPossibleValues).forEach((key) => {
       const edgeState: IEdge = {
         offset: (possibleValues as IPossibleValues)[Number(key)],
@@ -76,6 +105,9 @@ class EdgeService {
         edgeClassList: this.edgeClassList
       }
       states.push(edgeState)
+    })
+    states.sort((a: IEdge, b: IEdge): number => {
+      return a.edge - b.edge
     })
     return states
   }

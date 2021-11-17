@@ -67,7 +67,7 @@
       width: 69px;
 
       .slider__tip {
-        margin-left: 4px;
+        margin-right: 10px;
         order: 1;
       }
 
@@ -131,9 +131,9 @@
     }
 
     &_position_vertical {
-      left: -69px;
       top: 50%;
       transform: translateY(-50%);
+      right: 20px;
     }
   }
 
@@ -143,6 +143,7 @@
 
   &__edge {
     position: absolute;
+    cursor: pointer;
 
     &_position_horizontal {
       top: 100%;
