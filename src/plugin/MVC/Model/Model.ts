@@ -166,18 +166,21 @@ class Model {
   }
 
   private setPossibleValues(): void {
-    const {min, max} = this.state 
+    const {min, max, step} = this.state 
     this.state.possibleValues = {}
     const numberOfValidValues = this.getNumberOfValidValues()
     const all = this.getAll()
     this.state.possibleValues[min] = 0
+    this.state.possibleValues[max] = 100
     for(let i = 1; i <= numberOfValidValues; i++) {
       let key = min + (Math.floor(all / numberOfValidValues) * i)
+      if(key + step > max) {
+        continue
+      }
       key = this.formatToStep(key)
       const value = this.getValueInPercent(key)
       this.state.possibleValues[key] = value
     }
-    this.state.possibleValues[max] = 100
   }
 
   private getNumberOfValidValues(): number {

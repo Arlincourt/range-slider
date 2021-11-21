@@ -4,25 +4,39 @@ import { IEdge, IEdgeService, IPossibleValues } from '../../../types/interfaces'
 import copyObject from '../../../helpers/copyObject';
 import Edge from '../Edge/Edge';
 
+interface IAllEdges {
+  [key: number]: Edge[]
+}
+
 class EdgeService {
   
   private edgeServiceState: IEdgeService;
 
-  private edgeElements: Edge[];
+  private edgeElements: Edge[] = [];
 
-  private edgeStates: IEdge[];
+  private edgeStates: IEdge[] = [];
+
+  private prevEdgeStates: IEdge[] = [];
+  
+  private allEdges: IAllEdges = {};
 
   private valueClassList: string[];
 
   private edgeClassList: string[];
 
-  constructor(edgeServiceState: IEdgeService) {
+  private readonly scale: HTMLElement;
+
+  private prevCoor: number;
+
+  constructor(edgeServiceState: IEdgeService, scale: HTMLElement) {
+    this.scale = scale
+    this.prevCoor = scale.getBoundingClientRect().width
     this.edgeServiceState = copyObject(edgeServiceState)
     this.valueClassList = this.setValueClassLists()
     this.edgeClassList = this.setEdgeClassLists()
     this.edgeStates = this.setStates()
+    this.updatePrevStates()
     this.edgeElements = this.setEdges()
-    this.addEvent();
   } 
 
   get getState(): IEdgeService {
@@ -45,8 +59,8 @@ class EdgeService {
     this.edgeServiceState = copyObject(edgeServiceState)
     this.edgeClassList = this.setEdgeClassLists()
     this.valueClassList = this.setValueClassLists()
+    this.updatePrevStates()
     this.edgeStates = this.setStates()
-    this.updateEdgeElements()
   }
 
   public getTemplate(): HTMLElement[] {
@@ -55,42 +69,69 @@ class EdgeService {
     })
   }
 
-  private onWindowResize = (): void => {
-    this.isOverlap()
+  public updateEdgeElements(): void {
+    const {width} = this.scale.getBoundingClientRect()
+    this.updateEdges()
+    this.checkToOverlap()
+    
+    if(width > this.prevCoor) {
+      this.checkEdges()
+    }
+    this.prevCoor = width
+  }
+
+  public checkToOverlap(): void {
+    if(this.isOverlap()) {
+      this.edgeElements = this.cutEdges()
+    }
+  }
+
+  private updateEdges(): void {
+    if(JSON.stringify(this.prevEdgeStates) !== JSON.stringify(this.edgeStates)) {
+      this.updatePrevStates()
+      this.edgeElements = this.setEdges()
+      this.allEdges = {}
+    }
   }
 
   private isOverlap(): boolean {
     let isOverlap = false
     this.edgeElements.forEach((edge: Edge, idx: number) => {
+      
       if(this.edgeElements[idx + 1] === undefined) {
-        return
+        return false 
       }
       const currentCoor = edge.getTemplate().getBoundingClientRect()
       const nextCoor = this.edgeElements[idx + 1].getTemplate().getBoundingClientRect()
       const isXOverlap = (currentCoor.x + currentCoor.width + 5) >= nextCoor.x
       const isYOverlap = (currentCoor.y + currentCoor.height + 5) >= nextCoor.y
       if(this.edgeServiceState.orientation === Orientation.HORIZONTAL) {
-        isOverlap = isXOverlap ? true : isOverlap
-        return 
+        isOverlap = isXOverlap ? true : isOverlap 
+      } else {
+        isOverlap = isYOverlap ? true : isOverlap
       }
-      isOverlap = isYOverlap ? true : isOverlap
     })
-    
     return isOverlap
   }
 
-  private addEvent(): void {
-    window.addEventListener('resize', this.onWindowResize)
+  private checkEdges(): void {
+    const {width} = this.scale.getBoundingClientRect()
+    let isFind = false 
+    Object.keys(this.allEdges).sort((a: string, b: string) => {
+      return Number(a) + Number(b)
+    }).forEach((key: string) => {
+      if(isFind) {
+        return
+      }
+      if(width > Number(key)) {
+        this.edgeElements = this.allEdges[Number(key)]
+        isFind = true
+      }
+    })
   }
 
-  private updateEdgeElements(): void {
-    if(this.edgeStates.length !== this.edgeElements.length) {
-      this.edgeElements = this.setEdges()
-      return 
-    }
-    this.edgeStates.forEach((state, idx) => {
-      this.edgeElements[idx].update(state)
-    })
+  private updatePrevStates(): void {
+    this.prevEdgeStates = copyObject(this.edgeStates);
   }
 
   private setStates(): IEdge[] {
@@ -111,6 +152,12 @@ class EdgeService {
     })
     return states
   }
+  
+  private setEdges(): Edge[] {
+    return this.edgeStates.map((state) => {
+      return new Edge(state)
+    })
+  }
 
   private setValueClassLists(): string[] {
     this.valueClassList = []
@@ -128,10 +175,19 @@ class EdgeService {
     return [Classes.sliderEdge, Classes.sliderEdgeVertical]
   }
 
-  private setEdges(): Edge[] {
-    return this.edgeStates.map((state) => {
-      return new Edge(state)
+  private cutEdges(): Edge[] {
+    const result: Edge[] = []
+    const {width} = this.scale.getBoundingClientRect()
+    this.edgeElements.forEach((edge: Edge, idx: number) => {
+      if(idx % 2 === 1 && idx !== this.edgeElements.length - 1) {
+        return 
+      }
+      result.push(edge)
     })
+    if(this.allEdges[width] === undefined && result.length > 2) {
+      this.allEdges[width] = [...this.edgeElements]
+    }
+    return result
   }
 
   private isHorizontal(): boolean {

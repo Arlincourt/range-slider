@@ -17,18 +17,27 @@ class Scale {
   constructor(scaleState: IScale) {
     this.scaleState = copyObject(scaleState);
     this.edgeServiceData = setType(InterfacesNames.IEdgeService, this.scaleState);
-    this.edgeService = new EdgeService(this.edgeServiceData);
+    this.edgeService = new EdgeService(this.edgeServiceData, this.scale);
     this.addClass();
     this.addElems();
+    this.addEvent();
   }
 
   public update(scaleState: IScale): void {
     this.scaleState = copyObject(scaleState);
     this.edgeServiceData = setType(InterfacesNames.IEdgeService, this.scaleState);
     this.edgeService.update(this.edgeServiceData);
-    if(this.isChanged()) {
-      this.addElems()
-    }
+    this.edgeService.updateEdgeElements()
+    this.addElems()
+  }
+
+  private onWindowResize = (): void => {
+    this.edgeService.updateEdgeElements()
+    this.addElems()
+  }
+
+  private addEvent(): void {
+    window.addEventListener('resize', this.onWindowResize)
   }
 
   public getTemplate(): HTMLElement {
@@ -40,10 +49,12 @@ class Scale {
   }
 
   private addElems(): void {
-    this.scale.innerHTML = ''
-    this.edgeService.getTemplate().forEach((edge) => {
-      this.scale.append(edge);
-    });
+    if(this.isChanged()) {
+      this.scale.innerHTML = ''
+      this.edgeService.getTemplate().forEach((edge) => {
+        this.scale.append(edge);
+      });
+    }
   }
 
   private isChanged(): boolean {
