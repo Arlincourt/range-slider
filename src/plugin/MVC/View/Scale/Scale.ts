@@ -27,13 +27,14 @@ class Scale {
     this.scaleState = copyObject(scaleState);
     this.edgeServiceData = setType(InterfacesNames.IEdgeService, this.scaleState);
     this.edgeService.update(this.edgeServiceData);
-    this.edgeService.updateEdgeElements()
     this.addElems()
   }
 
   private onWindowResize = (): void => {
     this.edgeService.updateEdgeElements()
-    this.addElems()
+    if(this.isChanged()) {
+      this.addElems()
+    }
   }
 
   private addEvent(): void {
@@ -49,12 +50,11 @@ class Scale {
   }
 
   private addElems(): void {
-    if(this.isChanged()) {
+      console.log('add elems')
       this.scale.innerHTML = ''
       this.edgeService.getTemplate().forEach((edge) => {
         this.scale.append(edge);
       });
-    }
   }
 
   private isChanged(): boolean {

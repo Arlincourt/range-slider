@@ -61,6 +61,7 @@ class EdgeService {
     this.valueClassList = this.setValueClassLists()
     this.updatePrevStates()
     this.edgeStates = this.setStates()
+    this.updateEdgeElements()
   }
 
   public getTemplate(): HTMLElement[] {
@@ -105,6 +106,9 @@ class EdgeService {
       const nextCoor = this.edgeElements[idx + 1].getTemplate().getBoundingClientRect()
       const isXOverlap = (currentCoor.x + currentCoor.width + 5) >= nextCoor.x
       const isYOverlap = (currentCoor.y + currentCoor.height + 5) >= nextCoor.y
+      if(currentCoor.width === 0) {
+        return false
+      }
       if(this.edgeServiceState.orientation === Orientation.HORIZONTAL) {
         isOverlap = isXOverlap ? true : isOverlap 
       } else {
@@ -177,12 +181,15 @@ class EdgeService {
 
   private cutEdges(): Edge[] {
     const result: Edge[] = []
-    const {width} = this.scale.getBoundingClientRect()
     this.edgeElements.forEach((edge: Edge, idx: number) => {
       if(idx % 2 === 1 && idx !== this.edgeElements.length - 1) {
         return 
       }
       result.push(edge)
+    })
+    let width = 0 
+    this.edgeElements.forEach((edge: Edge) => {
+      width += edge.getTemplate().getBoundingClientRect().width
     })
     if(this.allEdges[width] === undefined && result.length > 2) {
       this.allEdges[width] = [...this.edgeElements]

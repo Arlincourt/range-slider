@@ -174,11 +174,11 @@ class Model {
     this.state.possibleValues[max] = 100
     for(let i = 1; i <= numberOfValidValues; i++) {
       let key = min + (Math.floor(all / numberOfValidValues) * i)
-      if(key + step > max) {
-        continue
-      }
       key = this.formatToStep(key)
       const value = this.getValueInPercent(key)
+      if(value + 10 > 100) {
+        continue
+      }
       this.state.possibleValues[key] = value
     }
   }
