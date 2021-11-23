@@ -27,7 +27,8 @@ class Model {
     step: 1,
     value: [0, 100],
     possibleValues: {},
-    progressBar: true
+    progressBar: true,
+    scale: true
   };
 
   constructor(options: IOptions) {
@@ -122,6 +123,11 @@ class Model {
 
   public setTips(isTips: boolean): void {
     this.state.tips = isTips;
+    this.emitChanges();
+  }
+
+  public setScale(isScale: boolean): void {
+    this.state.scale = isScale;
     this.emitChanges();
   }
 

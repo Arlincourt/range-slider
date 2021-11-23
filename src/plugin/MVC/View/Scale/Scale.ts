@@ -21,6 +21,8 @@ class Scale {
     this.addClass();
     this.addElems();
     this.addEvent();
+    this.onWindowResize()
+    this.onWindowResize()
   }
 
   public update(scaleState: IScale): void {
@@ -50,7 +52,6 @@ class Scale {
   }
 
   private addElems(): void {
-      console.log('add elems')
       this.scale.innerHTML = ''
       this.edgeService.getTemplate().forEach((edge) => {
         this.scale.append(edge);

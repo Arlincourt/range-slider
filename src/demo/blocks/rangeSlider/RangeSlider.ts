@@ -16,6 +16,8 @@ class RangeSlider {
 
   private $progressInput: JQuery<HTMLElement> | undefined
 
+  private $scaleInput: JQuery<HTMLElement> | undefined
+
   private $tipsInput: JQuery<HTMLElement> | undefined
 
   private $rangeInput: JQuery<HTMLElement> | undefined
@@ -39,6 +41,7 @@ class RangeSlider {
     this.$secondValueInput = this.$rootElement.find('.js-range-slider__second-value');
     this.$orientationInput = this.$rootElement.find('.js-range-slider__orientation');
     this.$progressInput = this.$rootElement.find('.js-range-slider__progress-bar');
+    this.$scaleInput = this.$rootElement.find('.js-range-slider__scale');
     this.$tipsInput = this.$rootElement.find('.js-range-slider__tips');
     this.$rangeInput = this.$rootElement.find('.js-range-slider__range');
   }
@@ -53,6 +56,7 @@ class RangeSlider {
     this.$rangeInput?.on('change', this.handleRangeInputChange);
     this.$orientationInput?.on('change', this.handleOrientationInputChange);
     this.$progressInput?.on('change', this.handleProgressInputChange);
+    this.$scaleInput?.on('change', this.handlescaleInputChange);
     this.$slider.slider('onChange', this.onModelChange.bind(this));
   }
 
@@ -65,6 +69,7 @@ class RangeSlider {
     this.$rangeInput?.prop('checked', state.range);
     this.$tipsInput?.prop('checked', state.tips);
     this.$progressInput?.prop('checked', state.progressBar);
+    this.$scaleInput?.prop('checked', state.scale);
     const orientation = state.orientation === Orientation.VERTICAL;
     this.$orientationInput?.prop('checked', orientation);
   }
@@ -107,6 +112,11 @@ class RangeSlider {
   private handleProgressInputChange = (): void => {
     const value = this.$progressInput?.is(':checked');
     this.$slider.slider('setProgress', value);
+  }
+
+  private handlescaleInputChange = (): void => {
+    const value = this.$scaleInput?.is(':checked');
+    this.$slider.slider('setScale', value);
   }
 
   private handleRangeInputChange = (): void => {

@@ -75,6 +75,10 @@ class Slider {
     this.model.setStep(value);
   }
 
+  public setScale(scale: boolean): void {
+    this.model.setScale(scale);
+  }
+
   public setOrientation(orientation: string): void {
     this.model.setOrientation(orientation);
   }

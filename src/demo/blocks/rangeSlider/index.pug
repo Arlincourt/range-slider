@@ -1,5 +1,5 @@
 
-mixin range-slider({ min=0, max=100, step=1, range="true", orientation="HORIZONTAL", tips="true", progress="true", values=[0,100]})
+mixin range-slider({ min=0, max=100, step=1, range="true", orientation="HORIZONTAL", tips="true", progress="true", scale="true", values=[0,100]})
   .range-slider.js-range-slider
     .range-slider__panel
       p.range-slider__control
@@ -29,6 +29,9 @@ mixin range-slider({ min=0, max=100, step=1, range="true", orientation="HORIZONT
       p.range-slider__control
         label.range-slider__label Прогресс бар
           input.range-slider__input.js-range-slider__progress-bar(type="checkbox")
+      p.range-slider__control
+        label.range-slider__label Шкала
+          input.range-slider__input.js-range-slider__scale(type="checkbox")
     .range-slider__slider-container.js-range-slider__slider-container(
 			data-min= min
 			data-max= max
@@ -38,4 +41,5 @@ mixin range-slider({ min=0, max=100, step=1, range="true", orientation="HORIZONT
 			data-values= values
 			data-range= range
 			data-progress= progress
+			data-scale= scale
 		)

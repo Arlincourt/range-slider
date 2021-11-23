@@ -19,6 +19,7 @@ interface IInterval {
   value: number[],
   possibleValues: IPossibleValues;
   progressBar: boolean;
+  scale: boolean;
 }
 
 interface IScale {
@@ -84,6 +85,7 @@ interface IState {
   value: number[],
   possibleValues: IPossibleValues;
   progressBar: boolean;
+  scale: boolean;
 }
 
 interface IEmit {
