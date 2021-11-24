@@ -1,7 +1,25 @@
 import { IState } from '../../../plugin/types/interfaces';
 import Orientation from '../../../plugin/types/orientation';
 
+interface IInputs {
+  [key: string]: string;
+}
+
 class RangeSlider {
+
+  private inputs: IInputs = {
+    'js-range-slider__min': 'setMin',
+    'js-range-slider__max': 'setMax',
+    'js-range-slider__step': 'setStep',
+    'js-range-slider__first-value': 'setFirstValue',
+    'js-range-slider__second-value': 'setSecondValue',
+    'js-range-slider__tips': 'setTips',
+    'js-range-slider__scale': 'setScale',
+    'js-range-slider__range': 'setRange',
+    'js-range-slider__progress-bar': 'setProgress',
+    'js-range-slider__orientation': 'setOrientation'
+  }
+
   private $minInput: JQuery<HTMLElement> | undefined
 
   private $maxInput: JQuery<HTMLElement> | undefined
@@ -47,16 +65,7 @@ class RangeSlider {
   }
 
   private addEvents(): void {
-    this.$minInput?.on('change', this.handleMinInputChange);
-    this.$maxInput?.on('change', this.handleMaxInputChange);
-    this.$stepInput?.on('change', this.handleStepInputChange);
-    this.$firstValueInput?.on('change', this.handleFirstValueInputChange);
-    this.$secondValueInput?.on('change', this.handleSecondValueInputChange);
-    this.$tipsInput?.on('change', this.handleTipsInputChange);
-    this.$rangeInput?.on('change', this.handleRangeInputChange);
-    this.$orientationInput?.on('change', this.handleOrientationInputChange);
-    this.$progressInput?.on('change', this.handleProgressInputChange);
-    this.$scaleInput?.on('change', this.handlescaleInputChange);
+    this.$rootElement.on('input', this.onSliderInput)
     this.$slider.slider('onChange', this.onModelChange.bind(this));
   }
 
@@ -74,64 +83,24 @@ class RangeSlider {
     this.$orientationInput?.prop('checked', orientation);
   }
 
-  private handleMinInputChange = (): void => {
-    const value = Number(this.$minInput?.val());
-    this.$slider.slider('setMin', value);
-    this.$minInput?.val(String(this.$slider.slider('getMin')));
-  }
+  private onSliderInput = (evt: Event): void => {
+    const target = evt.target as HTMLInputElement
+    let value: boolean | number | string  = 0
+    const className: string = (target.classList as DOMTokenList)[1]
 
-  private handleMaxInputChange = (): void => {
-    const value = Number(this.$maxInput?.val());
-    this.$slider.slider('setMax', value);
-    this.$maxInput?.val(String(this.$slider.slider('getMax')));
-  }
-
-  private handleStepInputChange = (): void => {
-    const value = Number(this.$stepInput?.val());
-    this.$slider.slider('setStep', value);
-    this.$stepInput?.val(String(this.$slider.slider('getStep')));
-  }
-
-  private handleFirstValueInputChange = (): void => {
-    const value = Number(this.$firstValueInput?.val());
-    this.$slider.slider('setFirstValue', value);
-    this.$firstValueInput?.val(String(this.$slider.slider('getFirstValue')));
-  }
-
-  private handleSecondValueInputChange = (): void => {
-    const value = Number(this.$secondValueInput?.val());
-    this.$slider.slider('setSecondValue', value);
-    this.$secondValueInput?.val(String(this.$slider.slider('getSecondValue')));
-  }
-
-  private handleTipsInputChange = (): void => {
-    const value = this.$tipsInput?.is(':checked');
-    this.$slider.slider('setTips', value);
-  }
-
-  private handleProgressInputChange = (): void => {
-    const value = this.$progressInput?.is(':checked');
-    this.$slider.slider('setProgress', value);
-  }
-
-  private handlescaleInputChange = (): void => {
-    const value = this.$scaleInput?.is(':checked');
-    this.$slider.slider('setScale', value);
-  }
-
-  private handleRangeInputChange = (): void => {
-    const value = this.$rangeInput?.is(':checked');
-    this.$slider.slider('setRange', value);
-  }
-
-  private handleOrientationInputChange = (): void => {
-    let value: boolean | string | undefined = this.$orientationInput?.is(':checked');
-    if (value) {
-      value = Orientation.VERTICAL;
+    if(className === 'js-range-slider__orientation') {
+      value = target.checked
+      if (value) {
+        value = Orientation.VERTICAL;
+      } else {
+        value = Orientation.HORIZONTAL;
+      }
+    } else if(target.type === 'checkbox') {
+      value = target.checked;
     } else {
-      value = Orientation.HORIZONTAL;
+      value = Number(target.value)
     }
-    this.$slider.slider('setOrientation', value);
+    this.$slider.slider(this.inputs[className], value);
   }
 }
 

@@ -24,7 +24,7 @@ class Interval {
 
   constructor(intervalState: IInterval) {
     this.intervalState = copyObject(intervalState);
-    this.progressBarData = { ...setType(InterfacesNames.IProgressBar, this.intervalState) };
+    this.progressBarData = setType(InterfacesNames.IProgressBar, this.intervalState);
     this.scaleData = setType(InterfacesNames.IScale, this.intervalState);
     this.progressBar = new ProgressBar(this.progressBarData);
     this.scale = new Scale(this.scaleData);
@@ -63,24 +63,13 @@ class Interval {
     }
   }
 
-  private addClass(orientation?: Orientation): void {
+  private addClass(orientation: Orientation = this.intervalState.orientation): void {
     this.interval.className = '';
     this.sliderBody.className = '';
     this.sliderBody.classList.add(Classes.sliderBody);
     this.interval.classList.add(Classes.sliderLine);
 
-    if (orientation) {
-      if (orientation === Orientation.VERTICAL) {
-        this.sliderBody.classList.add(Classes.sliderBodyVertical);
-        this.interval.classList.add(Classes.sliderLineVertical);
-        return;
-      }
-      this.sliderBody.classList.add(Classes.sliderBodyHorizontal);
-      this.interval.classList.add(Classes.sliderLineHorizontal);
-      return;
-    }
-
-    if (this.intervalState.orientation === Orientation.VERTICAL) {
+    if (orientation === Orientation.VERTICAL) {
       this.sliderBody.classList.add(Classes.sliderBodyVertical);
       this.interval.classList.add(Classes.sliderLineVertical);
       return;
