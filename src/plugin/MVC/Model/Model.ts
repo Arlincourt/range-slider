@@ -133,9 +133,7 @@ class Model {
 
   public setRange(isRange: boolean): void {
     this.state.range = isRange;
-    if (!this.state.range) {
-      this.state.value[0] = this.state.min;
-    }
+    this.isSame(0)
     this.updateValues();
     this.emitChanges();
   }
@@ -287,9 +285,7 @@ class Model {
   }
 
   private setTwoPosition(data: ISetTwoPosition): void {
-    const {
-      min, max, step, value,
-    } = this.state;
+    const {value} = this.state;
     let {
       percentValue, emitData, valueInNumber, integerValue
     } = data
