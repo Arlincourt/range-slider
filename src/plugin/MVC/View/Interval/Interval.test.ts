@@ -17,7 +17,8 @@ describe('Interval module', () => {
     orientation: Orientation.VERTICAL,
     value: [2, 6],
     possibleValues: {},
-    progressBar: true
+    progressBar: true,
+    scale: true
   }
   const intervalData2: IInterval = {
     min: 0,
@@ -28,7 +29,8 @@ describe('Interval module', () => {
     orientation: Orientation.HORIZONTAL,
     value: [1, 12],
     possibleValues: {},
-    progressBar: false
+    progressBar: false,
+    scale: false
   }
 
   beforeEach(() => { 
@@ -52,7 +54,7 @@ describe('Interval module', () => {
     expect(interval.getTemplate().classList.contains(Classes.sliderBody)).toBe(true)
     expect(interval.getTemplate().classList.contains(Classes.sliderBodyVertical)).toBe(false)
     expect(interval.getTemplate().classList.contains(Classes.sliderBodyHorizontal)).toBe(true)
-    expect(interval.getTemplate().children.length).toBe(2)
+    expect(interval.getTemplate().children.length).toBe(1)
     expect(interval.getTemplate().children[0].classList.contains(Classes.sliderLine)).toBe(true)
     expect(interval.getTemplate().children[0].classList.contains(Classes.sliderLineVertical)).toBe(false)
     expect(interval.getTemplate().children[0].classList.contains(Classes.sliderLineHorizontal)).toBe(true)

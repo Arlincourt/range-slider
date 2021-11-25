@@ -19,7 +19,8 @@ describe('View module', () => {
     step: 1,
     range: true,
     possibleValues: {},
-    progressBar: true
+    progressBar: true,
+    scale: true
   }
   const viewData2: IState = {
     tips: false,
@@ -30,7 +31,8 @@ describe('View module', () => {
     step: 2,
     range: false,
     possibleValues: {},
-    progressBar: false
+    progressBar: false,
+    scale: false
   }
 
   beforeEach(() => { 

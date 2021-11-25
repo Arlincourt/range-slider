@@ -13,13 +13,14 @@ describe('EdgeService module', () => {
     orientation: Orientation.VERTICAL,
     possibleValues: {16: 16, 32: 32, 48: 48, 64: 64, 80: 80}
   }
+  const scale: HTMLElement = document.createElement('div')
   const edgeServiceData2: IEdgeService = {
     orientation: Orientation.HORIZONTAL,
     possibleValues: {16: 16, 32: 32, 48: 48, 64: 64, 80: 80, 96: 96}
   }
 
   beforeEach(() => { 
-    edgeService = new EdgeService(edgeServiceData1); 
+    edgeService = new EdgeService(edgeServiceData1, scale); 
   });
 
   test('should update private fields', () => {

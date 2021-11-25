@@ -14,7 +14,8 @@ describe('Model module', () => {
     step: 1,
     range: true,
     progressBar: true,
-    possibleValues: {0: 0, 16: 16, 32: 32, 48: 48, 64: 64, 80: 80, 96: 96, 100: 100}
+    scale: true,
+    possibleValues: {0: 0, 16: 16, 32: 32, 48: 48, 64: 64, 80: 80, 100: 100}
   }
 
   const options1: IEmit = {
@@ -58,10 +59,10 @@ describe('Model module', () => {
     expect(model.getState().tips).toBe(false)
   })
 
-  test('range should be false and first value should be 0', () => {
+  test('range should be false and first value should be 3', () => {
     model.setRange(false)
     expect(model.getState().range).toBe(false)
-    expect(model.getState().value[0]).toBe(0)
+    expect(model.getState().value[0]).toBe(3)
   })
 
   test('first value should be 11', () => {
@@ -89,7 +90,6 @@ describe('Model module', () => {
       48: 48, 
       64: 64, 
       80: 80, 
-      96: 96,
       100: 100
     }
     expect(model.getPossibleValues).toEqual(possibleValues)
