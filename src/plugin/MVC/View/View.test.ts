@@ -53,15 +53,18 @@ describe('View module', () => {
     expect(view.getState).toEqual(viewData2)
   })
 
-  test('should call onSliderMouseDown and onSliderMouseMove methods', () => {
+  test('should call onSliderMouseDown, onSliderMouseMove and onSliderMouseUp methods', () => {
     const view = new View(rootElement, viewData1)
     const onMouseDown = jest.spyOn(view as any, 'onSliderMouseDown')
     const onMouseMove = jest.spyOn(view as any, 'onSliderMouseMove')
-    const mouseEvent = new MouseEvent('mousedown');
+    const onMouseUp = jest.spyOn(view as any, 'onSliderMouseUp')
+    const mouseDownEvent = new MouseEvent('mousedown');
     const mouseMoveEvent = new MouseEvent('mousemove');
-    view['onSliderMouseDown'](mouseEvent)
+    view['onSliderMouseDown'](mouseDownEvent)
     view['onSliderMouseMove'](mouseMoveEvent)
+    view['onSliderMouseUp']()
     expect(onMouseDown.mock.calls.length).toBe(1)
     expect(onMouseMove.mock.calls.length).toBe(1)
+    expect(onMouseUp.mock.calls.length).toBe(1)
   })
 })
