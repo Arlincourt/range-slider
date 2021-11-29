@@ -37,6 +37,15 @@ describe('Model module', () => {
     expect(model.getState()).toEqual(modelData1)
   })
 
+  test('init model: getState should not to be modelData1 but should to be equal', () => {
+    const callback = jest.fn()
+    model.setOnChangeMethod(callback)
+    model.update(options1)
+    expect(callback).toHaveBeenCalled()
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(callback).not.toHaveBeenCalledTimes(2)
+  })
+
   test('orientation should be horizontal', () => {
     model.setOrientation('HORIZONTAL')
     expect(model.getState().orientation).toBe(Orientation.HORIZONTAL)

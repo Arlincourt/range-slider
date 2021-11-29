@@ -22,7 +22,7 @@ class View {
     this.init();
   }
 
-  public init(): void {
+  private init(): void {
     this.addClass();
     this.addEvents();
     this.addElems();
