@@ -46,10 +46,22 @@ describe('View module', () => {
     expect(view.getTemplate.children[0].classList.contains(Classes.sliderBodyVertical)).toBe(true)
   })
 
-  test('chould correct update state', () => {
+  test('should correct update state', () => {
     expect(view.getState).toEqual(viewData1)
     view.update(viewData2)
     expect(view.getState).not.toEqual(viewData1)
     expect(view.getState).toEqual(viewData2)
+  })
+
+  test('should call onSliderMouseDown and onSliderMouseMove methods', () => {
+    const view = new View(rootElement, viewData1)
+    const onMouseDown = jest.spyOn(view as any, 'onSliderMouseDown')
+    const onMouseMove = jest.spyOn(view as any, 'onSliderMouseMove')
+    const mouseEvent = new MouseEvent('mousedown');
+    const mouseMoveEvent = new MouseEvent('mousemove');
+    view['onSliderMouseDown'](mouseEvent)
+    view['onSliderMouseMove'](mouseMoveEvent)
+    expect(onMouseDown.mock.calls.length).toBe(1)
+    expect(onMouseMove.mock.calls.length).toBe(1)
   })
 })

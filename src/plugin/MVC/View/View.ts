@@ -98,6 +98,9 @@ class View {
   }
 
   private isElem(element: HTMLElement): boolean {
+    if(element === null) {
+      return false
+    }
     if (this.isValue(element)) {
       return true;
     }
