@@ -5,6 +5,7 @@
   &__body {
     display: flex;
     height: 100%;
+
     &_orientation_horizontal {
       flex-direction: column;
     }
@@ -22,7 +23,7 @@
     border-radius: 5px;
     position: relative;
     cursor: pointer;
-    
+
     &_orientation_horizontal {
       height: 6px;
       width: 100%;
@@ -43,16 +44,36 @@
     border-radius: 5px;
     top: -1px;
     transform: translateY(-1px) translateX(-1px);
-    
+
     &_visibility_transparent {
       background-color: transparent;
     }
   }
 
+  &__btn {
+    user-select: none;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: #222;
+    border: 2px solid #fff;
+    order: 1;
+  }
+
+  &__tip {
+    padding: 4px;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+    margin-bottom: 5px;
+    text-align: center;
+    box-sizing: border-box;
+    order: 0;
+  }
+
   &__item {
     display: flex;
     position: absolute;
-    
+
     &_orientation_horizontal {
       flex-direction: column;
       align-items: center;
@@ -60,6 +81,7 @@
       justify-content: flex-end;
       width: 45px;
     }
+
     &_orientation_vertical {
       flex-direction: row-reverse;
       align-items: center;
@@ -75,45 +97,28 @@
         order: 0;
       }
     }
-    
+
     &_side_left {
       top: -38px;
       left: -22.5px;
     }
+
     &_side_right {
       top: -38px;
       right: -22.5px;
     }
+
     &_side_top {
       top: 0%;
       right: -6px;
       transform: translateY(-50%);
     }
+
     &_side_bottom {
       top: 100%;
       right: -6px;
       transform: translateY(-50%);
     }
-  }
-
-  &__btn {
-    user-select: none;
-    padding: 8px;
-    border-radius: 50%;
-    background-color: #222;
-    border: 2px solid #fff;
-    order: 1;
-  }
-  
-  &__tip {
-    padding: 4px;
-    border-radius: 4px;
-    background-color: #333;
-    color: #fff;
-    margin-bottom: 5px;
-    text-align: center;
-    box-sizing: border-box;
-    order: 0;
   }
 
   &__combined-tip {
@@ -149,6 +154,7 @@
       top: 100%;
       transform: translateX(-50%) translateY(5px);
     }
+
     &_position_vertical {
       transform: translateX(32px) translateY(-8px);
     }
@@ -184,5 +190,5 @@
         top: 50%;
       }
     }
-  } 
+  }
 }
