@@ -26,8 +26,8 @@ class ProgressBar {
 
   public update(progressBarState: IProgressBar): void {
     this.setStyle(progressBarState);
-    this.updateRunnerService(progressBarState)
-    if (this.isOrientationChanged(progressBarState.orientation) 
+    this.updateRunnerService(progressBarState);
+    if (this.isOrientationChanged(progressBarState.orientation)
       || this.isProgressChanged(progressBarState.progressBar)) {
       this.addClass(progressBarState.orientation, progressBarState.progressBar);
     }
@@ -112,8 +112,8 @@ class ProgressBar {
   private addClass(orientation: Orientation, progressBar: boolean): void {
     this.progressBar.className = '';
     this.progressBar.classList.add(Classes.sliderActiveLine);
-    this.updateOrientationClass(orientation)
-    this.updateProgressClass(progressBar)
+    this.updateOrientationClass(orientation);
+    this.updateProgressClass(progressBar);
   }
 
   private updateOrientationClass(orientation: Orientation): void {
@@ -131,15 +131,15 @@ class ProgressBar {
   }
 
   private isOrientationChanged(orientation: Orientation): boolean {
-    return this.progressBarState.orientation !== orientation
+    return this.progressBarState.orientation !== orientation;
   }
 
   private isProgressChanged(progressBar: boolean): boolean {
-    return this.progressBarState.progressBar !== progressBar
+    return this.progressBarState.progressBar !== progressBar;
   }
 
   private isChildrenChanged(children: HTMLElement[]): boolean {
-    return this.progressBar.childElementCount !== children.length
+    return this.progressBar.childElementCount !== children.length;
   }
 }
 

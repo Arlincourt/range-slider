@@ -86,7 +86,7 @@ class Slider {
   public setRange(range: boolean): void {
     this.model.setRange(range);
   }
-  
+
   public setProgress(progress: boolean): void {
     this.model.setProgress(progress);
   }

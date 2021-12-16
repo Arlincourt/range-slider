@@ -6,7 +6,6 @@ interface IInputs {
 }
 
 class RangeSlider {
-
   private inputs: IInputs = {
     'js-range-slider__min': 'setMin',
     'js-range-slider__max': 'setMax',
@@ -17,7 +16,7 @@ class RangeSlider {
     'js-range-slider__scale': 'setScale',
     'js-range-slider__range': 'setRange',
     'js-range-slider__progress-bar': 'setProgress',
-    'js-range-slider__orientation': 'setOrientation'
+    'js-range-slider__orientation': 'setOrientation',
   }
 
   private $minInput: JQuery<HTMLElement> | undefined
@@ -65,7 +64,7 @@ class RangeSlider {
   }
 
   private addEvents(): void {
-    this.$rootElement.on('input', this.onSliderInput)
+    this.$rootElement.on('input', this.onSliderInput);
     this.$slider.slider('onChange', this.onModelChange.bind(this));
   }
 
@@ -84,21 +83,21 @@ class RangeSlider {
   }
 
   private onSliderInput = (evt: Event): void => {
-    const target = evt.target as HTMLInputElement
-    let value: boolean | number | string  = 0
-    const className: string = (target.classList as DOMTokenList)[1]
+    const target = evt.target as HTMLInputElement;
+    let value: boolean | number | string = 0;
+    const className: string = (target.classList as DOMTokenList)[1];
 
-    if(className === 'js-range-slider__orientation') {
-      value = target.checked
+    if (className === 'js-range-slider__orientation') {
+      value = target.checked;
       if (value) {
         value = Orientation.VERTICAL;
       } else {
         value = Orientation.HORIZONTAL;
       }
-    } else if(target.type === 'checkbox') {
+    } else if (target.type === 'checkbox') {
       value = target.checked;
     } else {
-      value = Number(target.value)
+      value = Number(target.value);
     }
     this.$slider.slider(this.inputs[className], value);
   }

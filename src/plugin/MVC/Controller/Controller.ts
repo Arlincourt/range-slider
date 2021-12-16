@@ -12,7 +12,7 @@ class Controller {
 
   constructor(element: HTMLElement, model: Model) {
     this.model = model;
-    this.state = this.model.getState()
+    this.state = this.model.getState();
     this.view = new View(element, this.state);
     new ObserverService(this.model, this.view);
   }

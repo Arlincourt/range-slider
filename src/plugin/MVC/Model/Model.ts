@@ -1,5 +1,7 @@
 import Orientation from '../../types/orientation';
-import { IState, IOptions, IEmit, IEmitEdge, IPossibleValues } from '../../types/interfaces';
+import {
+  IState, IOptions, IEmit, IEmitEdge, IPossibleValues,
+} from '../../types/interfaces';
 import copyObject from '../../helpers/copyObject';
 import getSymbols from '../../helpers/getSymbols';
 import Observer from '../../Observer/Observer';
@@ -28,13 +30,13 @@ class Model {
     value: [0, 100],
     possibleValues: {},
     progressBar: true,
-    scale: true
+    scale: true,
   };
 
   constructor(options: IOptions) {
     this.state = copyObject({ ...this.state, ...options });
     this.updateValues();
-    this.setPossibleValues()
+    this.setPossibleValues();
   }
 
   get getMin(): number {
@@ -87,16 +89,16 @@ class Model {
 
   public update(emitData: IEmit): void {
     this.setPosition(emitData);
-    this.setPossibleValues()
+    this.setPossibleValues();
     this.emitChanges();
   }
 
   public setMin(min: number | string): void {
     if (min < this.state.max) {
       this.state.min = Number(min);
-      this.checkStepToValues()
+      this.checkStepToValues();
       this.updateValues();
-      this.setPossibleValues()
+      this.setPossibleValues();
       this.emitChanges();
     }
   }
@@ -104,9 +106,9 @@ class Model {
   public setMax(max: number | string): void {
     if (max > this.state.min) {
       this.state.max = Number(max);
-      this.checkStepToValues()
+      this.checkStepToValues();
       this.updateValues();
-      this.setPossibleValues()
+      this.setPossibleValues();
       this.emitChanges();
     }
   }
@@ -133,34 +135,34 @@ class Model {
 
   public setRange(isRange: boolean): void {
     this.state.range = isRange;
-    this.isSame(0)
+    this.isSame(0);
     this.updateValues();
     this.emitChanges();
   }
 
   public setFirstValue(value: number | string): void {
-    let val = Number(value);
+    const val = Number(value);
     this.state.value[0] = this.formatToStep(val);
-    this.isSame(0)
+    this.isSame(0);
     this.updateValues();
     this.emitChanges();
   }
 
   public setSecondValue(value: number): void {
-    let val = Number(value);
+    const val = Number(value);
     this.state.value[1] = this.formatToStep(val);
-    this.isSame(1)
+    this.isSame(1);
     this.updateValues();
     this.emitChanges();
   }
 
   public setStep(step: number | string): void {
     this.state.step = Number(step);
-    this.checkStepToValues()
+    this.checkStepToValues();
     this.state.value[0] = this.formatToStep(this.state.value[0]);
     this.state.value[1] = this.formatToStep(this.state.value[1]);
     this.updateValues();
-    this.setPossibleValues()
+    this.setPossibleValues();
     this.emitChanges();
   }
 
@@ -170,78 +172,77 @@ class Model {
   }
 
   private setPossibleValues(): void {
-    const {min, max, step} = this.state 
-    this.state.possibleValues = {}
-    const numberOfValidValues = this.getNumberOfValidValues()
-    const all = this.getAll()
-    this.state.possibleValues[min] = 0
-    this.state.possibleValues[max] = 100
-    for(let i = 1; i <= numberOfValidValues; i++) {
-      let key = min + (Math.floor(all / numberOfValidValues) * i)
-      key = this.formatToStep(key)
-      const value = this.getValueInPercent(key)
-      if(value + 10 > 100) {
-        continue
+    const { min, max } = this.state;
+    this.state.possibleValues = {};
+    const numberOfValidValues = this.getNumberOfValidValues();
+    const all = this.getAll();
+    this.state.possibleValues[min] = 0;
+    this.state.possibleValues[max] = 100;
+    for (let i = 1; i <= numberOfValidValues; i += 1) {
+      let key = min + (Math.floor(all / numberOfValidValues) * i);
+      key = this.formatToStep(key);
+      const value = this.getValueInPercent(key);
+      if (value + 10 > 100) {
+        return;
       }
-      this.state.possibleValues[key] = value
+      this.state.possibleValues[key] = value;
     }
   }
 
   private getNumberOfValidValues(): number {
-    const {step} = this.state 
-    let numberOfValidValues = this.getAll() / step
-    const roundedNumber = Math.floor(numberOfValidValues)
-    if(numberOfValidValues <= 1) {
-      return 0 
-    } else if(numberOfValidValues >= 8) {
-      return this.divideToInteger(roundedNumber)
-    } else if(Number.isInteger(numberOfValidValues)) {
-      return numberOfValidValues - 1
+    const { step } = this.state;
+    const numberOfValidValues = this.getAll() / step;
+    const roundedNumber = Math.floor(numberOfValidValues);
+    if (numberOfValidValues <= 1) {
+      return 0;
+    } if (numberOfValidValues >= 8) {
+      return this.divideToInteger(roundedNumber);
+    } if (Number.isInteger(numberOfValidValues)) {
+      return numberOfValidValues - 1;
     }
-    return Math.floor(numberOfValidValues)
+    return Math.floor(numberOfValidValues);
   }
 
   private divideToInteger(value: number): number {
-    for(let i = 2; i < value; i++) {
-      const result = value / i
-      if(result < 7) {
-        return Math.floor(result)
+    for (let i = 2; i < value; i += 1) {
+      const result = value / i;
+      if (result < 7) {
+        return Math.floor(result);
       }
     }
-    return 1
+    return 1;
   }
 
   private formatToStep(value: number): number {
-    const {min, max, step} = this.state
-    let result = value
-    const difference = value - min
-    const divideRemaining = difference % step
-    const prevPossibleValue = Math.floor(difference / step)
-    const nextPossibleValue = Math.ceil(difference / step)
+    const { min, max, step } = this.state;
+    let result = value;
+    const difference = value - min;
+    const divideRemaining = difference % step;
+    const prevPossibleValue = Math.floor(difference / step);
+    const nextPossibleValue = Math.ceil(difference / step);
 
-    if(value >= max) {
-      result = max
-    } else if(value <= min) {
-      result = min
-    } else if(divideRemaining >= 5) {
-      result = min + (step * nextPossibleValue)
+    if (value >= max) {
+      result = max;
+    } else if (value <= min) {
+      result = min;
+    } else if (divideRemaining >= 5) {
+      result = min + (step * nextPossibleValue);
     } else {
-      result = min + (step * prevPossibleValue)
+      result = min + (step * prevPossibleValue);
     }
-    return Number(result.toFixed(getSymbols(step)))
+    return Number(result.toFixed(getSymbols(step)));
   }
 
   private getAll(): number {
-    return this.state.max - this.state.min
+    return this.state.max - this.state.min;
   }
-  
+
   private checkStepToValues(): void {
-    const {max, min} = this.state
+    const { max, min } = this.state;
     if (this.state.step > (max - min)) {
-      this.state.step = max
-      return;
-    } else if(this.state.step <= 0) {
-      this.state.step = 1
+      this.state.step = max;
+    } else if (this.state.step <= 0) {
+      this.state.step = 1;
     }
   }
 
@@ -270,64 +271,69 @@ class Model {
 
   private setPosition(emitData: IEmit): void {
     const {
-      min, step, range
+      min, step, range,
     } = this.state;
     const percentValue: number = this.getCoorInPercent(emitData);
     const valueInNumber: number = this.getValueInNumber(percentValue);
     let integerValue: number = min + Math.round((valueInNumber - min) / step) * step;
-    integerValue = (emitData as IEmitEdge).value !== undefined ? (emitData as IEmitEdge).value : integerValue
+    integerValue = (emitData as IEmitEdge).value !== undefined
+      ? (emitData as IEmitEdge).value
+      : integerValue;
 
     if (range) {
-      this.setTwoPosition({integerValue, valueInNumber, percentValue, emitData});
+      this.setTwoPosition({
+        integerValue, valueInNumber, percentValue, emitData,
+      });
     } else {
       this.setOnePosition(integerValue, valueInNumber, (emitData as IEmitEdge).value);
     }
   }
 
   private setTwoPosition(data: ISetTwoPosition): void {
-    const {value} = this.state;
-    let {
-      percentValue, emitData, valueInNumber, integerValue
-    } = data
+    const { value } = this.state;
+    const {
+      percentValue, emitData, valueInNumber,
+    } = data;
+    let { integerValue } = data;
 
     const values = [this.getValueInPercent(value[0]), this.getValueInPercent(value[1])];
 
     if (emitData.mouseDown) {
       this.previousChangeableValue = this.getClosestPosition(percentValue, values);
     }
-    integerValue = this.checkValueToEdge((emitData as IEmitEdge).value, integerValue)
-    integerValue = this.checkValueToLimits(valueInNumber, integerValue)
+    integerValue = this.checkValueToEdge((emitData as IEmitEdge).value, integerValue);
+    integerValue = this.checkValueToLimits(valueInNumber, integerValue);
 
     value[this.previousChangeableValue] = integerValue;
-    this.isSame(this.previousChangeableValue)
+    this.isSame(this.previousChangeableValue);
     this.updateValues();
-    return;
   }
 
-  private setOnePosition(integerValue: number, valueInNumber: number, edge: number | undefined): void {
+  private setOnePosition(
+    integerValue: number, valueInNumber: number, edge: number | undefined,
+  ): void {
     const {
-      step, value,
+      value,
     } = this.state;
-    integerValue = this.checkValueToEdge(edge, integerValue)
-    integerValue = this.checkValueToLimits(valueInNumber, integerValue)
-    value[1] = integerValue
+    value[1] = this.checkValueToEdge(edge, integerValue);
+    value[1] = this.checkValueToLimits(valueInNumber, integerValue);
   }
 
   private checkValueToEdge(edge: number | undefined, integerValue: number): number {
-    if(edge === undefined) {
+    if (edge === undefined) {
       return Number(integerValue.toFixed(getSymbols(this.state.step)));
     }
-    return integerValue
+    return integerValue;
   }
 
   private checkValueToLimits(valueInNumber: number, integerValue: number): number {
-    const {max, min} = this.state 
-    if(valueInNumber >= max) {
-      return max
-    } else if(valueInNumber <= min) {
-      return min 
+    const { max, min } = this.state;
+    if (valueInNumber >= max) {
+      return max;
+    } if (valueInNumber <= min) {
+      return min;
     }
-    return integerValue
+    return integerValue;
   }
 
   private getValueInNumber(value: number): number {
@@ -355,11 +361,11 @@ class Model {
   }
 
   private getValueInPercent(value: number): number {
-    const {max, min} = this.state 
+    const { max, min } = this.state;
     const all = max - min;
     const differentValue = value - min;
     const valueInPercent = Math.abs((differentValue / all) * 100);
-    return valueInPercent
+    return valueInPercent;
   }
 
   private getClosestPosition(value: number, values: number[]): number {
@@ -368,21 +374,23 @@ class Model {
 
     if (secondValue < firstValue) {
       return 1;
-    } else if (values[0] === values[1]) {
-      const result = value > values[1] ? 1 : 0
-      return result
+    } if (values[0] === values[1]) {
+      const result = value > values[1] ? 1 : 0;
+      return result;
     }
     return 0;
   }
 
   private isSame(closestPosition: number): void {
-    const {value} = this.state 
-    const isFirst = closestPosition === 0 ? true : false 
+    const { value } = this.state;
+    const isFirst = closestPosition === 0;
     if (isFirst) {
-      value[closestPosition] = value[closestPosition] > value[1] ? value[1] : value[closestPosition]
-      return
-    } 
-    value[closestPosition] = value[closestPosition] < value[0] ? value[0] : value[closestPosition]
+      value[closestPosition] = value[closestPosition] > value[1]
+        ? value[1]
+        : value[closestPosition];
+      return;
+    }
+    value[closestPosition] = value[closestPosition] < value[0] ? value[0] : value[closestPosition];
   }
 
   private emitChanges(): void {

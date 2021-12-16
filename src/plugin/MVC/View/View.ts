@@ -57,7 +57,7 @@ class View {
 
   private onSliderMouseDown = (evt: MouseEvent): void => {
     if (this.isElem(evt.target as HTMLElement)) {
-      let emitData: IEmit | IEmitEdge = {
+      const emitData: IEmit | IEmitEdge = {
         clientX: evt.clientX,
         clientY: evt.clientY,
         clientWidth: Number(this.slider.offsetWidth),
@@ -66,8 +66,8 @@ class View {
         offsetY: this.slider.getBoundingClientRect().top + document.body.scrollTop,
         mouseDown: true,
       };
-      if(this.isValue(evt.target as HTMLElement)) {
-        (emitData as IEmitEdge).value = Number((evt.target as HTMLElement).textContent) 
+      if (this.isValue(evt.target as HTMLElement)) {
+        (emitData as IEmitEdge).value = Number((evt.target as HTMLElement).textContent);
       }
       this.emitChanges(emitData);
       document.addEventListener('mousemove', this.onSliderMouseMove);
@@ -98,8 +98,8 @@ class View {
   }
 
   private isElem(element: HTMLElement): boolean {
-    if(element === null) {
-      return false
+    if (element === null) {
+      return false;
     }
     if (this.isValue(element)) {
       return true;

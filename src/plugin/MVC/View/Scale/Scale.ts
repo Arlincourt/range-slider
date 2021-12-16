@@ -21,26 +21,26 @@ class Scale {
     this.addClass();
     this.addElems();
     this.addEvent();
-    this.onWindowResize()
-    this.onWindowResize()
+    this.onWindowResize();
+    this.onWindowResize();
   }
 
   public update(scaleState: IScale): void {
     this.scaleState = copyObject(scaleState);
     this.edgeServiceData = setType(InterfacesNames.IEdgeService, this.scaleState);
     this.edgeService.update(this.edgeServiceData);
-    this.addElems()
+    this.addElems();
   }
 
   private onWindowResize = (): void => {
-    this.edgeService.updateEdgeElements()
-    if(this.isChanged()) {
-      this.addElems()
+    this.edgeService.updateEdgeElements();
+    if (this.isChanged()) {
+      this.addElems();
     }
   }
 
   private addEvent(): void {
-    window.addEventListener('resize', this.onWindowResize)
+    window.addEventListener('resize', this.onWindowResize);
   }
 
   public getTemplate(): HTMLElement {
@@ -52,14 +52,14 @@ class Scale {
   }
 
   private addElems(): void {
-      this.scale.innerHTML = ''
-      this.edgeService.getTemplate().forEach((edge) => {
-        this.scale.append(edge);
-      });
+    this.scale.innerHTML = '';
+    this.edgeService.getTemplate().forEach((edge) => {
+      this.scale.append(edge);
+    });
   }
 
   private isChanged(): boolean {
-    return this.scale.childElementCount !== this.edgeService.getTemplate().length
+    return this.scale.childElementCount !== this.edgeService.getTemplate().length;
   }
 }
 

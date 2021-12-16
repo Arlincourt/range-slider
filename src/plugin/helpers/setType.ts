@@ -35,7 +35,7 @@ function setType(
     case InterfacesNames.IEdgeService:
       return {
         orientation: parentType.orientation,
-        possibleValues: parentType.possibleValues
+        possibleValues: parentType.possibleValues,
       };
     case InterfacesNames.IProgressBar:
       return {
@@ -45,18 +45,18 @@ function setType(
         range: parentType.range,
         orientation: parentType.orientation,
         value: parentType.value,
-        progressBar: parentType.progressBar
+        progressBar: parentType.progressBar,
       };
-      case InterfacesNames.IScale:
-        return {
-          orientation: parentType.orientation,
-          possibleValues: parentType.possibleValues
-        };
-      case InterfacesNames.ICombinedTip:
-        return {
-          orientation: parentType.orientation,
-          value: parentType.value,
-        };
+    case InterfacesNames.IScale:
+      return {
+        orientation: parentType.orientation,
+        possibleValues: parentType.possibleValues,
+      };
+    case InterfacesNames.ICombinedTip:
+      return {
+        orientation: parentType.orientation,
+        value: parentType.value,
+      };
     default:
       return { ...parentType };
   }

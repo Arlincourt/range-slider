@@ -5,7 +5,7 @@ import { IRunner, IRunnerService, ICombinedTip } from '../../../types/interfaces
 import setType from '../../../helpers/setType';
 import copyObject from '../../../helpers/copyObject';
 import Runner from '../Runner/Runner';
-import CombinedTip from '../CombinedTip/CombinedTip'
+import CombinedTip from '../CombinedTip/CombinedTip';
 
 enum Orders {
   first = 'first',
@@ -22,7 +22,7 @@ class RunnerService {
   private secondRunnerData: IRunner;
 
   private combinedTip: CombinedTip;
-  
+
   private combinedTipData: ICombinedTip;
 
   private runnerServiceState: IRunnerService;
@@ -31,8 +31,8 @@ class RunnerService {
 
   constructor(runnerServiceState: IRunnerService) {
     this.runnerServiceState = copyObject(runnerServiceState);
-    this.combinedTipData = setType(InterfacesNames.ICombinedTip, this.runnerServiceState)
-    this.combinedTip = new CombinedTip(this.combinedTipData)
+    this.combinedTipData = setType(InterfacesNames.ICombinedTip, this.runnerServiceState);
+    this.combinedTip = new CombinedTip(this.combinedTipData);
     this.firstRunnerData = this.setClass(
       setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first,
     );
@@ -41,36 +41,36 @@ class RunnerService {
     );
     this.firstRunner = new Runner(this.firstRunnerData);
     this.secondRunner = new Runner(this.secondRunnerData);
-    this.elements = []
-    this.setElements()
+    this.elements = [];
+    this.setElements();
   }
 
   public update(runnerServiceState: IRunnerService): void {
     this.runnerServiceState = copyObject(runnerServiceState);
-    this.updateRunnersData()
-    this.updateRunners()
-    this.customizeDisplay()
-    this.updateCombinedTip()
-    this.setElements()
+    this.updateRunnersData();
+    this.updateRunners();
+    this.customizeDisplay();
+    this.updateCombinedTip();
+    this.setElements();
   }
 
   public getTemplate(): HTMLElement[] {
-    return this.elements
+    return this.elements;
   }
 
   private isOverlap(): boolean {
-    if(this.runnerServiceState.range === false || this.runnerServiceState.tips === false) {
-      return false
+    if (this.runnerServiceState.range === false || this.runnerServiceState.tips === false) {
+      return false;
     }
-    const firstTipSize = this.firstRunner.getTipSize
-    const secondTipSize = this.secondRunner.getTipSize
-    const isXOverlap = firstTipSize.x + firstTipSize.width >= secondTipSize.x
-    const isYOverlap = firstTipSize.y + firstTipSize.height >= secondTipSize.y
-    
-    if(this.runnerServiceState.orientation === Orientation.HORIZONTAL) {
-      return isXOverlap
+    const firstTipSize = this.firstRunner.getTipSize;
+    const secondTipSize = this.secondRunner.getTipSize;
+    const isXOverlap = firstTipSize.x + firstTipSize.width >= secondTipSize.x;
+    const isYOverlap = firstTipSize.y + firstTipSize.height >= secondTipSize.y;
+
+    if (this.runnerServiceState.orientation === Orientation.HORIZONTAL) {
+      return isXOverlap;
     }
-    return isYOverlap
+    return isYOverlap;
   }
 
   private updateRunnersData(): void {
@@ -88,25 +88,29 @@ class RunnerService {
   }
 
   private updateCombinedTip(): void {
-    this.combinedTipData = setType(InterfacesNames.ICombinedTip, this.runnerServiceState)
-    this.combinedTip.update(this.combinedTipData)
+    this.combinedTipData = setType(InterfacesNames.ICombinedTip, this.runnerServiceState);
+    this.combinedTip.update(this.combinedTipData);
   }
 
   private setElements(): void {
-    if(this.runnerServiceState.range && !this.isOverlap()) {
-      this.elements = [this.firstRunner.getTemplate(), this.secondRunner.getTemplate()]
-    } else if(this.isOverlap()) {
-      this.elements = [this.firstRunner.getTemplate(), this.secondRunner.getTemplate(), this.combinedTip.getTemplate()]
+    if (this.runnerServiceState.range && !this.isOverlap()) {
+      this.elements = [this.firstRunner.getTemplate(), this.secondRunner.getTemplate()];
+    } else if (this.isOverlap()) {
+      this.elements = [
+        this.firstRunner.getTemplate(),
+        this.secondRunner.getTemplate(),
+        this.combinedTip.getTemplate(),
+      ];
     } else {
-      this.elements = [this.secondRunner.getTemplate()]
+      this.elements = [this.secondRunner.getTemplate()];
     }
   }
 
   private customizeDisplay(): void {
-    if(this.isOverlap()) {
-      this.firstRunnerData.tips = false 
-      this.secondRunnerData.tips = false
-      this.updateRunners()
+    if (this.isOverlap()) {
+      this.firstRunnerData.tips = false;
+      this.secondRunnerData.tips = false;
+      this.updateRunners();
     }
   }
 

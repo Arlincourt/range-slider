@@ -36,8 +36,8 @@ class Interval {
     if (this.intervalState.orientation !== intervalState.orientation) {
       this.addClass(intervalState.orientation);
     }
-    if(this.intervalState.scale !== intervalState.scale) {
-      this.addElems(intervalState.scale)
+    if (this.intervalState.scale !== intervalState.scale) {
+      this.addElems(intervalState.scale);
     }
     this.intervalState = copyObject(intervalState);
     this.progressBarData = setType(InterfacesNames.IProgressBar, this.intervalState);
@@ -55,10 +55,10 @@ class Interval {
   }
 
   private addElems(scale: boolean = this.intervalState.scale): void {
-    this.sliderBody.innerHTML = ''
+    this.sliderBody.innerHTML = '';
     this.interval.append(this.progressBar.getTemplate());
     this.sliderBody.append(this.interval);
-    if(scale) {
+    if (scale) {
       this.sliderBody.append(this.scale.getTemplate());
     }
   }

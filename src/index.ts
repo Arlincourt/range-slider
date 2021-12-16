@@ -1,5 +1,3 @@
-declare var require: any;
-
 function importAll(resolve: any) {
   resolve.keys().forEach((str: string) => {
     if (str.includes('.test.ts')) {

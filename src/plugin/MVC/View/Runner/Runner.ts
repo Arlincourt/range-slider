@@ -27,13 +27,15 @@ class Runner {
   }
 
   get getTipSize(): ITipSize {
-    const {width, height, x, y} = this.tip.getTemplate().getBoundingClientRect()
+    const {
+      width, height, x, y,
+    } = this.tip.getTemplate().getBoundingClientRect();
     return {
       height,
       width,
       x,
-      y
-    }
+      y,
+    };
   }
 
   public getTemplate(): HTMLElement {

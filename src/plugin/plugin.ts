@@ -1,9 +1,8 @@
-import { data } from 'jquery';
 import Slider from './Slider';
-import { IState, IOptions } from './types/interfaces';
+import { IState, IOptions, IUniversalObjectType } from './types/interfaces';
 
 function removeUndefinedFields(state: IOptions) {
-  const obj: any = { ...state };
+  const obj: IUniversalObjectType = { ...state };
   Object.keys(obj).forEach((key) => {
     if (obj[key] === undefined) {
       delete obj[key];
@@ -37,7 +36,7 @@ function createSlider(options: IOptions, element: HTMLElement): void {
   $.fn.slider = function slider(options: IOptions | string, ...args: any): IState | JQuery {
     const $element: JQuery = $(this);
     const element = this[0];
-    
+
     if (typeof options === 'object') {
       createSlider(options, element);
     } else if ($element.data('slider') === undefined || typeof options === 'object') {

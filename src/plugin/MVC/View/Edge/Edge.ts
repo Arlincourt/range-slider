@@ -15,8 +15,8 @@ class Edge {
     this.addEdgeClass(this.edgeState.edgeClassList);
     this.addValueClass(this.edgeState.valueClassList);
     this.setText();
-    this.addElem()
-    this.setStyle()
+    this.addElem();
+    this.setStyle();
   }
 
   public getTemplate(): HTMLElement {
@@ -32,18 +32,18 @@ class Edge {
     }
     this.edgeState = copyObject(edgeState);
     this.setText();
-    this.setStyle()
+    this.setStyle();
   }
 
   private setStyle(): void {
-    const {orientation, offset} = this.edgeState
-    if(orientation === Orientation.HORIZONTAL) {
-      this.edge.style.top = '0%'
-      this.edge.style.left = offset + '%'
-      return
+    const { orientation, offset } = this.edgeState;
+    if (orientation === Orientation.HORIZONTAL) {
+      this.edge.style.top = '0%';
+      this.edge.style.left = `${offset}%`;
+      return;
     }
-    this.edge.style.left = '0%'
-    this.edge.style.top = offset + '%'
+    this.edge.style.left = '0%';
+    this.edge.style.top = `${offset}%`;
   }
 
   private addEdgeClass(classNames: string[]): void {
@@ -65,7 +65,7 @@ class Edge {
   }
 
   private addElem(): void {
-    this.edge.append(this.edgeText)
+    this.edge.append(this.edgeText);
   }
 }
 

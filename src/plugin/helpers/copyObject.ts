@@ -1,11 +1,13 @@
-function copyObject<T>(obj: any): T {
-  let clObj: any = {};
-  if (Array.isArray(obj)) {
-    clObj = [];
-  }
+import { IUniversalObjectType } from '../types/interfaces';
+
+function copyObject(obj: IUniversalObjectType): IUniversalObjectType {
+  const clObj: IUniversalObjectType = {};
   Object.keys(obj).forEach((key) => {
-    if (obj[key] instanceof Object) {
-      clObj[key] = copyObject(obj[key]);
+    const field = obj[key];
+    if (Array.isArray(field)) {
+      clObj[key] = [...field];
+    } else if (typeof field === 'object' && field !== null) {
+      clObj[key] = { ...field };
     } else {
       clObj[key] = obj[key];
     }
