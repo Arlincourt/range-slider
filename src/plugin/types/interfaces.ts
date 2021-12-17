@@ -29,7 +29,7 @@ interface IScale {
 
 interface IEdgeService {
   orientation: Orientation;
-  possibleValues: {}
+  possibleValues: Record<string, unknown>
 }
 
 interface IEdge {
@@ -109,10 +109,6 @@ interface IEmitEdge {
   mouseDown: boolean;
 }
 
-interface IUniversalObjectType {
-  [key: string]: number | string | boolean | Orientation | IPossibleValues | number[]
-}
-
 export {
   IState,
   IOptions,
@@ -127,5 +123,4 @@ export {
   IEmitEdge,
   ICombinedTip,
   IPossibleValues,
-  IUniversalObjectType,
 };
