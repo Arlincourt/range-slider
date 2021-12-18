@@ -1,9 +1,21 @@
 import InterfacesNames from '../types/interfacesNames';
-import { IEdgeService, IRunnerService, IState } from '../types/interfaces';
+import {
+  IEdgeService, IRunnerService, IState,
+} from '../types/interfaces';
+
+// я не смог типизировать без any, так как поля сразу считаются ошибочными, если использовать
+// Record<string, unknown>, или {[key : string]: number | string | boolean | Orientation }
+// то есть если передается объект(а здесь всегда передается объект первым аргументом), то typescript
+// ругается на то, что полей, которые я беру, могут не существовать в передаваемом объекте
+
+// возвращаемое значение тоже any, так как если поставить тип IUniversalObjectType, то
+// появятся ошибки в других файлах, так как возвращаемый тип не соответствует
+// нужному(разные интерфейсы требуются для различных компонентов, использующих данную функцию).
+// Тип обобщения(T) тоже не помогает
 
 function setType(
   type: string, parentType: IState | IRunnerService | IEdgeService | any, count?: number | string,
-): any | void {
+): any {
   switch (type) {
     case InterfacesNames.IRunnerService:
       return {

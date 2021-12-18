@@ -109,6 +109,15 @@ interface IEmitEdge {
   mouseDown: boolean;
 }
 
+interface IUniversalObjectType {
+  [key: string]: number | string | boolean | Orientation | IPossibleValues | number[]
+}
+
+type IArgs =
+  string |
+  number |
+  boolean
+
 export {
   IState,
   IOptions,
@@ -123,4 +132,6 @@ export {
   IEmitEdge,
   ICombinedTip,
   IPossibleValues,
+  IUniversalObjectType,
+  IArgs,
 };

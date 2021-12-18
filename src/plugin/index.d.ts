@@ -1,7 +1,7 @@
-import { IOptions, IState } from './types/interfaces';
+import { IOptions, IState, IArgs } from './types/interfaces';
 
 declare global {
   interface JQuery {
-    slider(options?: IOptions | string, value?: any): IOptions | IState | JQuery;
+    slider(options?: IOptions | string, value?: IArgs): IOptions | IState | JQuery;
   }
 }

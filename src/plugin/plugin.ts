@@ -1,5 +1,7 @@
 import Slider from './Slider';
-import { IState, IOptions, IUniversalObjectType } from './types/interfaces';
+import {
+  IState, IOptions, IUniversalObjectType, IArgs,
+} from './types/interfaces';
 
 function removeUndefinedFields(state: IOptions) {
   const obj: IUniversalObjectType = { ...state };
@@ -33,7 +35,9 @@ function createSlider(options: IOptions, element: HTMLElement): void {
 
 (function IIFE($) {
   /* eslint no-param-reassign: "error" */
-  $.fn.slider = function slider(options: IOptions | string, ...args: any): IState | JQuery {
+  $.fn.slider = function slider(
+    options: IOptions | string, ...args: Array<IArgs>
+  ): IState | JQuery {
     const $element: JQuery = $(this);
     const element = this[0];
 
