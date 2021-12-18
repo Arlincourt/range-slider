@@ -116,7 +116,8 @@ interface IUniversalObjectType {
 type IArgs =
   string |
   number |
-  boolean
+  boolean |
+  ((state: IState) => void)
 
 export {
   IState,

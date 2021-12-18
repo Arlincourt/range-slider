@@ -69,8 +69,8 @@ class RangeSlider {
   }
 
   private onModelChange(state: IState): void {
-    this.$minInput?.val(state.min);
     this.$maxInput?.val(state.max);
+    this.$minInput?.val(state.min);
     this.$stepInput?.val(state.step);
     this.$firstValueInput?.val(state.value[0]);
     this.$secondValueInput?.val(state.value[1]);

@@ -99,8 +99,9 @@ class Model {
       this.checkStepToValues();
       this.updateValues();
       this.setPossibleValues();
-      this.emitChanges();
     }
+    this.setStep()
+    this.emitChanges();
   }
 
   public setMax(max: number | string): void {
@@ -109,8 +110,9 @@ class Model {
       this.checkStepToValues();
       this.updateValues();
       this.setPossibleValues();
-      this.emitChanges();
     }
+    this.setStep()
+    this.emitChanges();
   }
 
   public setOrientation(orientation: string): void {
@@ -156,7 +158,7 @@ class Model {
     this.emitChanges();
   }
 
-  public setStep(step: number | string): void {
+  public setStep(step: number | string = 0): void {
     this.state.step = Number(step);
     this.checkStepToValues();
     this.state.value[0] = this.formatToStep(this.state.value[0]);
