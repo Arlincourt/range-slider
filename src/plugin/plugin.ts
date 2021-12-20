@@ -25,6 +25,7 @@ function createSlider(options: IOptions, element: HTMLElement): void {
     range: $element.data('range'),
     orientation: $element.data('orientation'),
     value: $element.data('values'),
+    scale: $element.data('scale'),
   };
 
   let state = $.extend(dataAttrs, options);

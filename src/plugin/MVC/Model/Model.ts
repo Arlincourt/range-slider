@@ -100,7 +100,7 @@ class Model {
       this.updateValues();
       this.setPossibleValues();
     }
-    this.setStep()
+    this.setStep();
     this.emitChanges();
   }
 
@@ -111,7 +111,7 @@ class Model {
       this.updateValues();
       this.setPossibleValues();
     }
-    this.setStep()
+    this.setStep();
     this.emitChanges();
   }
 

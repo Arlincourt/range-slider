@@ -72,7 +72,8 @@ interface IOptions {
   step?: number;
   range?: boolean;
   orientation?: Orientation;
-  value?: number[]
+  value?: number[],
+  scale?: boolean
 }
 
 interface IState {

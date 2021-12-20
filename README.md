@@ -13,6 +13,8 @@
     npm run test // запуск тестов
     npm run lint // запуск eslint
     npm run lint-fix // запуск автоматического исправления eslint
+    npm run stylelint // запуск stylelint
+    npm run stylelint-fix // запуск автоматического исправления stylelint
     
 ### Демо страница
 
@@ -28,7 +30,9 @@
       min: 0,
       max: 100,
       values: [0, 100],
-      step: 1
+      step: 1,
+      scale: false,
+      progress: true
     })
     
 ### Дата-аттрибуты
@@ -36,7 +40,7 @@
 
     //html
     <div id="slider" data-tips="true" data-range="true" data-orientation="HORIZONTAL" data-min="0" data-max="100" 
-      data-step="1" data-values="[0, 100]"
+      data-step="1" data-values="[0, 100]" data-progress="false" data-scale="true"></div>
       
     //scripts
     
@@ -58,6 +62,8 @@
 5. **min** - Минимальное значение, которое может принимать слайдер. Принимаемое значение - number
 6. **step** - Шаг слайдера. Принимаемое значение - number
 7. **values** - Значения первого и второго ползунков. Принимаемое значение - массив, состоящий из двух цифр
+8. **progress** - Показывать или скрывать прогресс бар. Принимаемое значение - boolean
+9. **scale** - Показывать или скрывать шкалу. Принимаемое значение - boolean
 
 ### API
     
@@ -70,6 +76,8 @@
     $('#slider').slider('setRange', boolean) // принимает boolean вторым аргументом
     $('#slider').slider('setTips', boolean) // принимает boolean вторым аргументом
     $('#slider').slider('setOrientation', string) // принимает string("HORIZONTAL" или "VERTICAL") вторым аргументом
+    $('#slider').slider('setScale', boolean) // принимает boolean вторым аргументом
+    $('#slider').slider('setProgress', boolean) // принимает boolean вторым аргументом
     
     $('#slider').slider('getMin')
     $('#slider').slider('getMax')
