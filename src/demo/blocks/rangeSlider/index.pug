@@ -1,73 +1,73 @@
 
 mixin range-slider({ min=0, max=100, step=1, range="true", orientation="HORIZONTAL", tips="true", progress="true", scale="true", values=[0,100]})
-	-
-		const controls = [
-			{
-				label: "Минимум",
-				type: "number",
-				className: "js-range-slider__min"
-			},
-			{
-				label: "Максимум",
-				type: "number",
-				className: "js-range-slider__max"
-			},
-			{
-				label: "Шаг",
-				type: "number",
-				className: "js-range-slider__step"
-			},
-			{
-				label: "Первое значение",
-				type: "number",
-				className: "js-range-slider__first-value"
-			},
-			{
-				label: "Второе значение",
-				type: "number",
-				className: "js-range-slider__second-value"
-			},
-			{
-				label: "Интервал",
-				type: "checkbox",
-				className: "js-range-slider__range"
-			},
-			{
-				label: "Вертикальный вид",
-				type: "checkbox",
-				className: "js-range-slider__orientation"
-			},
-			{
-				label: "Подсказки",
-				type: "checkbox",
-				className: "js-range-slider__tips"
-			},
-			{
-				label: "Прогресс бар",
-				type: "checkbox",
-				className: "js-range-slider__progress-bar"
-			},
-			{
-				label: "Шкала",
-				type: "checkbox",
-				className: "js-range-slider__scale"
-			}
-		]
+  -
+    const controls = [
+      {
+        label: "Минимум",
+        type: "number",
+        className: "js-range-slider__min"
+      },
+      {
+        label: "Максимум",
+        type: "number",
+        className: "js-range-slider__max"
+      },
+      {
+        label: "Шаг",
+        type: "number",
+        className: "js-range-slider__step"
+      },
+      {
+        label: "Первое значение",
+        type: "number",
+        className: "js-range-slider__first-value"
+      },
+      {
+        label: "Второе значение",
+        type: "number",
+        className: "js-range-slider__second-value"
+      },
+      {
+        label: "Интервал",
+        type: "checkbox",
+        className: "js-range-slider__range"
+      },
+      {
+        label: "Вертикальный вид",
+        type: "checkbox",
+        className: "js-range-slider__orientation"
+      },
+      {
+        label: "Подсказки",
+        type: "checkbox",
+        className: "js-range-slider__tips"
+      },
+      {
+        label: "Прогресс бар",
+        type: "checkbox",
+        className: "js-range-slider__progress-bar"
+      },
+      {
+        label: "Шкала",
+        type: "checkbox",
+        className: "js-range-slider__scale"
+      }
+    ]
 
-	.range-slider.js-range-slider
-		.range-slider__panel
-			each control in controls 
-				p.range-slider__control 
-					label.range-slider__label= control.label
-						input(type=control.type class="range-slider__input " + control.className)
-		.range-slider__slider-container.js-range-slider__slider-container(
-			data-min= min
-			data-max= max
-			data-step= step
-			data-orientation= orientation
-			data-tips= tips
-			data-values= values
-			data-range= range
-			data-progress= progress
-			data-scale= scale
-		)
+  .range-slider.js-range-slider
+    .range-slider__panel
+      each control in controls 
+        p.range-slider__control 
+          label.range-slider__label= control.label
+            input(type=control.type class="range-slider__input " + control.className)
+    .range-slider__slider-container.js-range-slider__slider-container(
+      data-min= min
+      data-max= max
+      data-step= step
+      data-orientation= orientation
+      data-tips= tips
+      data-values= values
+      data-range= range
+      data-progress= progress
+      data-scale= scale
+    )
