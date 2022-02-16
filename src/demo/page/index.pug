@@ -15,9 +15,9 @@ html(lang="en")
   body 
     .container
       .range-slider-container
-        +range-slider({step: 4, max: 2, min: -40, progress: "false", scale: "false"})
+        +range-slider({ step: 4, values: [0, 1], max: 2, min: -40, progress: "false", scale: "false" })
       .range-slider-container
-        +range-slider({orientation: "VERTICAL", tips: "false"})
+        +range-slider({ orientation: "VERTICAL", tips: "false" })
       .range-slider-container
-        +range-slider({orientation: "HORIZONTAL", range: "false"})
+        +range-slider({ orientation: "HORIZONTAL", range: "false" })
           

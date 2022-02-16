@@ -34,9 +34,7 @@ class ObserverService {
     }
   }
 
-  private updateView(): void {
-    this.view.update(this.model.getState());
-  }
+  private updateView = (): void => this.view.update(this.model.getState());
 }
 
 export default ObserverService;

@@ -64,11 +64,11 @@ class RangeSlider {
   }
 
   private addEvents(): void {
-    this.$rootElement.on('input', this.onSliderInput);
-    this.$slider.slider('onChange', this.onModelChange.bind(this));
+    this.$rootElement.on('input', this.handleSliderInput);
+    this.$slider.slider('onChange', this.handleModelChange.bind(this));
   }
 
-  private onModelChange(state: IState): void {
+  private handleModelChange(state: IState): void {
     this.$maxInput?.val(state.max);
     this.$minInput?.val(state.min);
     this.$stepInput?.val(state.step);
@@ -82,7 +82,7 @@ class RangeSlider {
     this.$orientationInput?.prop('checked', orientation);
   }
 
-  private onSliderInput = (evt: Event): void => {
+  private handleSliderInput = (evt: Event): void => {
     const target = evt.target as HTMLInputElement;
     let value: boolean | number | string = 0;
     const className: string = (target.classList as DOMTokenList)[1];

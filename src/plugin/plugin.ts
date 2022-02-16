@@ -41,16 +41,20 @@ function createSlider(options: IOptions, element: HTMLElement): void {
   ): IState | JQuery {
     const $element: JQuery = $(this);
     const element = this[0];
+    const isSliderUndefined = $element.data('slider') === undefined
+    const isObject = typeof options === 'object'
+    const isString = typeof options === 'string'
+    const isNoArguments = args.length === 0
 
-    if (typeof options === 'object') {
+    if (isObject) {
       createSlider(options, element);
-    } else if ($element.data('slider') === undefined || typeof options === 'object') {
+    } else if (isSliderUndefined || isObject) {
       $element.each((_, elem) => {
         createSlider({}, elem);
       });
-    } else if (typeof options === 'string' && args.length === 0) {
+    } else if (isString && isNoArguments) {
       return $(element).data('slider')[options]();
-    } else if (typeof options === 'string' && args.length !== 0) {
+    } else if (isString && !isNoArguments) {
       return $(element).data('slider')[options](...args);
     }
 
