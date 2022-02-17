@@ -21,9 +21,7 @@ class CombinedTip {
     this.setText(this.combinedTipState.value);
   }
 
-  public getTemplate(): HTMLElement {
-    return this.combinedTip;
-  }
+  public getTemplate = (): HTMLElement => this.combinedTip;
 
   private addClass(orientation: Orientation): void {
     this.combinedTip.className = '';

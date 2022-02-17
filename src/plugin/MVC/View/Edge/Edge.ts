@@ -19,9 +19,7 @@ class Edge {
     this.setStyle();
   }
 
-  public getTemplate(): HTMLElement {
-    return this.edge;
-  }
+  public getTemplate = (): HTMLElement => this.edge;
 
   public update(edgeState: IEdge): void {
     if (!isArraysEqual(this.edgeState.edgeClassList, edgeState.edgeClassList)) {
@@ -64,9 +62,7 @@ class Edge {
     this.edgeText.textContent = String(this.edgeState.edge);
   }
 
-  private addElem(): void {
-    this.edge.append(this.edgeText);
-  }
+  private addElem = (): void => this.edge.append(this.edgeText);
 }
 
 export default Edge;

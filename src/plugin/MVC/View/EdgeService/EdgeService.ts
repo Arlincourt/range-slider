@@ -67,9 +67,7 @@ class EdgeService {
     this.updateEdgeElements();
   }
 
-  public getTemplate(): HTMLElement[] {
-    return this.edgeElements.map((edge: Edge) => edge.getTemplate());
-  }
+  public getTemplate = (): HTMLElement[] => this.edgeElements.map((edge: Edge) => edge.getTemplate());
 
   public updateEdgeElements(): void {
     const { width } = this.scale.getBoundingClientRect();
@@ -156,9 +154,7 @@ class EdgeService {
     return states;
   }
 
-  private setEdges(): Edge[] {
-    return this.edgeStates.map((state) => new Edge(state));
-  }
+  private setEdges = (): Edge[] => this.edgeStates.map((state) => new Edge(state));
 
   private setValueClassLists(): string[] {
     this.valueClassList = [];
@@ -179,7 +175,9 @@ class EdgeService {
   private cutEdges(): Edge[] {
     const result: Edge[] = [];
     this.edgeElements.forEach((edge: Edge, idx: number) => {
-      if (idx % 2 === 1 && idx !== this.edgeElements.length - 1) {
+      const isEven = idx % 2 === 1
+      const isDifferent = idx !== this.edgeElements.length - 1
+      if (isEven && isDifferent) {
         return;
       }
       result.push(edge);
@@ -188,7 +186,11 @@ class EdgeService {
     this.edgeElements.forEach((edge: Edge) => {
       width += edge.getTemplate().getBoundingClientRect().width;
     });
-    if (this.allEdges[width] === undefined && result.length > 2) {
+
+    const isUndefined = this.allEdges[width] === undefined
+    const isMoreThanTwo = result.length > 2
+
+    if (isUndefined && isMoreThanTwo) {
       this.allEdges[width] = [...this.edgeElements];
     }
     return result;

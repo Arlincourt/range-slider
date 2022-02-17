@@ -38,9 +38,7 @@ class Runner {
     };
   }
 
-  public getTemplate(): HTMLElement {
-    return this.runner;
-  }
+  public getTemplate = (): HTMLElement => this.runner;
 
   public update(runnerState: IRunner): void {
     if (!isArraysEqual(this.runnerState.classList, runnerState.classList)) {
@@ -71,9 +69,7 @@ class Runner {
     }
   }
 
-  private addPoint(): void {
-    this.runner.append(this.point.getTemplate());
-  }
+  private addPoint = (): void => this.runner.append(this.point.getTemplate());
 
   private addClass(classNames: string[]): void {
     this.runner.className = '';
@@ -82,9 +78,7 @@ class Runner {
     });
   }
 
-  private setTipText(text: number): void {
-    this.tip.update(text);
-  }
+  private setTipText = (text: number): void => this.tip.update(text);
 
   private isTip(): boolean {
     if (!this.runnerState.tips) {

@@ -8,25 +8,17 @@ class Tip {
     this.setText(text);
   }
 
-  public update(text: number): void {
-    this.setText(text);
-  }
+  public update = (text: number): void => this.setText(text);
 
-  private init(): void {
-    this.addClass();
-  }
+  private init = (): void => this.addClass();
 
-  private addClass(): void {
-    this.tip.classList.add(classes.sliderTip);
-  }
+  private addClass = (): void => this.tip.classList.add(classes.sliderTip);
 
   private setText(text: number): void {
     this.tip.textContent = String(text);
   }
 
-  public getTemplate(): HTMLElement {
-    return this.tip;
-  }
+  public getTemplate = (): HTMLElement => this.tip;
 }
 
 export default Tip;

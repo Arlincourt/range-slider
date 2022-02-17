@@ -50,9 +50,7 @@ class Interval {
     return this.intervalState;
   }
 
-  public getTemplate(): HTMLElement {
-    return this.sliderBody;
-  }
+  public getTemplate = (): HTMLElement => this.sliderBody;
 
   private addElems(scale: boolean = this.intervalState.scale): void {
     this.sliderBody.innerHTML = '';

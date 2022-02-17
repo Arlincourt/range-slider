@@ -39,17 +39,11 @@ class Scale {
     }
   }
 
-  private addEvent(): void {
-    window.addEventListener('resize', this.onWindowResize);
-  }
+  private addEvent = (): void => window.addEventListener('resize', this.onWindowResize);
 
-  public getTemplate(): HTMLElement {
-    return this.scale;
-  }
+  public getTemplate = (): HTMLElement => this.scale;
 
-  private addClass(): void {
-    this.scale.classList.add(Classes.sliderScale);
-  }
+  private addClass = (): void => this.scale.classList.add(Classes.sliderScale);
 
   private addElems(): void {
     this.scale.innerHTML = '';

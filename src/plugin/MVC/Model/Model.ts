@@ -83,9 +83,7 @@ class Model {
     this.callback = callback;
   }
 
-  public getState(): IState {
-    return copyObject(this.state);
-  }
+  public getState = (): IState => copyObject(this.state);
 
   public update(emitData: IEmit): void {
     this.setPosition(emitData);
@@ -100,7 +98,6 @@ class Model {
       this.updateValues();
       this.setPossibleValues();
     }
-    this.setStep();
     this.emitChanges();
   }
 
@@ -111,7 +108,6 @@ class Model {
       this.updateValues();
       this.setPossibleValues();
     }
-    this.setStep();
     this.emitChanges();
   }
 
@@ -235,9 +231,7 @@ class Model {
     return Number(result.toFixed(getSymbols(step)));
   }
 
-  private getAll(): number {
-    return this.state.max - this.state.min;
-  }
+  private getAll = (): number => this.state.max - this.state.min;
 
   private checkStepToValues(): void {
     const { max, min } = this.state;
@@ -343,7 +337,10 @@ class Model {
       return this.state.min;
     }
 
-    if (value > 100 || value === 100) {
+    const isMore = value > 100
+    const isSame = value === 100
+
+    if (isMore || isSame) {
       return this.state.max;
     }
     const valueNumber = this.state.min + ((this.state.max - this.state.min) / 100) * value;

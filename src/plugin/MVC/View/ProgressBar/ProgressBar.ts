@@ -38,9 +38,7 @@ class ProgressBar {
     this.progressBarState = copyObject(progressBarState);
   }
 
-  public getTemplate(): HTMLElement {
-    return this.progressBar;
-  }
+  public getTemplate = (): HTMLElement => this.progressBar;
 
   private updateRunnerService(progressBarState: IProgressBar) {
     this.runnerServiceData = setType(InterfacesNames.IRunnerService, progressBarState);

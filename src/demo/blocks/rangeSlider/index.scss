@@ -15,6 +15,7 @@
 
   &__label {
     user-select: none;
+    cursor: pointer;
   }
 
   &__input {
@@ -22,6 +23,10 @@
     padding: 3px 6px;
     border-radius: 5px;
     border: 1px solid gray;
+
+    &[type=checkbox] {
+      cursor: pointer;
+    }
   }
 
   &__slider-container {

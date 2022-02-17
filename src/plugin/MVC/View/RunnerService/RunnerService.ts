@@ -54,12 +54,12 @@ class RunnerService {
     this.setElements();
   }
 
-  public getTemplate(): HTMLElement[] {
-    return this.elements;
-  }
+  public getTemplate = (): HTMLElement[] => this.elements;
 
   private isOverlap(): boolean {
-    if (this.runnerServiceState.range === false || this.runnerServiceState.tips === false) {
+    const isRangeFalse = this.runnerServiceState.range === false
+    const isTipsFalse = this.runnerServiceState.tips === false
+    if (isRangeFalse || isTipsFalse) {
       return false;
     }
     const firstTipSize = this.firstRunner.getTipSize;

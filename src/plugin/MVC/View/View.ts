@@ -41,7 +41,7 @@ class View {
     return this.state;
   }
 
-  private onSliderMouseMove = (evt: MouseEvent): void => {
+  private handleSliderMouseMove = (evt: MouseEvent): void => {
     const emitData: IEmit = {
       clientX: evt.clientX,
       clientY: evt.clientY,
@@ -55,7 +55,7 @@ class View {
     this.emitChanges(emitData);
   }
 
-  private onSliderMouseDown = (evt: MouseEvent): void => {
+  private handleSliderMouseDown = (evt: MouseEvent): void => {
     if (this.isElem(evt.target as HTMLElement)) {
       const emitData: IEmit | IEmitEdge = {
         clientX: evt.clientX,
@@ -70,22 +70,20 @@ class View {
         (emitData as IEmitEdge).value = Number((evt.target as HTMLElement).textContent);
       }
       this.emitChanges(emitData);
-      document.addEventListener('mousemove', this.onSliderMouseMove);
-      document.addEventListener('mouseup', this.onSliderMouseUp);
+      document.addEventListener('mousemove', this.handleSliderMouseMove);
+      document.addEventListener('mouseup', this.handleSliderMouseUp);
     }
   }
 
-  private onSliderMouseUp = (): void => {
-    this.removeMoveAndUpEvents();
-  }
+  private handleSliderMouseUp = (): void => this.removeMoveAndUpEvents();
 
   private addEvents(): void {
-    this.slider.addEventListener('mousedown', this.onSliderMouseDown);
+    this.slider.addEventListener('mousedown', this.handleSliderMouseDown);
   }
 
   private removeMoveAndUpEvents(): void {
-    document.removeEventListener('mousemove', this.onSliderMouseMove);
-    document.removeEventListener('mouseup', this.onSliderMouseUp);
+    document.removeEventListener('mousemove', this.handleSliderMouseMove);
+    document.removeEventListener('mouseup', this.handleSliderMouseUp);
   }
 
   private addElems(): void {
@@ -141,9 +139,7 @@ class View {
       || element.classList.contains(Classes.sliderLine);
   }
 
-  private addClass() {
-    this.slider.classList.add(Classes.slider);
-  }
+  private addClass = () => this.slider.classList.add(Classes.slider);
 }
 
 export default View;
