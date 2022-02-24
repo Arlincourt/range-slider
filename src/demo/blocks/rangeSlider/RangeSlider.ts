@@ -25,7 +25,7 @@ class RangeSlider {
 
   private $stepInput: JQuery<HTMLElement> | undefined
 
-  private $firstValueInput: JQuery<HTMLElement> | undefined
+  private $firstValueInput: JQuery<HTMLElement>
 
   private $secondValueInput: JQuery<HTMLElement> | undefined
 
@@ -46,6 +46,7 @@ class RangeSlider {
   constructor(rootElement: HTMLElement) {
     this.$rootElement = $(rootElement);
     this.$slider = $(this.$rootElement).find('.js-range-slider__slider-container');
+    this.$firstValueInput = this.$rootElement.find('.js-range-slider__first-value');
     this.init();
     this.addEvents();
   }
@@ -54,7 +55,6 @@ class RangeSlider {
     this.$minInput = this.$rootElement.find('.js-range-slider__min');
     this.$maxInput = this.$rootElement.find('.js-range-slider__max');
     this.$stepInput = this.$rootElement.find('.js-range-slider__step');
-    this.$firstValueInput = this.$rootElement.find('.js-range-slider__first-value');
     this.$secondValueInput = this.$rootElement.find('.js-range-slider__second-value');
     this.$orientationInput = this.$rootElement.find('.js-range-slider__orientation');
     this.$progressInput = this.$rootElement.find('.js-range-slider__progress-bar');
@@ -80,6 +80,11 @@ class RangeSlider {
     this.$scaleInput?.prop('checked', state.scale);
     const orientation = state.orientation === Orientation.VERTICAL;
     this.$orientationInput?.prop('checked', orientation);
+    if(!state.range) {
+      this.$firstValueInput.prop('disabled', true);
+      return 
+    }
+    this.$firstValueInput.prop('disabled', false);
   }
 
   private handleSliderInput = (evt: Event): void => {

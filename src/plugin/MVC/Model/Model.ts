@@ -149,7 +149,9 @@ class Model {
   public setSecondValue(value: number): void {
     const val = Number(value);
     this.state.value[1] = this.formatToStep(val);
-    this.isSame(1);
+    if(this.state.range) {
+      this.isSame(1);
+    }
     this.updateValues();
     this.emitChanges();
   }
@@ -314,10 +316,15 @@ class Model {
     integerValue: number, valueInNumber: number, edge: number | undefined,
   ): void {
     const {
-      value,
+      value, range
     } = this.state;
     value[1] = this.checkValueToEdge(edge, integerValue);
     value[1] = this.checkValueToLimits(valueInNumber, integerValue);
+    const isMore = value[0] > value[1];
+    if(isMore && range) {
+      value[0] = value[1] - this.state.step
+    }
+    this.checkValuesToMin()
   }
 
   private checkValueToEdge(edge: number | undefined, integerValue: number): number {
