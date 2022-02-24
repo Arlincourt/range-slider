@@ -267,15 +267,20 @@ class Model {
 
   private setPosition(emitData: IEmit): void {
     const {
-      min, step, range,
+      min, max, step, range,
     } = this.state;
     const percentValue: number = this.getCoorInPercent(emitData);
     const valueInNumber: number = this.getValueInNumber(percentValue);
     let integerValue: number = min + Math.round((valueInNumber - min) / step) * step;
+    const nextRemains = max - valueInNumber 
+    const prevRemains = valueInNumber - integerValue
+    if(nextRemains < prevRemains) {
+      integerValue = max  
+    }
+
     integerValue = (emitData as IEmitEdge).value !== undefined
       ? (emitData as IEmitEdge).value
       : integerValue;
-
     if (range) {
       this.setTwoPosition({
         integerValue, valueInNumber, percentValue, emitData,
@@ -343,7 +348,7 @@ class Model {
     if (isMore || isSame) {
       return this.state.max;
     }
-    const valueNumber = this.state.min + ((this.state.max - this.state.min) / 100) * value;
+    const valueNumber = this.state.min + ((this.getAll()) / 100) * value;
     return valueNumber;
   }
 
