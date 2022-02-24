@@ -9,47 +9,47 @@ const webpack = require('webpack')
 const isDev = process.env.NODE_ENV === 'development'
 
 const optimization = () => {
-	const config = {
-		splitChunks: {
-			chunks: 'all'
-		}
-	}
+  const config = {
+    splitChunks: {
+      chunks: 'all'
+    }
+  }
 
-	if(!isDev) {
-		config.minimizer = [
-			new TerserWebpackPlugin()
-		]
-	}
+  if(!isDev) {
+    config.minimizer = [
+      new TerserWebpackPlugin()
+    ]
+  }
 
-	return config
+  return config
 }
 
 module.exports = {
-	entry: {
-		main: ['@babel/polyfill', './src/index.ts'],
-	},
-	output: {
-		path: path.resolve(__dirname, './dist'),
-		filename: '[name].[contenthash].js',
-	},
-	resolve: {
-		alias: {
-			'@plugin': path.resolve(__dirname, 'src/plugin'),
-			'@demo': path.resolve(__dirname, 'src/demo'),
-			'@': path.resolve(__dirname, 'src')
-		},
-		extensions: ['.tsx', '.ts', '.js'],
-	},
-	optimization: optimization(),
-	devServer: {
+  entry: {
+    main: ['@babel/polyfill', './src/index.ts'],
+  },
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    filename: '[name].[contenthash].js',
+  },
+  resolve: {
+    alias: {
+      '@plugin': path.resolve(__dirname, 'src/plugin'),
+      '@demo': path.resolve(__dirname, 'src/demo'),
+      '@': path.resolve(__dirname, 'src')
+    },
+    extensions: ['.tsx', '.ts', '.js'],
+  },
+  optimization: optimization(),
+  devServer: {
 		port: 4200,
-		hot: isDev,
-		overlay: true,
-    open: true
+		open: true,
+    hot: true,
+    contentBase: path.join(__dirname, "dist"),
 	},
-	plugins: [
-		new CleanWebpackPlugin(),
-		new CopyWebpackPlugin({
+  plugins: [
+    new CleanWebpackPlugin(),
+    new CopyWebpackPlugin({
 			patterns: [
 				{
 					context: path.resolve(__dirname, 'src/assets/'),
@@ -59,83 +59,82 @@ module.exports = {
 				},
 			]
 		}),
-		new HtmlWebpackPlugin({
-			template: './src/demo/page/index.pug',
-			filename: 'index.html',
-			minify: {
-				collapseWhitespace: !isDev
-			}
-		}),
-		new MiniCssExtractPlugin({
-			filename: '[name].[contenthash].css'
-		}),
-		new webpack.ProvidePlugin({
-			$: "jquery",
-			jQuery: "jquery",
-		 })
-	],
-	module: {
-		rules: [
-			{
-				test: /\.(png|jpg|svg)$/,
-				exclude: [/src\/theme/, /src\/assets/],
-				use: [
-					{
-						loader: 'file-loader',
-						options: {
-							name: "[name].[ext]",
-							useRelativePath: true,	
-						},
-				}]
-			},
-			{
-				test: /\.(woff|woff2|eot|ttf|otf|svg)$/i,
-				exclude: [/src\/components/, /src\/assets/, /src\/pages/,],
-        type: "asset/resource",
-			},
-			{
-				test: /\.s[ac]ss$/,
-				use: [MiniCssExtractPlugin.loader, {
-					loader: 'css-loader',
-					options: {
-						url: {
-							filter: (url) => {
-								if (url.includes(".png")) {
-									return false;
-								}
-								return true;
-							},
-						},
-					}
-				}, 'postcss-loader', 'sass-loader'],
-			},
-			{
+    new HtmlWebpackPlugin({
+      template: './src/demo/page/index.pug',
+      filename: 'index.html',
+      minify: {
+        collapseWhitespace: !isDev
+      }
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css'
+    }),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+     })
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|svg)$/,
+				exclude: [/fonts/],
+        type: 'asset/resource',
+				generator: {
+					filename: 'images/[name][ext]',
+				},
+      },
+      {
+        test: /\.(ttf|woff|woff2|eot|svg)$/,
+        exclude: [/images/],
+        type: 'asset/resource',
+				generator: {
+					filename: 'fonts/[name][ext]',
+				},
+      },
+      {
+        test: /\.s[ac]ss$/,
+        use: [MiniCssExtractPlugin.loader, {
+          loader: 'css-loader',
+          options: {
+            url: {
+              filter: (url) => {
+                if (url.includes(".png")) {
+                  return false;
+                }
+                return true;
+              },
+            },
+          }
+        }, 'postcss-loader', 'sass-loader'],
+      },
+      {
         test: /\.pug$/,
         loader: 'pug-loader'
-			},
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				loader: 'babel-loader',
-				options: {
-					presets: [
-						'@babel/preset-env'
-					],
-					plugins: ["@babel/plugin-transform-modules-commonjs"]
-				}
-			},
-			{
-				test: /\.ts$/,
-				exclude: /node_modules/,
-				loader: 'babel-loader',
-				options: {
-					presets: [
-						'@babel/preset-env',
-						'@babel/preset-typescript',
-					],
-					plugins: ["@babel/plugin-transform-modules-commonjs"]
-				}
-			},
-		]
-	}
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            '@babel/preset-env'
+          ],
+          plugins: ["@babel/plugin-transform-modules-commonjs"]
+        }
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            '@babel/preset-env',
+            '@babel/preset-typescript',
+          ],
+          plugins: ["@babel/plugin-transform-modules-commonjs"]
+        }
+      },
+    ]
+  }
 }
