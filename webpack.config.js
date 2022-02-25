@@ -78,35 +78,17 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpg|svg)$/,
-				exclude: [/fonts/],
         type: 'asset/resource',
 				generator: {
 					filename: 'images/[name][ext]',
 				},
       },
       {
-        test: /\.(ttf|woff|woff2|eot|svg)$/,
-        exclude: [/images/],
-        type: 'asset/resource',
-				generator: {
-					filename: 'fonts/[name][ext]',
-				},
-      },
-      {
         test: /\.s[ac]ss$/,
         use: [MiniCssExtractPlugin.loader, {
-          loader: 'css-loader',
-          options: {
-            url: {
-              filter: (url) => {
-                if (url.includes(".png")) {
-                  return false;
-                }
-                return true;
-              },
-            },
-          }
-        }, 'postcss-loader', 'sass-loader'],
+              loader: 'css-loader',
+            }, 
+          'postcss-loader', 'sass-loader'],
       },
       {
         test: /\.pug$/,
