@@ -41,10 +41,10 @@ function createSlider(options: IOptions, element: HTMLElement): void {
   ): IState | JQuery {
     const $element: JQuery = $(this);
     const element = this[0];
-    const isSliderUndefined = $element.data('slider') === undefined
-    const isObject = typeof options === 'object'
-    const isString = typeof options === 'string'
-    const isNoArguments = args.length === 0
+    const isSliderUndefined = $element.data('slider') === undefined;
+    const isObject = typeof options === 'object';
+    const isString = typeof options === 'string';
+    const isNoArguments = args.length === 0;
 
     if (isObject) {
       createSlider(options, element);

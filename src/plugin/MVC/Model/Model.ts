@@ -149,7 +149,7 @@ class Model {
   public setSecondValue(value: number): void {
     const val = Number(value);
     this.state.value[1] = this.formatToStep(val);
-    if(this.state.range) {
+    if (this.state.range) {
       this.isSame(1);
     }
     this.updateValues();
@@ -274,10 +274,10 @@ class Model {
     const percentValue: number = this.getCoorInPercent(emitData);
     const valueInNumber: number = this.getValueInNumber(percentValue);
     let integerValue: number = min + Math.round((valueInNumber - min) / step) * step;
-    const nextRemains = max - valueInNumber 
-    const prevRemains = valueInNumber - integerValue
-    if(nextRemains < prevRemains) {
-      integerValue = max  
+    const nextRemains = max - valueInNumber;
+    const prevRemains = valueInNumber - integerValue;
+    if (nextRemains < prevRemains) {
+      integerValue = max;
     }
 
     integerValue = (emitData as IEmitEdge).value !== undefined
@@ -316,15 +316,15 @@ class Model {
     integerValue: number, valueInNumber: number, edge: number | undefined,
   ): void {
     const {
-      value, range
+      value, range,
     } = this.state;
     value[1] = this.checkValueToEdge(edge, integerValue);
     value[1] = this.checkValueToLimits(valueInNumber, integerValue);
     const isMore = value[0] > value[1];
-    if(isMore && range) {
-      value[0] = value[1] - this.state.step
+    if (isMore && range) {
+      value[0] = value[1] - this.state.step;
     }
-    this.checkValuesToMin()
+    this.checkValuesToMin();
   }
 
   private checkValueToEdge(edge: number | undefined, integerValue: number): number {
@@ -349,8 +349,8 @@ class Model {
       return this.state.min;
     }
 
-    const isMore = value > 100
-    const isSame = value === 100
+    const isMore = value > 100;
+    const isSame = value === 100;
 
     if (isMore || isSame) {
       return this.state.max;

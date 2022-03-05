@@ -80,9 +80,9 @@ class RangeSlider {
     this.$scaleInput?.prop('checked', state.scale);
     const orientation = state.orientation === Orientation.VERTICAL;
     this.$orientationInput?.prop('checked', orientation);
-    if(!state.range) {
+    if (!state.range) {
       this.$firstValueInput.prop('disabled', true);
-      return 
+      return;
     }
     this.$firstValueInput.prop('disabled', false);
   }

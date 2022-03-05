@@ -57,8 +57,8 @@ class RunnerService {
   public getTemplate = (): HTMLElement[] => this.elements;
 
   private isOverlap(): boolean {
-    const isRangeFalse = this.runnerServiceState.range === false
-    const isTipsFalse = this.runnerServiceState.tips === false
+    const isRangeFalse = this.runnerServiceState.range === false;
+    const isTipsFalse = this.runnerServiceState.tips === false;
     if (isRangeFalse || isTipsFalse) {
       return false;
     }
