@@ -7,4 +7,4 @@ function importAll(resolve: (str: string) => void): void {
   });
 }
 
-importAll(require.context('../src/', true, /\.js$|\.scss$|\.css$|\.svg$|\.png$|\.jpg$|\.ts$/));
+importAll(require.context('../src/', true, /\.js$|\.scss$|\.css$|\.ts$/));

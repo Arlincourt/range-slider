@@ -24,7 +24,8 @@
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
     "stylelint": "stylelint \"src/**/*.scss\"",
-    "stylelint-fix": "stylelint \"src/**/*.scss\" --fix"
+    "stylelint-fix": "stylelint \"src/**/*.scss\" --fix",
+    "plugin": "cross-env NODE_ENV=plugin webpack --mode production"
   },
   "browserslist": "> 0.25%, not dead",
   "keywords": [],
