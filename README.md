@@ -15,10 +15,17 @@
     npm run lint-fix // запуск автоматического исправления eslint
     npm run stylelint // запуск stylelint
     npm run stylelint-fix // запуск автоматического исправления stylelint
+    npm run plugin // сборка плагина(только css и js), без jQuery 
     
 ### Демо страница
 
 [Смотреть демо](https://arlincourt.github.io/range-slider/index.html)
+
+### Подключение
+
+    Подключить слайдер на страницу можно с помощью команды **npm run plugin**, эта 
+    команда соберет все стили и скрипты(без jQuery) в папку dist, в dist будут два 
+    файла, один **javascript** и один **css** файлы, их можно подкючить у себя на странице
 
 ### Использование
 
