@@ -3,7 +3,6 @@ import Orientation from '../../../types/orientation';
 import Classes from '../../../types/classes';
 import { IRunner, IRunnerService, ICombinedTip } from '../../../types/interfaces';
 import setType from '../../../helpers/setType';
-import copyObject from '../../../helpers/copyObject';
 import Runner from '../Runner/Runner';
 import CombinedTip from '../CombinedTip/CombinedTip';
 
@@ -30,7 +29,7 @@ class RunnerService {
   private elements: HTMLElement[];
 
   constructor(runnerServiceState: IRunnerService) {
-    this.runnerServiceState = copyObject(runnerServiceState);
+    this.runnerServiceState = { ...runnerServiceState };
     this.combinedTipData = setType(InterfacesNames.ICombinedTip, this.runnerServiceState);
     this.combinedTip = new CombinedTip(this.combinedTipData);
     this.firstRunnerData = this.setClass(
@@ -46,7 +45,7 @@ class RunnerService {
   }
 
   public update(runnerServiceState: IRunnerService): void {
-    this.runnerServiceState = copyObject(runnerServiceState);
+    this.runnerServiceState = { ...runnerServiceState };
     this.updateRunnersData();
     this.updateRunners();
     this.customizeDisplay();

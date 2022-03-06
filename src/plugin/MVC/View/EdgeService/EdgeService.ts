@@ -1,7 +1,6 @@
 import Classes from '../../../types/classes';
 import Orientation from '../../../types/orientation';
 import { IEdge, IEdgeService, IPossibleValues } from '../../../types/interfaces';
-import copyObject from '../../../helpers/copyObject';
 import Edge from '../Edge/Edge';
 
 interface IAllEdges {
@@ -30,7 +29,7 @@ class EdgeService {
   constructor(edgeServiceState: IEdgeService, scale: HTMLElement) {
     this.scale = scale;
     this.prevCoor = scale.getBoundingClientRect().width;
-    this.edgeServiceState = copyObject(edgeServiceState);
+    this.edgeServiceState = { ...edgeServiceState };
     this.valueClassList = this.setValueClassLists();
     this.edgeClassList = this.setEdgeClassLists();
     this.edgeStates = this.setStates();
@@ -59,7 +58,7 @@ class EdgeService {
   }
 
   public update(edgeServiceState: IEdgeService): void {
-    this.edgeServiceState = copyObject(edgeServiceState);
+    this.edgeServiceState = { ...edgeServiceState };
     this.edgeClassList = this.setEdgeClassLists();
     this.valueClassList = this.setValueClassLists();
     this.updatePrevStates();
@@ -135,7 +134,7 @@ class EdgeService {
   }
 
   private updatePrevStates(): void {
-    this.prevEdgeStates = copyObject(this.edgeStates);
+    this.prevEdgeStates = { ...this.edgeStates };
   }
 
   private setStates(): IEdge[] {

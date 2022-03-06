@@ -3,7 +3,6 @@ import InterfacesNames from '../../../types/interfacesNames';
 import Orientation from '../../../types/orientation';
 import { IRunnerService, IProgressBar } from '../../../types/interfaces';
 import setType from '../../../helpers/setType';
-import copyObject from '../../../helpers/copyObject';
 import RunnerService from '../RunnerService/RunnerService';
 
 class ProgressBar {
@@ -16,7 +15,7 @@ class ProgressBar {
   private runnerServiceData: IRunnerService;
 
   constructor(progressBarState: IProgressBar) {
-    this.progressBarState = copyObject(progressBarState);
+    this.progressBarState = { ...progressBarState };
     this.runnerServiceData = setType(InterfacesNames.IRunnerService, this.progressBarState);
     this.runnerService = new RunnerService(this.runnerServiceData);
     this.addClass(progressBarState.orientation, progressBarState.progressBar);
@@ -35,7 +34,7 @@ class ProgressBar {
       this.removeElems();
       this.addElems();
     }
-    this.progressBarState = copyObject(progressBarState);
+    this.progressBarState = { ...progressBarState };
   }
 
   public getTemplate = (): HTMLElement => this.progressBar;

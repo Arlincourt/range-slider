@@ -2,7 +2,6 @@ import Classes from '../../../types/classes';
 import InterfacesNames from '../../../types/interfacesNames';
 import { IEdgeService, IScale } from '../../../types/interfaces';
 import setType from '../../../helpers/setType';
-import copyObject from '../../../helpers/copyObject';
 import EdgeService from '../EdgeService/EdgeService';
 
 class Scale {
@@ -15,7 +14,7 @@ class Scale {
   private edgeServiceData: IEdgeService
 
   constructor(scaleState: IScale) {
-    this.scaleState = copyObject(scaleState);
+    this.scaleState = { ...scaleState };
     this.edgeServiceData = setType(InterfacesNames.IEdgeService, this.scaleState);
     this.edgeService = new EdgeService(this.edgeServiceData, this.scale);
     this.addClass();
@@ -26,7 +25,7 @@ class Scale {
   }
 
   public update(scaleState: IScale): void {
-    this.scaleState = copyObject(scaleState);
+    this.scaleState = { ...scaleState };
     this.edgeServiceData = setType(InterfacesNames.IEdgeService, this.scaleState);
     this.edgeService.update(this.edgeServiceData);
     this.addElems();

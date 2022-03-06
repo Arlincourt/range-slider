@@ -14,8 +14,8 @@ import {
 // Тип обобщения(T) тоже не помогает
 
 function setType(
-  type: string, parentType: IState | IRunnerService | IEdgeService | any, count?: number | string,
-): any {
+  type: string, // eslint-disable-next-line
+  parentType: IState | IRunnerService | IEdgeService | any, count?: number | string): any {
   switch (type) {
     case InterfacesNames.IRunnerService:
       return {

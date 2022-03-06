@@ -1,7 +1,6 @@
 import { IState, IEmit, IEmitEdge } from '../../types/interfaces';
 import Classes from '../../types/classes';
 import Observer from '../../Observer/Observer';
-import copyObject from '../../helpers/copyObject';
 import Interval from './Interval/Interval';
 
 class View {
@@ -16,7 +15,7 @@ class View {
   private interval: Interval
 
   constructor(element: HTMLElement, state: IState) {
-    this.state = copyObject(state);
+    this.state = { ...state };
     this.rootElement = element;
     this.interval = new Interval(this.state);
     this.init();
@@ -29,7 +28,7 @@ class View {
   }
 
   public update(state: IState): void {
-    this.state = copyObject(state);
+    this.state = { ...state };
     this.interval.update(this.state);
   }
 

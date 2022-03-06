@@ -111,7 +111,7 @@ interface IEmitEdge {
 }
 
 interface IUniversalObjectType {
-  [key: string]: number | string | boolean | Orientation | IPossibleValues | number[]
+  [key: string]: number | string | boolean | Orientation | IPossibleValues | number[] | string[]
 }
 
 type IArgs =

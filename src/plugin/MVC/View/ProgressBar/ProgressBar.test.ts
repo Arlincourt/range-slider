@@ -4,7 +4,7 @@
 
 import ProgressBar from './ProgressBar'
 import Classes from '../../../types/classes'
-import {IProgressBar} from '../../../types/interfaces'
+import { IProgressBar } from '../../../types/interfaces'
 import Orientation from '../../../types/orientation'
 
 

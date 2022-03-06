@@ -60,9 +60,9 @@ describe('View module', () => {
     const onMouseUp = jest.spyOn(view as any, 'onSliderMouseUp')
     const mouseDownEvent = new MouseEvent('mousedown');
     const mouseMoveEvent = new MouseEvent('mousemove');
-    view['onSliderMouseDown'](mouseDownEvent)
-    view['onSliderMouseMove'](mouseMoveEvent)
-    view['onSliderMouseUp']()
+    view['handleSliderMouseMove'](mouseDownEvent)
+    view['handleSliderMouseMove'](mouseMoveEvent)
+    view['handleSliderMouseUp']()
     expect(onMouseDown.mock.calls.length).toBe(1)
     expect(onMouseMove.mock.calls.length).toBe(1)
     expect(onMouseUp.mock.calls.length).toBe(1)

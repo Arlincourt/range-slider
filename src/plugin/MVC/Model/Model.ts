@@ -2,7 +2,6 @@ import Orientation from '../../types/orientation';
 import {
   IState, IOptions, IEmit, IEmitEdge, IPossibleValues,
 } from '../../types/interfaces';
-import copyObject from '../../helpers/copyObject';
 import getSymbols from '../../helpers/getSymbols';
 import Observer from '../../Observer/Observer';
 
@@ -34,7 +33,7 @@ class Model {
   };
 
   constructor(options: IOptions) {
-    this.state = copyObject({ ...this.state, ...options });
+    this.state = { ...this.state, ...options };
     this.updateValues();
     this.setPossibleValues();
   }
@@ -83,7 +82,7 @@ class Model {
     this.callback = callback;
   }
 
-  public getState = (): IState => copyObject(this.state);
+  public getState = (): IState => ({ ...this.state });
 
   public update(emitData: IEmit): void {
     this.setPosition(emitData);

@@ -1,4 +1,3 @@
-import copyObject from '../../../helpers/copyObject';
 import isArraysEqual from '../../../helpers/isArraysEqual';
 import { IRunner } from '../../../types/interfaces';
 import Point from '../Point/Point';
@@ -21,7 +20,7 @@ class Runner {
   private runnerState: IRunner;
 
   constructor(runnerState: IRunner) {
-    this.runnerState = copyObject(runnerState);
+    this.runnerState = { ...runnerState };
     this.tip = new Tip(this.runnerState.value);
     this.init();
   }
@@ -44,7 +43,7 @@ class Runner {
     if (!isArraysEqual(this.runnerState.classList, runnerState.classList)) {
       this.addClass(runnerState.classList);
     }
-    this.runnerState = copyObject(runnerState);
+    this.runnerState = { ...runnerState };
     this.setTipText(this.runnerState.value);
     this.removeElems();
     this.addTip();

@@ -1,4 +1,3 @@
-import copyObject from '../../../helpers/copyObject';
 import isArraysEqual from '../../../helpers/isArraysEqual';
 import Orientation from '../../../types/orientation';
 import { IEdge } from '../../../types/interfaces';
@@ -11,7 +10,7 @@ class Edge {
   private edgeState: IEdge;
 
   constructor(edgeState: IEdge) {
-    this.edgeState = copyObject(edgeState);
+    this.edgeState = { ...edgeState };
     this.addEdgeClass(this.edgeState.edgeClassList);
     this.addValueClass(this.edgeState.valueClassList);
     this.setText();
@@ -28,7 +27,7 @@ class Edge {
     if (!isArraysEqual(this.edgeState.valueClassList, edgeState.valueClassList)) {
       this.addValueClass(edgeState.valueClassList);
     }
-    this.edgeState = copyObject(edgeState);
+    this.edgeState = { ...edgeState };
     this.setText();
     this.setStyle();
   }

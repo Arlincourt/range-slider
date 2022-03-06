@@ -3,7 +3,6 @@ import InterfacesNames from '../../../types/interfacesNames';
 import Orientation from '../../../types/orientation';
 import { IProgressBar, IInterval, IScale } from '../../../types/interfaces';
 import setType from '../../../helpers/setType';
-import copyObject from '../../../helpers/copyObject';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import Scale from '../Scale/Scale';
 
@@ -23,7 +22,7 @@ class Interval {
   private scaleData: IScale
 
   constructor(intervalState: IInterval) {
-    this.intervalState = copyObject(intervalState);
+    this.intervalState = { ...intervalState };
     this.progressBarData = setType(InterfacesNames.IProgressBar, this.intervalState);
     this.scaleData = setType(InterfacesNames.IScale, this.intervalState);
     this.progressBar = new ProgressBar(this.progressBarData);
@@ -39,7 +38,7 @@ class Interval {
     if (this.intervalState.scale !== intervalState.scale) {
       this.addElems(intervalState.scale);
     }
-    this.intervalState = copyObject(intervalState);
+    this.intervalState = { ...intervalState };
     this.progressBarData = setType(InterfacesNames.IProgressBar, this.intervalState);
     this.scaleData = setType(InterfacesNames.IScale, this.intervalState);
     this.progressBar.update(this.progressBarData);
