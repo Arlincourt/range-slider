@@ -55,16 +55,23 @@ describe('View module', () => {
 
   test('should call onSliderMouseDown, onSliderMouseMove and onSliderMouseUp methods', () => {
     const view = new View(rootElement, viewData1)
-    const onMouseDown = jest.spyOn(view as any, 'onSliderMouseDown')
-    const onMouseMove = jest.spyOn(view as any, 'onSliderMouseMove')
-    const onMouseUp = jest.spyOn(view as any, 'onSliderMouseUp')
+    const onMouseDown = jest.spyOn(view as any, 'handleSliderMouseDown')
+    const onMouseMove = jest.spyOn(view as any, 'handleSliderMouseMove')
+    const onMouseUp = jest.spyOn(view as any, 'handleSliderMouseUp')
+    const removeMoveAndUpEvents = jest.spyOn(view as any, 'removeMoveAndUpEvents')
+    const emitChanges = jest.spyOn(view as any, 'emitChanges')
     const mouseDownEvent = new MouseEvent('mousedown');
     const mouseMoveEvent = new MouseEvent('mousemove');
-    view['handleSliderMouseMove'](mouseDownEvent)
+    const lineElem = document.createElement('div')
+    lineElem.classList.add(Classes.sliderLine)
+    lineElem.dispatchEvent(mouseDownEvent)
+    view['handleSliderMouseDown'](mouseDownEvent)
     view['handleSliderMouseMove'](mouseMoveEvent)
     view['handleSliderMouseUp']()
     expect(onMouseDown.mock.calls.length).toBe(1)
     expect(onMouseMove.mock.calls.length).toBe(1)
     expect(onMouseUp.mock.calls.length).toBe(1)
+    expect(emitChanges.mock.calls.length).toBe(2)
+    expect(removeMoveAndUpEvents.mock.calls.length).toBe(1)
   })
 })

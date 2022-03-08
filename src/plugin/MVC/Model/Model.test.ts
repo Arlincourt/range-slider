@@ -70,8 +70,10 @@ describe('Model module', () => {
 
   test('range should be false and first value should be 3', () => {
     model.setRange(false)
+    model.setFirstValue(3)
+    model.setMin(9.2)
     expect(model.getState().range).toBe(false)
-    expect(model.getState().value[0]).toBe(3)
+    expect(model.getState().value[0]).toBe(9.2)
   })
 
   test('first value should be 11', () => {
@@ -83,12 +85,13 @@ describe('Model module', () => {
     model.setSecondValue(14)
     expect(model.getState().value[1]).toBe(14)
   })
-
+  
   test('step should be 0.2 and second value should be 12 and first value 3', () => {
     model.setStep(0.2)
+    model.setSecondValue(14)
     expect(model.getState().step).toBe(0.2)
-    expect(model.getState().value[1]).toBe(12)
-    expect(model.getState().value[0]).toBe(3)
+    expect(model.getState().value[1]).toBe(14)
+    expect(model.getState().value[0]).toBe(11)
   })
 
   test('should correct calculate prossible values', () => {
