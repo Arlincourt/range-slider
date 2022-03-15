@@ -11,7 +11,7 @@ class Observer {
     this.subscribes = {};
   }
 
-  subscribe(eventName: string, callback: (state?: IEmit) => void): void {
+  public subscribe(eventName: string, callback: (state?: IEmit) => void): void {
     if (this.subscribes[eventName]) {
       this.subscribes[eventName].push(callback);
       return;
@@ -20,7 +20,7 @@ class Observer {
     this.subscribes[eventName] = [callback];
   }
 
-  emit(eventName: string, state?: IEmit): void {
+  public emit(eventName: string, state?: IEmit): void {
     if (this.subscribes[eventName]) {
       this.subscribes[eventName].forEach((callback: (state?: IEmit) => void) => {
         callback(state);

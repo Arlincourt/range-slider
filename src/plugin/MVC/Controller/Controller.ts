@@ -1,12 +1,14 @@
-import { IState } from 'plugin/types/interfaces';
-import ObserverService from '../../ObserverService/ObserverService';
+import Observer from '../../Observer/Observer';
+import { IState, IEmit } from 'plugin/types/interfaces';
 import Model from '../Model/Model';
 import View from '../View/View';
 
 class Controller {
-  private model: Model;
+  private readonly model: Model;
 
-  private view: View;
+  private readonly observer: Observer;
+
+  private readonly view: View;
 
   private state: IState;
 
@@ -14,8 +16,28 @@ class Controller {
     this.model = model;
     this.state = this.model.getState();
     this.view = new View(element, this.state);
-    new ObserverService(this.model, this.view);
+    this.observer = new Observer();
+    this.connect();
+    this.addEvents();
   }
+
+  private connect(): void {
+    this.model.observer = this.observer;
+    this.view.observer = this.observer;
+  }
+
+  private addEvents(): void {
+    this.observer.subscribe('viewChange', this.updateModel.bind(this));
+    this.observer.subscribe('modelChange', this.updateView.bind(this));
+  }
+
+  private updateModel(state?: IEmit): void {
+    if (state) {
+      this.model.update(state);
+    }
+  }
+
+  private updateView = (): void => this.view.update(this.model.getState());
 }
 
 export default Controller;
