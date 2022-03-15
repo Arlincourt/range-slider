@@ -7,13 +7,13 @@ class Point {
     this.init();
   }
 
+  public getTemplate = (): HTMLElement => this.point;
+  
   private init(): void {
     this.addClass();
   }
-
+  
   private addClass = (): void => this.point.classList.add(classes.sliderPoint);
-
-  public getTemplate = (): HTMLElement => this.point;
 }
 
 export default Point;

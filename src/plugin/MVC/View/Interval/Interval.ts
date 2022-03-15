@@ -44,12 +44,12 @@ class Interval {
     this.progressBar.update(this.progressBarData);
     this.scale.update(this.scaleData);
   }
-
+  
+  public getTemplate = (): HTMLElement => this.sliderBody;
+  
   get getIntervalState(): IInterval {
     return this.intervalState;
   }
-
-  public getTemplate = (): HTMLElement => this.sliderBody;
 
   private addElems(scale: boolean = this.intervalState.scale): void {
     this.sliderBody.innerHTML = '';

@@ -38,44 +38,10 @@ class Model {
     this.setPossibleValues();
   }
 
-  get getMin(): number {
-    return this.state.min;
-  }
-
-  get getMax(): number {
-    return this.state.max;
-  }
-
-  get getStep(): number {
-    return this.state.step;
-  }
-
-  get getFirstValue(): number {
-    return this.state.value[0];
-  }
-
-  get getSecondValue(): number {
-    return this.state.value[1];
-  }
-
-  get getOrientation(): string {
-    return this.state.orientation;
-  }
-
-  get getTips(): boolean {
-    return this.state.tips;
-  }
-
-  get getRange(): boolean {
-    return this.state.range;
-  }
-
-  get getProgress(): boolean {
-    return this.state.progressBar;
-  }
-
-  get getPossibleValues(): IPossibleValues {
-    return this.state.possibleValues;
+  public update(emitData: IEmit): void {
+    this.setPosition(emitData);
+    this.setPossibleValues();
+    this.emitChanges();
   }
 
   public setOnChangeMethod(callback: () => Record<string, unknown>): void {
@@ -83,12 +49,6 @@ class Model {
   }
 
   public getState = (): IState => ({ ...this.state });
-
-  public update(emitData: IEmit): void {
-    this.setPosition(emitData);
-    this.setPossibleValues();
-    this.emitChanges();
-  }
 
   public setMin(min: number | string): void {
     if (min < this.state.max) {
@@ -169,6 +129,46 @@ class Model {
     this.state.progressBar = isProgress;
     this.emitChanges();
   }
+
+  get getMin(): number {
+    return this.state.min;
+  }
+
+  get getMax(): number {
+    return this.state.max;
+  }
+
+  get getStep(): number {
+    return this.state.step;
+  }
+
+  get getFirstValue(): number {
+    return this.state.value[0];
+  }
+
+  get getSecondValue(): number {
+    return this.state.value[1];
+  }
+
+  get getOrientation(): string {
+    return this.state.orientation;
+  }
+
+  get getTips(): boolean {
+    return this.state.tips;
+  }
+
+  get getRange(): boolean {
+    return this.state.range;
+  }
+
+  get getProgress(): boolean {
+    return this.state.progressBar;
+  }
+
+  get getPossibleValues(): IPossibleValues {
+    return this.state.possibleValues;
+  }  
 
   private setPossibleValues(): void {
     const { min, max } = this.state;

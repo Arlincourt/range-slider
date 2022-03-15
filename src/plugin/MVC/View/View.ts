@@ -20,13 +20,7 @@ class View {
     this.interval = new Interval(this.state);
     this.init();
   }
-
-  private init(): void {
-    this.addClass();
-    this.addEvents();
-    this.addElems();
-  }
-
+  
   public update(state: IState): void {
     this.state = { ...state };
     this.interval.update(this.state);
@@ -38,6 +32,12 @@ class View {
 
   get getState(): IState {
     return this.state;
+  }
+  
+  private init(): void {
+    this.addClass();
+    this.addEvents();
+    this.addElems();
   }
 
   private handleSliderMouseMove = (evt: MouseEvent): void => {

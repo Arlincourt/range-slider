@@ -55,6 +55,26 @@ class RunnerService {
 
   public getTemplate = (): HTMLElement[] => this.elements;
 
+  get getFirstRunner(): Runner {
+    return this.firstRunner;
+  }
+
+  get getSecondRunner(): Runner {
+    return this.secondRunner;
+  }
+
+  get getSecondRunnerData(): IRunner {
+    return this.secondRunnerData;
+  }
+
+  get getFirstRunnerData(): IRunner {
+    return this.firstRunnerData;
+  }
+
+  get getRunnerServiceState(): IRunnerService {
+    return this.runnerServiceState;
+  }
+
   private isOverlap(): boolean {
     const isRangeFalse = this.runnerServiceState.range === false;
     const isTipsFalse = this.runnerServiceState.tips === false;
@@ -111,26 +131,6 @@ class RunnerService {
       this.secondRunnerData.tips = false;
       this.updateRunners();
     }
-  }
-
-  get getFirstRunner(): Runner {
-    return this.firstRunner;
-  }
-
-  get getSecondRunner(): Runner {
-    return this.secondRunner;
-  }
-
-  get getSecondRunnerData(): IRunner {
-    return this.secondRunnerData;
-  }
-
-  get getFirstRunnerData(): IRunner {
-    return this.firstRunnerData;
-  }
-
-  get getRunnerServiceState(): IRunnerService {
-    return this.runnerServiceState;
   }
 
   private setClass(runnerData: IRunner, order: string): IRunner {

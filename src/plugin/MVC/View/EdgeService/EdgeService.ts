@@ -37,26 +37,6 @@ class EdgeService {
     this.edgeElements = this.setEdges();
   }
 
-  get getState(): IEdgeService {
-    return this.edgeServiceState;
-  }
-
-  get getElements(): Edge[] {
-    return this.edgeElements;
-  }
-
-  get getStates(): IEdge[] {
-    return this.edgeStates;
-  }
-
-  get getValueClass(): string[] {
-    return this.valueClassList;
-  }
-
-  get getEdgeClass(): string[] {
-    return this.edgeClassList;
-  }
-
   public update(edgeServiceState: IEdgeService): void {
     this.edgeServiceState = { ...edgeServiceState };
     this.edgeClassList = this.setEdgeClassLists();
@@ -84,6 +64,26 @@ class EdgeService {
     if (this.isOverlap()) {
       this.edgeElements = this.cutEdges();
     }
+  }
+
+  get getState(): IEdgeService {
+    return this.edgeServiceState;
+  }
+
+  get getElements(): Edge[] {
+    return this.edgeElements;
+  }
+
+  get getStates(): IEdge[] {
+    return this.edgeStates;
+  }
+
+  get getValueClass(): string[] {
+    return this.valueClassList;
+  }
+
+  get getEdgeClass(): string[] {
+    return this.edgeClassList;
   }
 
   private updateEdges(): void {

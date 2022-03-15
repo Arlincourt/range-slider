@@ -10,15 +10,15 @@ class Tip {
 
   public update = (text: number): void => this.setText(text);
 
+  public getTemplate = (): HTMLElement => this.tip;
+  
   private init = (): void => this.addClass();
-
+  
   private addClass = (): void => this.tip.classList.add(classes.sliderTip);
-
+  
   private setText(text: number): void {
     this.tip.textContent = String(text);
   }
-
-  public getTemplate = (): HTMLElement => this.tip;
 }
 
 export default Tip;

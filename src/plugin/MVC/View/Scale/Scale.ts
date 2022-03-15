@@ -30,17 +30,17 @@ class Scale {
     this.edgeService.update(this.edgeServiceData);
     this.addElems();
   }
-
+  
+  public getTemplate = (): HTMLElement => this.scale;
+  
   private onWindowResize = (): void => {
     this.edgeService.updateEdgeElements();
     if (this.isChanged()) {
       this.addElems();
     }
   }
-
+  
   private addEvent = (): void => window.addEventListener('resize', this.onWindowResize);
-
-  public getTemplate = (): HTMLElement => this.scale;
 
   private addClass = (): void => this.scale.classList.add(Classes.sliderScale);
 

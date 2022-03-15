@@ -25,6 +25,18 @@ class Runner {
     this.init();
   }
 
+  public update(runnerState: IRunner): void {
+    if (!isArraysEqual(this.runnerState.classList, runnerState.classList)) {
+      this.addClass(runnerState.classList);
+    }
+    this.runnerState = { ...runnerState };
+    this.setTipText(this.runnerState.value);
+    this.removeElems();
+    this.addTip();
+  }
+  
+  public getTemplate = (): HTMLElement => this.runner;
+
   get getTipSize(): ITipSize {
     const {
       width, height, x, y,
@@ -37,17 +49,6 @@ class Runner {
     };
   }
 
-  public getTemplate = (): HTMLElement => this.runner;
-
-  public update(runnerState: IRunner): void {
-    if (!isArraysEqual(this.runnerState.classList, runnerState.classList)) {
-      this.addClass(runnerState.classList);
-    }
-    this.runnerState = { ...runnerState };
-    this.setTipText(this.runnerState.value);
-    this.removeElems();
-    this.addTip();
-  }
 
   private init(): void {
     this.addTip();
