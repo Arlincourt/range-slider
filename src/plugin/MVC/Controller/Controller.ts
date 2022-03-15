@@ -1,4 +1,4 @@
-import { IState, IEmit } from 'plugin/types/interfaces';
+import { IState, IEmit, IEmitEdge } from 'plugin/types/interfaces';
 import Observer from '../../Observer/Observer';
 import Model from '../Model/Model';
 import View from '../View/View';
@@ -31,7 +31,7 @@ class Controller {
     this.observer.subscribe('handleModelChange', this.updateView.bind(this));
   }
 
-  private updateModel(state?: IEmit): void {
+  private updateModel(state?: IEmit | IEmitEdge): void {
     if (state) {
       this.model.update(state);
     }

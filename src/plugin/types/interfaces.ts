@@ -89,24 +89,23 @@ interface IState {
   scale: boolean;
 }
 
-interface IEmit {
+interface ICoor {
   clientX: number;
   clientY: number;
   clientWidth: number;
   clientHeight: number;
   offsetX: number;
   offsetY: number;
-  mouseDown: boolean;
+}
+
+interface IEmit {
+  value: number;
+  mouseDown: boolean
 }
 
 interface IEmitEdge {
   value: number;
-  clientX: number;
-  clientY: number;
-  clientWidth: number;
-  clientHeight: number;
-  offsetX: number;
-  offsetY: number;
+  edge: number;
   mouseDown: boolean;
 }
 
@@ -136,4 +135,5 @@ export {
   IPossibleValues,
   IUniversalObjectType,
   IArgs,
+  ICoor
 };

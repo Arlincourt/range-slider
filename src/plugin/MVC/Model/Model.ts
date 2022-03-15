@@ -38,7 +38,7 @@ class Model {
     this.setPossibleValues();
   }
 
-  public update(emitData: IEmit): void {
+  public update(emitData: IEmit | IEmitEdge): void {
     this.setPosition(emitData);
     this.setPossibleValues();
     this.emitChanges();
@@ -266,11 +266,12 @@ class Model {
     }
   }
 
-  private setPosition(emitData: IEmit): void {
+  private setPosition(emitData: IEmit | IEmitEdge): void {
     const {
       min, max, step, range,
     } = this.state;
-    const percentValue: number = this.getCoorInPercent(emitData);
+    
+    const percentValue: number = emitData.value;
     const valueInNumber: number = this.getValueInNumber(percentValue);
     let integerValue: number = min + Math.round((valueInNumber - min) / step) * step;
     const nextRemains = max - valueInNumber;
@@ -279,8 +280,8 @@ class Model {
       integerValue = max;
     }
 
-    integerValue = (emitData as IEmitEdge).value !== undefined
-      ? (emitData as IEmitEdge).value
+    integerValue = (emitData as IEmitEdge).edge !== undefined
+      ? (emitData as IEmitEdge).edge
       : integerValue;
     if (range) {
       this.setTwoPosition({
@@ -356,18 +357,6 @@ class Model {
     }
     const valueNumber = this.state.min + ((this.getAll()) / 100) * value;
     return valueNumber;
-  }
-
-  private getCoorInPercent(state: IEmit): number {
-    let value: number;
-    if (this.state.orientation === Orientation.HORIZONTAL) {
-      value = state.clientX - state.offsetX;
-      value = (value / state.clientWidth) * 100;
-      return value;
-    }
-    value = state.clientY - state.offsetY;
-    value = (value / state.clientHeight) * 100;
-    return value;
   }
 
   private getValueInPercent(value: number): number {

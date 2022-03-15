@@ -1,4 +1,5 @@
-import { IState, IEmit, IEmitEdge } from '../../types/interfaces';
+import { IState, IEmit, IEmitEdge, ICoor } from '../../types/interfaces';
+import Orientation from '../../types/orientation';
 import Classes from '../../types/classes';
 import Observer from '../../Observer/Observer';
 import Interval from './Interval/Interval';
@@ -41,14 +42,18 @@ class View {
   }
 
   private handleSliderMouseMove = (evt: MouseEvent): void => {
-    const emitData: IEmit = {
+    const evtData: ICoor = {
       clientX: evt.clientX,
       clientY: evt.clientY,
       clientWidth: Number(this.slider.offsetWidth),
       clientHeight: Number(this.slider.offsetHeight),
       offsetX: this.slider.getBoundingClientRect().left + document.body.scrollLeft,
       offsetY: this.slider.getBoundingClientRect().top + document.body.scrollTop,
-      mouseDown: false,
+    };
+
+    const emitData = {
+      value: this.getCoorInPercent(evtData),
+      mouseDown: false
     };
 
     this.emitChanges(emitData);
@@ -56,18 +61,23 @@ class View {
 
   private handleSliderMouseDown = (evt: MouseEvent): void => {
     if (this.isElem(evt.target as HTMLElement)) {
-      const emitData: IEmit | IEmitEdge = {
+      const evtData: ICoor = {
         clientX: evt.clientX,
         clientY: evt.clientY,
         clientWidth: Number(this.slider.offsetWidth),
         clientHeight: Number(this.slider.offsetHeight),
         offsetX: this.slider.getBoundingClientRect().left + document.body.scrollLeft,
         offsetY: this.slider.getBoundingClientRect().top + document.body.scrollTop,
-        mouseDown: true,
+      };
+      
+      const emitData = {
+        value: this.getCoorInPercent(evtData),
+        mouseDown: true
       };
       if (this.isValue(evt.target as HTMLElement)) {
-        (emitData as IEmitEdge).value = Number((evt.target as HTMLElement).textContent);
+        (emitData as IEmitEdge).edge = Number((evt.target as HTMLElement).textContent);
       }
+
       this.emitChanges(emitData);
       document.addEventListener('mousemove', this.handleSliderMouseMove);
       document.addEventListener('mouseup', this.handleSliderMouseUp);
@@ -85,12 +95,24 @@ class View {
     document.removeEventListener('mouseup', this.handleSliderMouseUp);
   }
 
+  private getCoorInPercent(state: ICoor): number {
+    let value: number;
+    if (this.state.orientation === Orientation.HORIZONTAL) {
+      value = state.clientX - state.offsetX;
+      value = (value / state.clientWidth) * 100;
+      return value;
+    }
+    value = state.clientY - state.offsetY;
+    value = (value / state.clientHeight) * 100;
+    return value;
+  }
+
   private addElems(): void {
     this.slider.append(this.interval.getTemplate());
     this.rootElement.append(this.slider);
   }
 
-  private emitChanges(data: IEmit) {
+  private emitChanges(data: IEmit | IEmitEdge) {
     this.observer?.emit('handleViewChange', data);
   }
 
