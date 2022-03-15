@@ -407,7 +407,7 @@ class Model {
     if (this.callback) {
       this.callback({ ...this.state });
     }
-    this.observer?.emit('modelChange');
+    this.observer?.emit('handleModelChange');
   }
 }
 

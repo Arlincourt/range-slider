@@ -20,8 +20,8 @@ class Scale {
     this.addClass();
     this.addElems();
     this.addEvent();
-    this.onWindowResize();
-    this.onWindowResize();
+    this.handleWindowResize();
+    this.handleWindowResize();
   }
 
   public update(scaleState: IScale): void {
@@ -33,14 +33,14 @@ class Scale {
 
   public getTemplate = (): HTMLElement => this.scale;
 
-  private onWindowResize = (): void => {
+  private handleWindowResize = (): void => {
     this.edgeService.updateEdgeElements();
     if (this.isChanged()) {
       this.addElems();
     }
   }
 
-  private addEvent = (): void => window.addEventListener('resize', this.onWindowResize);
+  private addEvent = (): void => window.addEventListener('resize', this.handleWindowResize);
 
   private addClass = (): void => this.scale.classList.add(Classes.sliderScale);
 

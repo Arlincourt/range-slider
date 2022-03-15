@@ -91,7 +91,7 @@ class View {
   }
 
   private emitChanges(data: IEmit) {
-    this.observer?.emit('viewChange', data);
+    this.observer?.emit('handleViewChange', data);
   }
 
   private isElem(element: HTMLElement): boolean {
