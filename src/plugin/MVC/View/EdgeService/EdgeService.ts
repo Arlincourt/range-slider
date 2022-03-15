@@ -4,7 +4,7 @@ import { IEdge, IEdgeService, IPossibleValues } from '../../../types/interfaces'
 import Edge from '../Edge/Edge';
 
 interface IAllEdges {
-  [key: number]: Edge[]
+  [key: number]: Edge[];
 }
 
 class EdgeService {

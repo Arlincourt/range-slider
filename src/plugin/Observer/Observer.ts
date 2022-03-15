@@ -1,7 +1,7 @@
 import { IEmit } from '../types/interfaces';
 
 interface ISubscribes {
-  [key: string]: Array<() => void>
+  [key: string]: Array<() => void>;
 }
 
 class Observer {

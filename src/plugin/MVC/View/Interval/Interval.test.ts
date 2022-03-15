@@ -3,7 +3,7 @@
 */
 import Orientation from '../../../types/orientation';
 import { IInterval } from '../../../types/interfaces';
-import Classes from '../../../types/classes'
+import Classes from '../../../types/classes';
 import Interval from './Interval';
 
 describe('Interval module', () => {
@@ -37,26 +37,26 @@ describe('Interval module', () => {
     interval = new Interval(intervalData1); 
   });
   test('should return html element with children and class', () => {
-    expect(interval.getIntervalState).toEqual(intervalData1)
-    expect(interval.getIntervalState).not.toBe(intervalData1)
-    expect(interval.getTemplate().classList.contains(Classes.sliderBody)).toBe(true)
-    expect(interval.getTemplate().classList.contains(Classes.sliderBodyVertical)).toBe(true)
-    expect(interval.getTemplate().children.length).toBe(2)
-    expect(interval.getTemplate().children[0].classList.contains(Classes.sliderLine)).toBe(true)
-    expect(interval.getTemplate().children[0].classList.contains(Classes.sliderLineVertical)).toBe(true)
+    expect(interval.getIntervalState).toEqual(intervalData1);
+    expect(interval.getIntervalState).not.toBe(intervalData1);
+    expect(interval.getTemplate().classList.contains(Classes.sliderBody)).toBe(true);
+    expect(interval.getTemplate().classList.contains(Classes.sliderBodyVertical)).toBe(true);
+    expect(interval.getTemplate().children.length).toBe(2);
+    expect(interval.getTemplate().children[0].classList.contains(Classes.sliderLine)).toBe(true);
+    expect(interval.getTemplate().children[0].classList.contains(Classes.sliderLineVertical)).toBe(true);
   })
   
   test('should correct update', () => {
-    interval.update(intervalData2)
-    expect(interval.getIntervalState).toEqual(intervalData2)
-    expect(interval.getIntervalState).not.toBe(intervalData2)
-    expect(interval.getIntervalState).not.toEqual(intervalData1)
-    expect(interval.getTemplate().classList.contains(Classes.sliderBody)).toBe(true)
-    expect(interval.getTemplate().classList.contains(Classes.sliderBodyVertical)).toBe(false)
-    expect(interval.getTemplate().classList.contains(Classes.sliderBodyHorizontal)).toBe(true)
-    expect(interval.getTemplate().children.length).toBe(1)
-    expect(interval.getTemplate().children[0].classList.contains(Classes.sliderLine)).toBe(true)
-    expect(interval.getTemplate().children[0].classList.contains(Classes.sliderLineVertical)).toBe(false)
-    expect(interval.getTemplate().children[0].classList.contains(Classes.sliderLineHorizontal)).toBe(true)
-  })
+    interval.update(intervalData2);
+    expect(interval.getIntervalState).toEqual(intervalData2);
+    expect(interval.getIntervalState).not.toBe(intervalData2);
+    expect(interval.getIntervalState).not.toEqual(intervalData1);
+    expect(interval.getTemplate().classList.contains(Classes.sliderBody)).toBe(true);
+    expect(interval.getTemplate().classList.contains(Classes.sliderBodyVertical)).toBe(false);
+    expect(interval.getTemplate().classList.contains(Classes.sliderBodyHorizontal)).toBe(true);
+    expect(interval.getTemplate().children.length).toBe(1);
+    expect(interval.getTemplate().children[0].classList.contains(Classes.sliderLine)).toBe(true);
+    expect(interval.getTemplate().children[0].classList.contains(Classes.sliderLineVertical)).toBe(false);
+    expect(interval.getTemplate().children[0].classList.contains(Classes.sliderLineHorizontal)).toBe(true);
+  });
 })

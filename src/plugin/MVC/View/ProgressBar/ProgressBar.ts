@@ -6,7 +6,7 @@ import setType from '../../../helpers/setType';
 import RunnerService from '../RunnerService/RunnerService';
 
 class ProgressBar {
-  private progressBar: HTMLElement = document.createElement('div')
+  private progressBar: HTMLElement = document.createElement('div');
 
   private progressBarState: IProgressBar;
 

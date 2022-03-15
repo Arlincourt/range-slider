@@ -1,12 +1,12 @@
 import Orientation from './orientation';
 
 interface IPossibleValues {
-  [key: number]: number
+  [key: number]: number;
 }
 
 interface ICombinedTip {
   value: number[];
-  orientation: Orientation
+  orientation: Orientation;
 }
 
 interface IInterval {
@@ -29,7 +29,7 @@ interface IScale {
 
 interface IEdgeService {
   orientation: Orientation;
-  possibleValues: Record<string, unknown>
+  possibleValues: Record<string, unknown>;
 }
 
 interface IEdge {
@@ -54,14 +54,14 @@ interface IRunnerService {
   tips: boolean;
   range: boolean;
   orientation: Orientation;
-  value: number[]
+  value: number[];
 }
 
 interface IRunner {
   tips: boolean;
   orientation: Orientation;
   value: number;
-  classList: string[]
+  classList: string[];
 }
 
 interface IOptions {
@@ -72,8 +72,8 @@ interface IOptions {
   step?: number;
   range?: boolean;
   orientation?: Orientation;
-  value?: number[],
-  scale?: boolean
+  value?: number[];
+  scale?: boolean;
 }
 
 interface IState {
@@ -83,7 +83,7 @@ interface IState {
   step: number;
   range: boolean;
   orientation: Orientation;
-  value: number[],
+  value: number[];
   possibleValues: IPossibleValues;
   progressBar: boolean;
   scale: boolean;
@@ -100,7 +100,7 @@ interface IEmit {
 }
 
 interface IEmitEdge {
-  value: number,
+  value: number;
   clientX: number;
   clientY: number;
   clientWidth: number;
@@ -111,14 +111,14 @@ interface IEmitEdge {
 }
 
 interface IUniversalObjectType {
-  [key: string]: number | string | boolean | Orientation | IPossibleValues | number[] | string[]
+  [key: string]: number | string | boolean | Orientation | IPossibleValues | number[] | string[];
 }
 
 type IArgs =
   string |
   number |
   boolean |
-  ((state: IState) => void)
+  ((state: IState) => void);
 
 export {
   IState,

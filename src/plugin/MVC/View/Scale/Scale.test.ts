@@ -3,9 +3,9 @@
 */
 
 import { IScale } from '../../../types/interfaces';
-import Scale from './Scale'
-import Classes from '../../../types/classes'
-import Orientation from '../../../types/orientation'
+import Scale from './Scale';
+import Classes from '../../../types/classes';
+import Orientation from '../../../types/orientation';
 
 describe('Scale Module', () => {
   let scale: Scale;
@@ -23,12 +23,12 @@ describe('Scale Module', () => {
   });
 
   test('should return html element with class and two child and correct update', () => {
-    expect(scale.getTemplate().classList.contains(Classes.sliderScale)).toBe(true)
-    expect(scale.getTemplate().children.length).toBe(2)
+    expect(scale.getTemplate().classList.contains(Classes.sliderScale)).toBe(true);
+    expect(scale.getTemplate().children.length).toBe(2);
     
-    scale.update(edgeData2)
+    scale.update(edgeData2);
     
-    expect(scale.getTemplate().classList.contains(Classes.sliderScale)).toBe(true)
-    expect(scale.getTemplate().children.length).toBe(4)
-  })
+    expect(scale.getTemplate().classList.contains(Classes.sliderScale)).toBe(true);
+    expect(scale.getTemplate().children.length).toBe(4);
+  });
 })

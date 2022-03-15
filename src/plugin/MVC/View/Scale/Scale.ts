@@ -5,13 +5,13 @@ import setType from '../../../helpers/setType';
 import EdgeService from '../EdgeService/EdgeService';
 
 class Scale {
-  private scale: HTMLElement = document.createElement('div')
+  private scale: HTMLElement = document.createElement('div');
 
-  private scaleState: IScale
+  private scaleState: IScale;
 
-  private edgeService: EdgeService
+  private edgeService: EdgeService;
 
-  private edgeServiceData: IEdgeService
+  private edgeServiceData: IEdgeService;
 
   constructor(scaleState: IScale) {
     this.scaleState = { ...scaleState };
@@ -30,16 +30,16 @@ class Scale {
     this.edgeService.update(this.edgeServiceData);
     this.addElems();
   }
-  
+
   public getTemplate = (): HTMLElement => this.scale;
-  
+
   private onWindowResize = (): void => {
     this.edgeService.updateEdgeElements();
     if (this.isChanged()) {
       this.addElems();
     }
   }
-  
+
   private addEvent = (): void => window.addEventListener('resize', this.onWindowResize);
 
   private addClass = (): void => this.scale.classList.add(Classes.sliderScale);

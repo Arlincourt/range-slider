@@ -3,9 +3,9 @@ import Orientation from '../../../types/orientation';
 import { IEdge } from '../../../types/interfaces';
 
 class Edge {
-  private edge: HTMLElement = document.createElement('div')
+  private edge: HTMLElement = document.createElement('div');
 
-  private edgeText: HTMLElement = document.createElement('div')
+  private edgeText: HTMLElement = document.createElement('div');
 
   private edgeState: IEdge;
 

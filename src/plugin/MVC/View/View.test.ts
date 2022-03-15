@@ -2,13 +2,13 @@
  * @jest-environment jsdom
 */
 import { IState } from '../../types/interfaces';
-import View from './View'
-import Classes from '../../types/classes'
-import Orientation from '../../types/orientation'
+import View from './View';
+import Classes from '../../types/classes';
+import Orientation from '../../types/orientation';
 
 
 describe('View module', () => {
-  const rootElement: HTMLElement = document.createElement('div')
+  const rootElement: HTMLElement = document.createElement('div');
   let view: View;
   const viewData1: IState = {
     tips: true,
@@ -39,39 +39,39 @@ describe('View module', () => {
     view = new View(rootElement, viewData1); 
   });
   test('should return html element with class and children', () => {
-    expect(rootElement.contains(view.getTemplate)).toBe(true)
-    expect(view.getTemplate.classList.contains(Classes.slider)).toBe(true)
-    expect(view.getTemplate.children.length).toBe(1)
-    expect(view.getTemplate.children[0].classList.contains(Classes.sliderBody)).toBe(true)
-    expect(view.getTemplate.children[0].classList.contains(Classes.sliderBodyVertical)).toBe(true)
+    expect(rootElement.contains(view.getTemplate)).toBe(true);
+    expect(view.getTemplate.classList.contains(Classes.slider)).toBe(true);
+    expect(view.getTemplate.children.length).toBe(1);
+    expect(view.getTemplate.children[0].classList.contains(Classes.sliderBody)).toBe(true);
+    expect(view.getTemplate.children[0].classList.contains(Classes.sliderBodyVertical)).toBe(true);
   })
 
   test('should correct update state', () => {
-    expect(view.getState).toEqual(viewData1)
-    view.update(viewData2)
-    expect(view.getState).not.toEqual(viewData1)
-    expect(view.getState).toEqual(viewData2)
+    expect(view.getState).toEqual(viewData1);
+    view.update(viewData2);
+    expect(view.getState).not.toEqual(viewData1);
+    expect(view.getState).toEqual(viewData2);
   })
 
   test('should call onSliderMouseDown, onSliderMouseMove and onSliderMouseUp methods', () => {
-    const view = new View(rootElement, viewData1)
-    const onMouseDown = jest.spyOn(view as any, 'handleSliderMouseDown')
-    const onMouseMove = jest.spyOn(view as any, 'handleSliderMouseMove')
-    const onMouseUp = jest.spyOn(view as any, 'handleSliderMouseUp')
-    const removeMoveAndUpEvents = jest.spyOn(view as any, 'removeMoveAndUpEvents')
-    const emitChanges = jest.spyOn(view as any, 'emitChanges')
+    const view = new View(rootElement, viewData1);
+    const onMouseDown = jest.spyOn(view as any, 'handleSliderMouseDown');
+    const onMouseMove = jest.spyOn(view as any, 'handleSliderMouseMove');
+    const onMouseUp = jest.spyOn(view as any, 'handleSliderMouseUp');
+    const removeMoveAndUpEvents = jest.spyOn(view as any, 'removeMoveAndUpEvents');
+    const emitChanges = jest.spyOn(view as any, 'emitChanges');
     const mouseDownEvent = new MouseEvent('mousedown');
     const mouseMoveEvent = new MouseEvent('mousemove');
-    const lineElem = document.createElement('div')
-    lineElem.classList.add(Classes.sliderLine)
-    lineElem.dispatchEvent(mouseDownEvent)
-    view['handleSliderMouseDown'](mouseDownEvent)
-    view['handleSliderMouseMove'](mouseMoveEvent)
-    view['handleSliderMouseUp']()
-    expect(onMouseDown.mock.calls.length).toBe(1)
-    expect(onMouseMove.mock.calls.length).toBe(1)
-    expect(onMouseUp.mock.calls.length).toBe(1)
-    expect(emitChanges.mock.calls.length).toBe(2)
-    expect(removeMoveAndUpEvents.mock.calls.length).toBe(1)
-  })
+    const lineElem = document.createElement('div');
+    lineElem.classList.add(Classes.sliderLine);
+    lineElem.dispatchEvent(mouseDownEvent);
+    view['handleSliderMouseDown'](mouseDownEvent);
+    view['handleSliderMouseMove'](mouseMoveEvent);
+    view['handleSliderMouseUp']();
+    expect(onMouseDown.mock.calls.length).toBe(1);
+    expect(onMouseMove.mock.calls.length).toBe(1);
+    expect(onMouseUp.mock.calls.length).toBe(1);
+    expect(emitChanges.mock.calls.length).toBe(2);
+    expect(removeMoveAndUpEvents.mock.calls.length).toBe(1);
+  });
 })

@@ -3,7 +3,7 @@ import classes from '../../../types/classes';
 import { ICombinedTip } from '../../../types/interfaces';
 
 class CombinedTip {
-  private combinedTip: HTMLElement = document.createElement('div')
+  private combinedTip: HTMLElement = document.createElement('div');
 
   private combinedTipState: ICombinedTip;
 

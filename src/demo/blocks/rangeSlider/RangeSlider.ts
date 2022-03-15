@@ -19,29 +19,29 @@ class RangeSlider {
     'js-range-slider__orientation': 'setOrientation',
   }
 
-  private $minInput: JQuery<HTMLElement> | undefined
+  private $minInput: JQuery<HTMLElement> | undefined;
 
-  private $maxInput: JQuery<HTMLElement> | undefined
+  private $maxInput: JQuery<HTMLElement> | undefined;
 
-  private $stepInput: JQuery<HTMLElement> | undefined
+  private $stepInput: JQuery<HTMLElement> | undefined;
 
-  private $firstValueInput: JQuery<HTMLElement>
+  private $firstValueInput: JQuery<HTMLElement>;
 
-  private $secondValueInput: JQuery<HTMLElement> | undefined
+  private $secondValueInput: JQuery<HTMLElement> | undefined;
 
-  private $orientationInput: JQuery<HTMLElement> | undefined
+  private $orientationInput: JQuery<HTMLElement> | undefined;
 
-  private $progressInput: JQuery<HTMLElement> | undefined
+  private $progressInput: JQuery<HTMLElement> | undefined;
 
-  private $scaleInput: JQuery<HTMLElement> | undefined
+  private $scaleInput: JQuery<HTMLElement> | undefined;
 
-  private $tipsInput: JQuery<HTMLElement> | undefined
+  private $tipsInput: JQuery<HTMLElement> | undefined;
 
-  private $rangeInput: JQuery<HTMLElement> | undefined
+  private $rangeInput: JQuery<HTMLElement> | undefined;
 
-  private $slider: JQuery<HTMLElement>
+  private $slider: JQuery<HTMLElement>;
 
-  private readonly $rootElement: JQuery<HTMLElement>
+  private readonly $rootElement: JQuery<HTMLElement>;
 
   constructor(rootElement: HTMLElement) {
     this.$rootElement = $(rootElement);

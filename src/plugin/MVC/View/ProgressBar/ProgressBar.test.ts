@@ -2,10 +2,10 @@
  * @jest-environment jsdom
 */
 
-import ProgressBar from './ProgressBar'
-import Classes from '../../../types/classes'
-import { IProgressBar } from '../../../types/interfaces'
-import Orientation from '../../../types/orientation'
+import ProgressBar from './ProgressBar';
+import Classes from '../../../types/classes';
+import { IProgressBar } from '../../../types/interfaces';
+import Orientation from '../../../types/orientation';
 
 
 describe('ProgressBar module', () => {
@@ -34,27 +34,27 @@ describe('ProgressBar module', () => {
   });
 
   test('should return html element with class and childs', () => {
-    expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLine)).toBe(true)
-    expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLineVertical)).toBe(true)
-    expect(progressBar.getTemplate().children.length).toBe(3)
-    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItem)).toBe(true)
-    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemVertical)).toBe(true)
-    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemTop)).toBe(true)
+    expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLine)).toBe(true);
+    expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLineVertical)).toBe(true);
+    expect(progressBar.getTemplate().children.length).toBe(3);
+    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItem)).toBe(true);
+    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemVertical)).toBe(true);
+    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemTop)).toBe(true);
   })
   test('should correct update: delete child and removes and add classes', () => {
-    progressBar.update(progressBarData2)
-    expect(progressBar.getTemplate().style.top).toBe('0%')
-    expect(progressBar.getTemplate().style.height).toBe('8px')
-    expect(progressBar.getTemplate().style.width).toBe('62.5%')
-    expect(progressBar.getTemplate().style.left).toBe('0%')
-    expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLine)).toBe(true)
-    expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLineHorizontal)).toBe(true)
-    expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLineVertical)).toBe(false)
-    expect(progressBar.getTemplate().children.length).toBe(1)
-    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItem)).toBe(true)
-    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemVertical)).toBe(false)
-    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemHorizontal)).toBe(true)
-    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemRight)).toBe(true)
-    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemTop)).toBe(false)
-  })
+    progressBar.update(progressBarData2);
+    expect(progressBar.getTemplate().style.top).toBe('0%');
+    expect(progressBar.getTemplate().style.height).toBe('8px');
+    expect(progressBar.getTemplate().style.width).toBe('62.5%');
+    expect(progressBar.getTemplate().style.left).toBe('0%');
+    expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLine)).toBe(true);
+    expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLineHorizontal)).toBe(true);
+    expect(progressBar.getTemplate().classList.contains(Classes.sliderActiveLineVertical)).toBe(false);
+    expect(progressBar.getTemplate().children.length).toBe(1);
+    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItem)).toBe(true);
+    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemVertical)).toBe(false);
+    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemHorizontal)).toBe(true);
+    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemRight)).toBe(true);
+    expect(progressBar.getTemplate().children[0].classList.contains(Classes.sliderItemTop)).toBe(false);
+  });
 })

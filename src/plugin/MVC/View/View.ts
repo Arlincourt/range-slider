@@ -8,11 +8,11 @@ class View {
 
   private rootElement: HTMLElement;
 
-  private slider: HTMLElement = document.createElement('div')
+  private slider: HTMLElement = document.createElement('div');
 
   private state: IState;
 
-  private interval: Interval
+  private interval: Interval;
 
   constructor(element: HTMLElement, state: IState) {
     this.state = { ...state };
@@ -20,7 +20,7 @@ class View {
     this.interval = new Interval(this.state);
     this.init();
   }
-  
+
   public update(state: IState): void {
     this.state = { ...state };
     this.interval.update(this.state);
@@ -33,7 +33,7 @@ class View {
   get getState(): IState {
     return this.state;
   }
-  
+
   private init(): void {
     this.addClass();
     this.addEvents();

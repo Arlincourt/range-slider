@@ -1,5 +1,5 @@
-import Observer from '../../Observer/Observer';
 import { IState, IEmit } from 'plugin/types/interfaces';
+import Observer from '../../Observer/Observer';
 import Model from '../Model/Model';
 import View from '../View/View';
 

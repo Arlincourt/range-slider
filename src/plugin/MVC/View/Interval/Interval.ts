@@ -7,11 +7,11 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import Scale from '../Scale/Scale';
 
 class Interval {
-  private interval: HTMLElement = document.createElement('div')
+  private interval: HTMLElement = document.createElement('div');
 
-  private sliderBody: HTMLElement = document.createElement('div')
-
-  private intervalState: IInterval
+  private sliderBody: HTMLElement = document.createElement('div');
+  
+  private intervalState: IInterval;
 
   private progressBar: ProgressBar;
 
@@ -19,7 +19,7 @@ class Interval {
 
   private scale: Scale;
 
-  private scaleData: IScale
+  private scaleData: IScale;
 
   constructor(intervalState: IInterval) {
     this.intervalState = { ...intervalState };
@@ -44,9 +44,9 @@ class Interval {
     this.progressBar.update(this.progressBarData);
     this.scale.update(this.scaleData);
   }
-  
+
   public getTemplate = (): HTMLElement => this.sliderBody;
-  
+
   get getIntervalState(): IInterval {
     return this.intervalState;
   }

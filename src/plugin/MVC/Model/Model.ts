@@ -15,9 +15,9 @@ interface ISetTwoPosition {
 class Model {
   public observer?: Observer;
 
-  private previousChangeableValue: number = 1
+  private previousChangeableValue: number = 1;
 
-  private callback?: (state: IState) => Record<string, unknown>
+  private callback?: (state: IState) => Record<string, unknown>;
 
   private state: IState = {
     range: false,
@@ -168,7 +168,7 @@ class Model {
 
   get getPossibleValues(): IPossibleValues {
     return this.state.possibleValues;
-  }  
+  }
 
   private setPossibleValues(): void {
     const { min, max } = this.state;

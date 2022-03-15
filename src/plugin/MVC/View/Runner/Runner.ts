@@ -15,7 +15,7 @@ class Runner {
 
   private point: Point = new Point();
 
-  private runner: HTMLElement = document.createElement('div')
+  private runner: HTMLElement = document.createElement('div');
 
   private runnerState: IRunner;
 
@@ -34,7 +34,7 @@ class Runner {
     this.removeElems();
     this.addTip();
   }
-  
+
   public getTemplate = (): HTMLElement => this.runner;
 
   get getTipSize(): ITipSize {
@@ -48,7 +48,6 @@ class Runner {
       y,
     };
   }
-
 
   private init(): void {
     this.addTip();
