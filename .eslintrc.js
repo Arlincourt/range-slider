@@ -10,13 +10,14 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'airbnb-base',
-    "prettier"
+    'plugin:fsd/all',
+    'prettier'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: './tsconfig.json' 
   },
-  plugins: ['@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint', 'prettier', 'fsd'],
   rules: {
     "@typescript-eslint/no-inferrable-types": "off",
     "import/extensions": "off",
