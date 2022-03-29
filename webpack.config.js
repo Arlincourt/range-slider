@@ -9,6 +9,22 @@ const webpack = require('webpack')
 const isDev = process.env.NODE_ENV === 'development'
 const isPlugin = process.env.NODE_ENV === 'plugin'
 
+const optimization = () => {
+  const config = {
+    splitChunks: {
+      chunks: 'all'
+    }
+  }
+
+  if(!isDev) {
+    config.minimizer = [
+      new TerserWebpackPlugin()
+    ]
+  }
+
+  return config
+}
+
 const base = () => {
   const config = {
     entry: {
@@ -124,22 +140,8 @@ const base = () => {
   return config
 }
 
-const optimization = () => {
-  const config = {
-    splitChunks: {
-      chunks: 'all'
-    }
-  }
 
-  if(!isDev) {
-    config.minimizer = [
-      new TerserWebpackPlugin()
-    ]
-  }
-
-  return config
-}
 
 module.exports = {
-  ...base(),
+  ...base()
 }

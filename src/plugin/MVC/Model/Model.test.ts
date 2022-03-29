@@ -19,12 +19,7 @@ describe('Model module', () => {
   }
 
   const options1: IEmit = {
-    clientX: 300,
-    clientY: 400,
-    clientWidth: 800,
-    clientHeight: 400,
-    offsetX: 763,
-    offsetY: 46,  
+    value: 3,
     mouseDown: true
   }
 

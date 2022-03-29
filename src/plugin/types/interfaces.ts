@@ -100,7 +100,7 @@ interface ICoor {
 
 interface IEmit {
   value: number;
-  mouseDown: boolean
+  mouseDown: boolean;
 }
 
 interface IEmitEdge {

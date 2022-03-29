@@ -113,7 +113,7 @@ class View {
   }
 
   private emitChanges(data: IEmit | IEmitEdge) {
-    this.observer?.emit('handleViewChange', data);
+    this.observer?.emit('viewChange', data);
   }
 
   private isElem(element: HTMLElement): boolean {

@@ -10,22 +10,12 @@ describe('Observer module', () => {
 
   test('Observer must be called with certain parameters twice for each subscribes', () => {
     const options1: IEmit = {
-      clientX: 300,
-      clientY: 400,
-      clientWidth: 800,
-      clientHeight: 400,
-      offsetX: 763,
-      offsetY: 46,
+      value: 3,
       mouseDown: true
     }
 
     const options2: IEmit = {
-      clientX: 312,
-      clientY: 300,
-      clientWidth: 700,
-      clientHeight: 440,
-      offsetX: 723,
-      offsetY: 41,
+      value: 4,
       mouseDown: false
     }
 

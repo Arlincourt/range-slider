@@ -27,8 +27,8 @@ class Controller {
   }
 
   private addEvents(): void {
-    this.observer.subscribe('handleViewChange', this.updateModel.bind(this));
-    this.observer.subscribe('handleModelChange', this.updateView.bind(this));
+    this.observer.subscribe('viewChange', this.updateModel.bind(this));
+    this.observer.subscribe('modelChange', this.updateView.bind(this));
   }
 
   private updateModel(state?: IEmit | IEmitEdge): void {

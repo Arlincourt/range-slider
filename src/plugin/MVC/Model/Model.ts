@@ -396,7 +396,7 @@ class Model {
     if (this.callback) {
       this.callback({ ...this.state });
     }
-    this.observer?.emit('handleModelChange');
+    this.observer?.emit('modelChange');
   }
 }
 
