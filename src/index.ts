@@ -1,3 +1,5 @@
+import './styles.scss';
+
 function importAll(resolve: (str: string) => void): void {
   Object(resolve).keys().forEach((str: string) => {
     if (str.includes('.test.ts')) {
@@ -7,4 +9,4 @@ function importAll(resolve: (str: string) => void): void {
   });
 }
 
-importAll(require.context('../src/', true, /\.js$|\.scss$|\.css$|\.ts$/));
+importAll(require.context('../src/', true, /\.js$|\.css$|\.ts$/));

@@ -1,0 +1,54 @@
+{
+  "controls": [
+    {
+      "label": "Минимум",
+      "type": "number",
+      "className": "js-range-slider__min"
+    },
+    {
+      "label": "Максимум",
+      "type": "number",
+      "className": "js-range-slider__max"
+    },
+    {
+      "label": "Шаг",
+      "type": "number",
+      "className": "js-range-slider__step"
+    },
+    {
+      "label": "Первое значение",
+      "type": "number",
+      "className": "js-range-slider__first-value"
+    },
+    {
+      "label": "Второе значение",
+      "type": "number",
+      "className": "js-range-slider__second-value"
+    },
+    {
+      "label": "Интервал",
+      "type": "checkbox",
+      "className": "js-range-slider__range"
+    },
+    {
+      "label": "Вертикальный вид",
+      "type": "checkbox",
+      "className": "js-range-slider__orientation"
+    },
+    {
+      "label": "Подсказки",
+      "type": "checkbox",
+      "className": "js-range-slider__tips"
+    },
+    {
+      "label": "Прогресс бар",
+      "type": "checkbox",
+      "className": "js-range-slider__progress-bar"
+    },
+    {
+      "label": "Шкала",
+      "type": "checkbox",
+      "className": "js-range-slider__scale"
+    }
+  ]
+}
