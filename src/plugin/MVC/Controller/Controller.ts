@@ -1,3 +1,4 @@
+import { boundMethod } from 'autobind-decorator';
 import { IState, IEmit, IEmitEdge } from 'plugin/types/interfaces';
 import Observer from '../../Observer/Observer';
 import Model from '../Model/Model';
@@ -27,17 +28,21 @@ class Controller {
   }
 
   private _addEvents(): void {
-    this._observer.subscribe('viewChange', this._updateModel.bind(this));
-    this._observer.subscribe('modelChange', this._updateView.bind(this));
+    this._observer.subscribe('viewChange', this._updateModel);
+    this._observer.subscribe('modelChange', this._updateView);
   }
 
+  @boundMethod
   private _updateModel(state?: IEmit | IEmitEdge): void {
     if (state) {
       this._model.update(state);
     }
   }
-
-  private _updateView = (): void => this._view.update(this._model.getState());
+  
+  @boundMethod
+  private _updateView(): void {
+    this._view.update(this._model.getState());
+  }
 }
 
 export default Controller;

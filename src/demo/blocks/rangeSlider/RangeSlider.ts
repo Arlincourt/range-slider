@@ -1,3 +1,4 @@
+import { boundMethod } from 'autobind-decorator';
 import { IState } from '../../../plugin/types/interfaces';
 import Orientation from '../../../plugin/types/orientation';
 
@@ -65,9 +66,10 @@ class RangeSlider {
 
   private _addEvents(): void {
     this._$rootElement.on('input', this._handleSliderInput);
-    this._$slider.slider('onChange', this._handleModelChange.bind(this));
+    this._$slider.slider('onChange', this._handleModelChange);
   }
 
+  @boundMethod
   private _handleModelChange(state: IState): void {
     this._$maxInput?.val(state.max);
     this._$minInput?.val(state.min);

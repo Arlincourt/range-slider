@@ -9,7 +9,8 @@
     "module": "commonjs",
     "sourceMap": true,
     "strict": true,
-    "target": "es2016"
+    "target": "es2016",
+    "experimentalDecorators": true,
   },
   "parserOptions": {
     "project": "./tsconfig.json"
