@@ -27,7 +27,8 @@ module.exports = {
     "no-new": "off",
     "class-methods-use-this": "off",
     "semi-style": ["error", "last"],
-    "semi": "error"
+    "semi": "error",
+    "no-underscore-dangle": 'off'
   },
   settings: {
     'import/resolver': {
