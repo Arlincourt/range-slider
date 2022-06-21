@@ -1,19 +1,19 @@
 import classes from '../../../types/classes';
 
 class Point {
-  private point: HTMLElement = document.createElement('div');
+  private _point: HTMLElement = document.createElement('div');
 
   constructor() {
-    this.init();
+    this._init();
   }
 
-  public getTemplate = (): HTMLElement => this.point;
+  public getTemplate = (): HTMLElement => this._point;
 
-  private init(): void {
-    this.addClass();
+  private _init(): void {
+    this._addClass();
   }
 
-  private addClass = (): void => this.point.classList.add(classes.sliderPoint);
+  private _addClass = (): void => this._point.classList.add(classes.sliderPoint);
 }
 
 export default Point;

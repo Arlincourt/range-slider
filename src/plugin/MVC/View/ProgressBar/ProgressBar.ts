@@ -6,71 +6,71 @@ import setType from '../../../helpers/setType';
 import RunnerService from '../RunnerService/RunnerService';
 
 class ProgressBar {
-  private progressBar: HTMLElement = document.createElement('div');
+  private _progressBar: HTMLElement = document.createElement('div');
 
-  private progressBarState: IProgressBar;
+  private _progressBarState: IProgressBar;
 
-  private runnerService: RunnerService;
+  private _runnerService: RunnerService;
 
-  private runnerServiceData: IRunnerService;
+  private _runnerServiceData: IRunnerService;
 
   constructor(progressBarState: IProgressBar) {
-    this.progressBarState = { ...progressBarState };
-    this.runnerServiceData = setType(InterfacesNames.IRunnerService, this.progressBarState);
-    this.runnerService = new RunnerService(this.runnerServiceData);
-    this.addClass(progressBarState.orientation, progressBarState.progressBar);
-    this.addElems();
-    this.setStyle(this.progressBarState);
+    this._progressBarState = { ...progressBarState };
+    this._runnerServiceData = setType(InterfacesNames.IRunnerService, this._progressBarState);
+    this._runnerService = new RunnerService(this._runnerServiceData);
+    this._addClass(progressBarState.orientation, progressBarState.progressBar);
+    this._addElems();
+    this._setStyle(this._progressBarState);
   }
 
   public update(progressBarState: IProgressBar): void {
-    this.setStyle(progressBarState);
-    this.updateRunnerService(progressBarState);
-    if (this.isOrientationChanged(progressBarState.orientation)
-      || this.isProgressChanged(progressBarState.progressBar)) {
-      this.addClass(progressBarState.orientation, progressBarState.progressBar);
+    this._setStyle(progressBarState);
+    this._updateRunnerService(progressBarState);
+    if (this._isOrientationChanged(progressBarState.orientation)
+      || this._isProgressChanged(progressBarState.progressBar)) {
+      this._addClass(progressBarState.orientation, progressBarState.progressBar);
     }
-    if (this.isChildrenChanged(this.runnerService.getTemplate())) {
-      this.removeElems();
-      this.addElems();
+    if (this._isChildrenChanged(this._runnerService.getTemplate())) {
+      this._removeElems();
+      this._addElems();
     }
-    this.progressBarState = { ...progressBarState };
+    this._progressBarState = { ...progressBarState };
   }
 
-  public getTemplate = (): HTMLElement => this.progressBar;
+  public getTemplate = (): HTMLElement => this._progressBar;
 
-  private updateRunnerService(progressBarState: IProgressBar) {
-    this.runnerServiceData = setType(InterfacesNames.IRunnerService, progressBarState);
-    this.runnerService.update(this.runnerServiceData);
+  private _updateRunnerService(progressBarState: IProgressBar) {
+    this._runnerServiceData = setType(InterfacesNames.IRunnerService, progressBarState);
+    this._runnerService.update(this._runnerServiceData);
   }
 
-  private setStyle(progressBarState: IProgressBar): void {
+  private _setStyle(progressBarState: IProgressBar): void {
     if (progressBarState.orientation === Orientation.VERTICAL) {
-      this.progressBar.style.left = `${0}%`;
-      this.progressBar.style.width = `${8}px`;
-      this.progressBar.style.height = `${this.getSize(progressBarState)}%`;
+      this._progressBar.style.left = `${0}%`;
+      this._progressBar.style.width = `${8}px`;
+      this._progressBar.style.height = `${this._getSize(progressBarState)}%`;
 
       if (progressBarState.range === false) {
-        this.progressBar.style.top = `${0}%`;
+        this._progressBar.style.top = `${0}%`;
         return;
       }
-      this.progressBar.style.top = `${this.getOffset(progressBarState)}%`;
+      this._progressBar.style.top = `${this._getOffset(progressBarState)}%`;
       return;
     }
 
-    this.progressBar.style.top = `${0}%`;
-    this.progressBar.style.height = `${8}px`;
-    this.progressBar.style.width = `${this.getSize(progressBarState)}%`;
+    this._progressBar.style.top = `${0}%`;
+    this._progressBar.style.height = `${8}px`;
+    this._progressBar.style.width = `${this._getSize(progressBarState)}%`;
 
     if (progressBarState.range === false) {
-      this.progressBar.style.left = `${0}%`;
+      this._progressBar.style.left = `${0}%`;
       return;
     }
 
-    this.progressBar.style.left = `${this.getOffset(progressBarState)}%`;
+    this._progressBar.style.left = `${this._getOffset(progressBarState)}%`;
   }
 
-  private getOffset(progressBarState: IProgressBar): number {
+  private _getOffset(progressBarState: IProgressBar): number {
     const { max, min, value } = progressBarState;
     const firstValue = value[0];
     const all = max - min;
@@ -80,7 +80,7 @@ class ProgressBar {
     return firstOffset;
   }
 
-  private getSize(progressBarState: IProgressBar): number {
+  private _getSize(progressBarState: IProgressBar): number {
     const { min, max, value } = progressBarState;
     const all = max - min;
 
@@ -96,47 +96,47 @@ class ProgressBar {
     return size;
   }
 
-  private addElems(): void {
-    this.runnerService.getTemplate().forEach((runner) => {
-      this.progressBar.append(runner);
+  private _addElems(): void {
+    this._runnerService.getTemplate().forEach((runner) => {
+      this._progressBar.append(runner);
     });
   }
 
-  private removeElems(): void {
-    this.progressBar.innerHTML = '';
+  private _removeElems(): void {
+    this._progressBar.innerHTML = '';
   }
 
-  private addClass(orientation: Orientation, progressBar: boolean): void {
-    this.progressBar.className = '';
-    this.progressBar.classList.add(Classes.sliderActiveLine);
-    this.updateOrientationClass(orientation);
-    this.updateProgressClass(progressBar);
+  private _addClass(orientation: Orientation, progressBar: boolean): void {
+    this._progressBar.className = '';
+    this._progressBar.classList.add(Classes.sliderActiveLine);
+    this._updateOrientationClass(orientation);
+    this._updateProgressClass(progressBar);
   }
 
-  private updateOrientationClass(orientation: Orientation): void {
+  private _updateOrientationClass(orientation: Orientation): void {
     if (orientation === Orientation.VERTICAL) {
-      this.progressBar.classList.add(Classes.sliderActiveLineVertical);
+      this._progressBar.classList.add(Classes.sliderActiveLineVertical);
       return;
     }
-    this.progressBar.classList.add(Classes.sliderActiveLineHorizontal);
+    this._progressBar.classList.add(Classes.sliderActiveLineHorizontal);
   }
 
-  private updateProgressClass(progressBar: boolean): void {
+  private _updateProgressClass(progressBar: boolean): void {
     if (!progressBar) {
-      this.progressBar.classList.add(Classes.sliderActiveLineTransparent);
+      this._progressBar.classList.add(Classes.sliderActiveLineTransparent);
     }
   }
 
-  private isOrientationChanged(orientation: Orientation): boolean {
-    return this.progressBarState.orientation !== orientation;
+  private _isOrientationChanged(orientation: Orientation): boolean {
+    return this._progressBarState.orientation !== orientation;
   }
 
-  private isProgressChanged(progressBar: boolean): boolean {
-    return this.progressBarState.progressBar !== progressBar;
+  private _isProgressChanged(progressBar: boolean): boolean {
+    return this._progressBarState.progressBar !== progressBar;
   }
 
-  private isChildrenChanged(children: HTMLElement[]): boolean {
-    return this.progressBar.childElementCount !== children.length;
+  private _isChildrenChanged(children: HTMLElement[]): boolean {
+    return this._progressBar.childElementCount !== children.length;
   }
 }
 

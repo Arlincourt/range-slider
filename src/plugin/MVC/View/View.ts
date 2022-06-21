@@ -7,97 +7,97 @@ import Interval from './Interval/Interval';
 class View {
   public observer?: Observer;
 
-  private rootElement: HTMLElement;
+  private _rootElement: HTMLElement;
 
-  private slider: HTMLElement = document.createElement('div');
+  private _slider: HTMLElement = document.createElement('div');
 
-  private state: IState;
+  private _state: IState;
 
-  private interval: Interval;
+  private _interval: Interval;
 
   constructor(element: HTMLElement, state: IState) {
-    this.state = { ...state };
-    this.rootElement = element;
-    this.interval = new Interval(this.state);
-    this.init();
+    this._state = { ...state };
+    this._rootElement = element;
+    this._interval = new Interval(this._state);
+    this._init();
   }
 
   public update(state: IState): void {
-    this.state = { ...state };
-    this.interval.update(this.state);
+    this._state = { ...state };
+    this._interval.update(this._state);
   }
 
   get getTemplate(): HTMLElement {
-    return this.slider;
+    return this._slider;
   }
 
   get getState(): IState {
-    return this.state;
+    return this._state;
   }
 
-  private init(): void {
-    this.addClass();
-    this.addEvents();
-    this.addElems();
+  private _init(): void {
+    this._addClass();
+    this._addEvents();
+    this._addElems();
   }
 
-  private handleSliderMouseMove = (evt: MouseEvent): void => {
+  private _handleSliderMouseMove = (evt: MouseEvent): void => {
     const evtData: ICoor = {
       clientX: evt.clientX,
       clientY: evt.clientY,
-      clientWidth: Number(this.slider.offsetWidth),
-      clientHeight: Number(this.slider.offsetHeight),
-      offsetX: this.slider.getBoundingClientRect().left + document.body.scrollLeft,
-      offsetY: this.slider.getBoundingClientRect().top + document.body.scrollTop,
+      clientWidth: Number(this._slider.offsetWidth),
+      clientHeight: Number(this._slider.offsetHeight),
+      offsetX: this._slider.getBoundingClientRect().left + document.body.scrollLeft,
+      offsetY: this._slider.getBoundingClientRect().top + document.body.scrollTop,
     };
 
     const emitData = {
-      value: this.getCoorInPercent(evtData),
+      value: this._getCoorInPercent(evtData),
       mouseDown: false
     };
 
-    this.emitChanges(emitData);
+    this._emitChanges(emitData);
   }
 
-  private handleSliderMouseDown = (evt: MouseEvent): void => {
-    if (this.isElem(evt.target as HTMLElement)) {
+  private _handleSliderMouseDown = (evt: MouseEvent): void => {
+    if (this._isElem(evt.target as HTMLElement)) {
       const evtData: ICoor = {
         clientX: evt.clientX,
         clientY: evt.clientY,
-        clientWidth: Number(this.slider.offsetWidth),
-        clientHeight: Number(this.slider.offsetHeight),
-        offsetX: this.slider.getBoundingClientRect().left + document.body.scrollLeft,
-        offsetY: this.slider.getBoundingClientRect().top + document.body.scrollTop,
+        clientWidth: Number(this._slider.offsetWidth),
+        clientHeight: Number(this._slider.offsetHeight),
+        offsetX: this._slider.getBoundingClientRect().left + document.body.scrollLeft,
+        offsetY: this._slider.getBoundingClientRect().top + document.body.scrollTop,
       };
       
       const emitData = {
-        value: this.getCoorInPercent(evtData),
+        value: this._getCoorInPercent(evtData),
         mouseDown: true
       };
-      if (this.isValue(evt.target as HTMLElement)) {
+      if (this._isValue(evt.target as HTMLElement)) {
         (emitData as IEmitEdge).edge = Number((evt.target as HTMLElement).textContent);
       }
 
-      this.emitChanges(emitData);
-      document.addEventListener('mousemove', this.handleSliderMouseMove);
-      document.addEventListener('mouseup', this.handleSliderMouseUp);
+      this._emitChanges(emitData);
+      document.addEventListener('mousemove', this._handleSliderMouseMove);
+      document.addEventListener('mouseup', this._handleSliderMouseUp);
     }
   }
 
-  private handleSliderMouseUp = (): void => this.removeMoveAndUpEvents();
+  private _handleSliderMouseUp = (): void => this._removeMoveAndUpEvents();
 
-  private addEvents(): void {
-    this.slider.addEventListener('mousedown', this.handleSliderMouseDown);
+  private _addEvents(): void {
+    this._slider.addEventListener('mousedown', this._handleSliderMouseDown);
   }
 
-  private removeMoveAndUpEvents(): void {
-    document.removeEventListener('mousemove', this.handleSliderMouseMove);
-    document.removeEventListener('mouseup', this.handleSliderMouseUp);
+  private _removeMoveAndUpEvents(): void {
+    document.removeEventListener('mousemove', this._handleSliderMouseMove);
+    document.removeEventListener('mouseup', this._handleSliderMouseUp);
   }
 
-  private getCoorInPercent(state: ICoor): number {
+  private _getCoorInPercent(state: ICoor): number {
     let value: number;
-    if (this.state.orientation === Orientation.HORIZONTAL) {
+    if (this._state.orientation === Orientation.HORIZONTAL) {
       value = state.clientX - state.offsetX;
       value = (value / state.clientWidth) * 100;
       return value;
@@ -107,60 +107,60 @@ class View {
     return value;
   }
 
-  private addElems(): void {
-    this.slider.append(this.interval.getTemplate());
-    this.rootElement.append(this.slider);
+  private _addElems(): void {
+    this._slider.append(this._interval.getTemplate());
+    this._rootElement.append(this._slider);
   }
 
-  private emitChanges(data: IEmit | IEmitEdge) {
+  private _emitChanges(data: IEmit | IEmitEdge) {
     this.observer?.emit('viewChange', data);
   }
 
-  private isElem(element: HTMLElement): boolean {
+  private _isElem(element: HTMLElement): boolean {
     if (element === null) {
       return false;
     }
-    if (this.isValue(element)) {
+    if (this._isValue(element)) {
       return true;
     }
-    if (this.isItem(element)) {
+    if (this._isItem(element)) {
       return true;
     }
-    if (this.isTip(element)) {
+    if (this._isTip(element)) {
       return true;
     }
-    if (this.isPoint(element)) {
+    if (this._isPoint(element)) {
       return true;
     }
-    if (this.isLine(element)) {
+    if (this._isLine(element)) {
       return true;
     }
 
     return false;
   }
 
-  private isValue(element: HTMLElement): boolean {
+  private _isValue(element: HTMLElement): boolean {
     return element.classList.contains(Classes.sliderValue);
   }
 
-  private isItem(element: HTMLElement): boolean {
+  private _isItem(element: HTMLElement): boolean {
     return element.classList.contains(Classes.sliderItem);
   }
 
-  private isTip(element: HTMLElement): boolean {
+  private _isTip(element: HTMLElement): boolean {
     return element.classList.contains(Classes.sliderTip);
   }
 
-  private isPoint(element: HTMLElement): boolean {
+  private _isPoint(element: HTMLElement): boolean {
     return element.classList.contains(Classes.sliderPoint);
   }
 
-  private isLine(element: HTMLElement): boolean {
+  private _isLine(element: HTMLElement): boolean {
     return element.classList.contains(Classes.sliderActiveLine)
       || element.classList.contains(Classes.sliderLine);
   }
 
-  private addClass = () => this.slider.classList.add(Classes.slider);
+  private _addClass = () => this._slider.classList.add(Classes.slider);
 }
 
 export default View;

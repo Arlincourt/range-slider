@@ -6,7 +6,7 @@ interface IInputs {
 }
 
 class RangeSlider {
-  private inputs: IInputs = {
+  private _inputs: IInputs = {
     'js-range-slider__min': 'setMin',
     'js-range-slider__max': 'setMax',
     'js-range-slider__step': 'setStep',
@@ -19,75 +19,75 @@ class RangeSlider {
     'js-range-slider__orientation': 'setOrientation',
   }
 
-  private $minInput: JQuery<HTMLElement> | undefined;
+  private _$minInput: JQuery<HTMLElement> | undefined;
 
-  private $maxInput: JQuery<HTMLElement> | undefined;
+  private _$maxInput: JQuery<HTMLElement> | undefined;
 
-  private $stepInput: JQuery<HTMLElement> | undefined;
+  private _$stepInput: JQuery<HTMLElement> | undefined;
 
-  private $firstValueInput: JQuery<HTMLElement>;
+  private _$firstValueInput: JQuery<HTMLElement>;
 
-  private $secondValueInput: JQuery<HTMLElement> | undefined;
+  private _$secondValueInput: JQuery<HTMLElement> | undefined;
 
-  private $orientationInput: JQuery<HTMLElement> | undefined;
+  private _$orientationInput: JQuery<HTMLElement> | undefined;
 
-  private $progressInput: JQuery<HTMLElement> | undefined;
+  private _$progressInput: JQuery<HTMLElement> | undefined;
 
-  private $scaleInput: JQuery<HTMLElement> | undefined;
+  private _$scaleInput: JQuery<HTMLElement> | undefined;
 
-  private $tipsInput: JQuery<HTMLElement> | undefined;
+  private _$tipsInput: JQuery<HTMLElement> | undefined;
 
-  private $rangeInput: JQuery<HTMLElement> | undefined;
+  private _$rangeInput: JQuery<HTMLElement> | undefined;
 
-  private $slider: JQuery<HTMLElement>;
+  private _$slider: JQuery<HTMLElement>;
 
-  private readonly $rootElement: JQuery<HTMLElement>;
+  private readonly _$rootElement: JQuery<HTMLElement>;
 
   constructor(rootElement: HTMLElement) {
-    this.$rootElement = $(rootElement);
-    this.$slider = $(this.$rootElement).find('.js-range-slider__slider-container');
-    this.$firstValueInput = this.$rootElement.find('.js-range-slider__first-value');
-    this.init();
-    this.addEvents();
+    this._$rootElement = $(rootElement);
+    this._$slider = $(this._$rootElement).find('.js-range-slider__slider-container');
+    this._$firstValueInput = this._$rootElement.find('.js-range-slider__first-value');
+    this._init();
+    this._addEvents();
   }
 
-  private init(): void {
-    this.$minInput = this.$rootElement.find('.js-range-slider__min');
-    this.$maxInput = this.$rootElement.find('.js-range-slider__max');
-    this.$stepInput = this.$rootElement.find('.js-range-slider__step');
-    this.$secondValueInput = this.$rootElement.find('.js-range-slider__second-value');
-    this.$orientationInput = this.$rootElement.find('.js-range-slider__orientation');
-    this.$progressInput = this.$rootElement.find('.js-range-slider__progress-bar');
-    this.$scaleInput = this.$rootElement.find('.js-range-slider__scale');
-    this.$tipsInput = this.$rootElement.find('.js-range-slider__tips');
-    this.$rangeInput = this.$rootElement.find('.js-range-slider__range');
+  private _init(): void {
+    this._$minInput = this._$rootElement.find('.js-range-slider__min');
+    this._$maxInput = this._$rootElement.find('.js-range-slider__max');
+    this._$stepInput = this._$rootElement.find('.js-range-slider__step');
+    this._$secondValueInput = this._$rootElement.find('.js-range-slider__second-value');
+    this._$orientationInput = this._$rootElement.find('.js-range-slider__orientation');
+    this._$progressInput = this._$rootElement.find('.js-range-slider__progress-bar');
+    this._$scaleInput = this._$rootElement.find('.js-range-slider__scale');
+    this._$tipsInput = this._$rootElement.find('.js-range-slider__tips');
+    this._$rangeInput = this._$rootElement.find('.js-range-slider__range');
   }
 
-  private addEvents(): void {
-    this.$rootElement.on('input', this.handleSliderInput);
-    this.$slider.slider('onChange', this.handleModelChange.bind(this));
+  private _addEvents(): void {
+    this._$rootElement.on('input', this._handleSliderInput);
+    this._$slider.slider('onChange', this._handleModelChange.bind(this));
   }
 
-  private handleModelChange(state: IState): void {
-    this.$maxInput?.val(state.max);
-    this.$minInput?.val(state.min);
-    this.$stepInput?.val(state.step);
-    this.$firstValueInput?.val(state.value[0]);
-    this.$secondValueInput?.val(state.value[1]);
-    this.$rangeInput?.prop('checked', state.range);
-    this.$tipsInput?.prop('checked', state.tips);
-    this.$progressInput?.prop('checked', state.progressBar);
-    this.$scaleInput?.prop('checked', state.scale);
+  private _handleModelChange(state: IState): void {
+    this._$maxInput?.val(state.max);
+    this._$minInput?.val(state.min);
+    this._$stepInput?.val(state.step);
+    this._$firstValueInput?.val(state.value[0]);
+    this._$secondValueInput?.val(state.value[1]);
+    this._$rangeInput?.prop('checked', state.range);
+    this._$tipsInput?.prop('checked', state.tips);
+    this._$progressInput?.prop('checked', state.progressBar);
+    this._$scaleInput?.prop('checked', state.scale);
     const orientation = state.orientation === Orientation.VERTICAL;
-    this.$orientationInput?.prop('checked', orientation);
+    this._$orientationInput?.prop('checked', orientation);
     if (!state.range) {
-      this.$firstValueInput.prop('disabled', true);
+      this._$firstValueInput.prop('disabled', true);
       return;
     }
-    this.$firstValueInput.prop('disabled', false);
+    this._$firstValueInput.prop('disabled', false);
   }
 
-  private handleSliderInput = (evt: Event): void => {
+  private _handleSliderInput = (evt: Event): void => {
     const target = evt.target as HTMLInputElement;
     let value: boolean | number | string = 0;
     const className: string = (target.classList as DOMTokenList)[1];
@@ -104,7 +104,7 @@ class RangeSlider {
     } else {
       value = Number(target.value);
     }
-    this.$slider.slider(this.inputs[className], value);
+    this._$slider.slider(this._inputs[className], value);
   }
 }
 

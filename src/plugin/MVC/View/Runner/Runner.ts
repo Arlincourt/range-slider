@@ -11,36 +11,36 @@ interface ITipSize {
 }
 
 class Runner {
-  private tip: Tip;
+  private _tip: Tip;
 
-  private point: Point = new Point();
+  private _point: Point = new Point();
 
-  private runner: HTMLElement = document.createElement('div');
+  private _runner: HTMLElement = document.createElement('div');
 
-  private runnerState: IRunner;
+  private _runnerState: IRunner;
 
   constructor(runnerState: IRunner) {
-    this.runnerState = { ...runnerState };
-    this.tip = new Tip(this.runnerState.value);
-    this.init();
+    this._runnerState = { ...runnerState };
+    this._tip = new Tip(this._runnerState.value);
+    this._init();
   }
 
   public update(runnerState: IRunner): void {
-    if (!isArraysEqual(this.runnerState.classList, runnerState.classList)) {
-      this.addClass(runnerState.classList);
+    if (!isArraysEqual(this._runnerState.classList, runnerState.classList)) {
+      this._addClass(runnerState.classList);
     }
-    this.runnerState = { ...runnerState };
-    this.setTipText(this.runnerState.value);
-    this.removeElems();
-    this.addTip();
+    this._runnerState = { ...runnerState };
+    this._setTipText(this._runnerState.value);
+    this._removeElems();
+    this._addTip();
   }
 
-  public getTemplate = (): HTMLElement => this.runner;
+  public getTemplate = (): HTMLElement => this._runner;
 
   get getTipSize(): ITipSize {
     const {
       width, height, x, y,
-    } = this.tip.getTemplate().getBoundingClientRect();
+    } = this._tip.getTemplate().getBoundingClientRect();
     return {
       height,
       width,
@@ -49,43 +49,43 @@ class Runner {
     };
   }
 
-  private init(): void {
-    this.addTip();
-    this.addPoint();
-    this.setTipText(this.runnerState.value);
-    this.addClass(this.runnerState.classList);
+  private _init(): void {
+    this._addTip();
+    this._addPoint();
+    this._setTipText(this._runnerState.value);
+    this._addClass(this._runnerState.classList);
   }
 
-  private removeElems(): void {
-    if (!this.runnerState.tips && this.runner.contains(this.tip.getTemplate())) {
-      this.runner.removeChild(this.tip.getTemplate());
+  private _removeElems(): void {
+    if (!this._runnerState.tips && this._runner.contains(this._tip.getTemplate())) {
+      this._runner.removeChild(this._tip.getTemplate());
     }
   }
 
-  private addTip(): void {
-    if (this.isTip()) {
-      this.runner.append(this.tip.getTemplate());
+  private _addTip(): void {
+    if (this._isTip()) {
+      this._runner.append(this._tip.getTemplate());
     }
   }
 
-  private addPoint = (): void => this.runner.append(this.point.getTemplate());
+  private _addPoint = (): void => this._runner.append(this._point.getTemplate());
 
-  private addClass(classNames: string[]): void {
-    this.runner.className = '';
+  private _addClass(classNames: string[]): void {
+    this._runner.className = '';
     classNames.forEach((className) => {
-      this.runner.classList.add(className);
+      this._runner.classList.add(className);
     });
   }
 
-  private setTipText = (text: number): void => this.tip.update(text);
+  private _setTipText = (text: number): void => this._tip.update(text);
 
-  private isTip(): boolean {
-    if (!this.runnerState.tips) {
+  private _isTip(): boolean {
+    if (!this._runnerState.tips) {
       return false;
     }
 
     let isTip = true;
-    isTip = !this.runner.contains(this.tip.getTemplate()) && isTip;
+    isTip = !this._runner.contains(this._tip.getTemplate()) && isTip;
     return isTip;
   }
 }

@@ -3,43 +3,43 @@ import classes from '../../../types/classes';
 import { ICombinedTip } from '../../../types/interfaces';
 
 class CombinedTip {
-  private combinedTip: HTMLElement = document.createElement('div');
+  private _combinedTip: HTMLElement = document.createElement('div');
 
-  private combinedTipState: ICombinedTip;
+  private _combinedTipState: ICombinedTip;
 
   constructor(combinedTipState: ICombinedTip) {
-    this.combinedTipState = { ...combinedTipState };
-    this.addClass(this.combinedTipState.orientation);
-    this.setText(this.combinedTipState.value);
+    this._combinedTipState = { ...combinedTipState };
+    this._addClass(this._combinedTipState.orientation);
+    this._setText(this._combinedTipState.value);
   }
 
   public update(combinedTipState: ICombinedTip): void {
-    if (this.isOrientationChanged(combinedTipState.orientation)) {
-      this.addClass(combinedTipState.orientation);
+    if (this._isOrientationChanged(combinedTipState.orientation)) {
+      this._addClass(combinedTipState.orientation);
     }
-    this.combinedTipState = { ...combinedTipState };
-    this.setText(this.combinedTipState.value);
+    this._combinedTipState = { ...combinedTipState };
+    this._setText(this._combinedTipState.value);
   }
 
-  public getTemplate = (): HTMLElement => this.combinedTip;
+  public getTemplate = (): HTMLElement => this._combinedTip;
 
-  private addClass(orientation: Orientation): void {
-    this.combinedTip.className = '';
-    this.combinedTip.classList.add(classes.sliderCombinedTip);
+  private _addClass(orientation: Orientation): void {
+    this._combinedTip.className = '';
+    this._combinedTip.classList.add(classes.sliderCombinedTip);
     if (orientation === Orientation.VERTICAL) {
-      this.combinedTip.classList.add(classes.sliderCombinedTipVertical);
+      this._combinedTip.classList.add(classes.sliderCombinedTipVertical);
       return;
     }
-    this.combinedTip.classList.add(classes.sliderCombinedTipHorizontal);
+    this._combinedTip.classList.add(classes.sliderCombinedTipHorizontal);
   }
 
-  private setText(text: number[]): void {
+  private _setText(text: number[]): void {
     const value = text[0] === text[1] ? [text[0]] : text;
-    this.combinedTip.textContent = value.join(' - ');
+    this._combinedTip.textContent = value.join(' - ');
   }
 
-  private isOrientationChanged(orientation: Orientation): boolean {
-    return this.combinedTipState.orientation !== orientation;
+  private _isOrientationChanged(orientation: Orientation): boolean {
+    return this._combinedTipState.orientation !== orientation;
   }
 }
 

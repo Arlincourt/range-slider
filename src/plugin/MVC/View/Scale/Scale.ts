@@ -5,54 +5,54 @@ import setType from '../../../helpers/setType';
 import EdgeService from '../EdgeService/EdgeService';
 
 class Scale {
-  private scale: HTMLElement = document.createElement('div');
+  private _scale: HTMLElement = document.createElement('div');
 
-  private scaleState: IScale;
+  private _scaleState: IScale;
 
-  private edgeService: EdgeService;
+  private _edgeService: EdgeService;
 
-  private edgeServiceData: IEdgeService;
+  private _edgeServiceData: IEdgeService;
 
   constructor(scaleState: IScale) {
-    this.scaleState = { ...scaleState };
-    this.edgeServiceData = setType(InterfacesNames.IEdgeService, this.scaleState);
-    this.edgeService = new EdgeService(this.edgeServiceData, this.scale);
-    this.addClass();
-    this.addElems();
-    this.addEvent();
-    this.handleWindowResize();
-    this.handleWindowResize();
+    this._scaleState = { ...scaleState };
+    this._edgeServiceData = setType(InterfacesNames.IEdgeService, this._scaleState);
+    this._edgeService = new EdgeService(this._edgeServiceData, this._scale);
+    this._addClass();
+    this._addElems();
+    this._addEvent();
+    this._handleWindowResize();
+    this._handleWindowResize();
   }
 
   public update(scaleState: IScale): void {
-    this.scaleState = { ...scaleState };
-    this.edgeServiceData = setType(InterfacesNames.IEdgeService, this.scaleState);
-    this.edgeService.update(this.edgeServiceData);
-    this.addElems();
+    this._scaleState = { ...scaleState };
+    this._edgeServiceData = setType(InterfacesNames.IEdgeService, this._scaleState);
+    this._edgeService.update(this._edgeServiceData);
+    this._addElems();
   }
 
-  public getTemplate = (): HTMLElement => this.scale;
+  public getTemplate = (): HTMLElement => this._scale;
 
-  private handleWindowResize = (): void => {
-    this.edgeService.updateEdgeElements();
-    if (this.isChanged()) {
-      this.addElems();
+  private _handleWindowResize = (): void => {
+    this._edgeService.updateEdgeElements();
+    if (this._isChanged()) {
+      this._addElems();
     }
   }
 
-  private addEvent = (): void => window.addEventListener('resize', this.handleWindowResize);
+  private _addEvent = (): void => window.addEventListener('resize', this._handleWindowResize);
 
-  private addClass = (): void => this.scale.classList.add(Classes.sliderScale);
+  private _addClass = (): void => this._scale.classList.add(Classes.sliderScale);
 
-  private addElems(): void {
-    this.scale.innerHTML = '';
-    this.edgeService.getTemplate().forEach((edge) => {
-      this.scale.append(edge);
+  private _addElems(): void {
+    this._scale.innerHTML = '';
+    this._edgeService.getTemplate().forEach((_edge) => {
+      this._scale.append(_edge);
     });
   }
 
-  private isChanged(): boolean {
-    return this.scale.childElementCount !== this.edgeService.getTemplate().length;
+  private _isChanged(): boolean {
+    return this._scale.childElementCount !== this._edgeService.getTemplate().length;
   }
 }
 

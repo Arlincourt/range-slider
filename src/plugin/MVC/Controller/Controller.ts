@@ -4,40 +4,40 @@ import Model from '../Model/Model';
 import View from '../View/View';
 
 class Controller {
-  private readonly model: Model;
+  private readonly _model: Model;
 
-  private readonly observer: Observer;
+  private readonly _observer: Observer;
 
-  private readonly view: View;
+  private readonly _view: View;
 
-  private state: IState;
+  private _state: IState;
 
   constructor(element: HTMLElement, model: Model) {
-    this.model = model;
-    this.state = this.model.getState();
-    this.view = new View(element, this.state);
-    this.observer = new Observer();
-    this.connect();
-    this.addEvents();
+    this._model = model;
+    this._state = this._model.getState();
+    this._view = new View(element, this._state);
+    this._observer = new Observer();
+    this._connect();
+    this._addEvents();
   }
 
-  private connect(): void {
-    this.model.observer = this.observer;
-    this.view.observer = this.observer;
+  private _connect(): void {
+    this._model.observer = this._observer;
+    this._view.observer = this._observer;
   }
 
-  private addEvents(): void {
-    this.observer.subscribe('viewChange', this.updateModel.bind(this));
-    this.observer.subscribe('modelChange', this.updateView.bind(this));
+  private _addEvents(): void {
+    this._observer.subscribe('viewChange', this._updateModel.bind(this));
+    this._observer.subscribe('modelChange', this._updateView.bind(this));
   }
 
-  private updateModel(state?: IEmit | IEmitEdge): void {
+  private _updateModel(state?: IEmit | IEmitEdge): void {
     if (state) {
-      this.model.update(state);
+      this._model.update(state);
     }
   }
 
-  private updateView = (): void => this.view.update(this.model.getState());
+  private _updateView = (): void => this._view.update(this._model.getState());
 }
 
 export default Controller;

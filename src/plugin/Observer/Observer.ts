@@ -5,24 +5,24 @@ interface ISubscribes {
 }
 
 class Observer {
-  subscribes: ISubscribes;
+  private _subscribes: ISubscribes;
 
   constructor() {
-    this.subscribes = {};
+    this._subscribes = {};
   }
 
   public subscribe(eventName: string, callback: (state?: IEmit | IEmitEdge) => void): void {
-    if (this.subscribes[eventName]) {
-      this.subscribes[eventName].push(callback);
+    if (this._subscribes[eventName]) {
+      this._subscribes[eventName].push(callback);
       return;
     }
 
-    this.subscribes[eventName] = [callback];
+    this._subscribes[eventName] = [callback];
   }
 
   public emit(eventName: string, state?: IEmit | IEmitEdge): void {
-    if (this.subscribes[eventName]) {
-      this.subscribes[eventName].forEach((callback: (state?: IEmit | IEmitEdge) => void) => {
+    if (this._subscribes[eventName]) {
+      this._subscribes[eventName].forEach((callback: (state?: IEmit | IEmitEdge) => void) => {
         callback(state);
       });
     }

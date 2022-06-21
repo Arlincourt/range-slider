@@ -3,65 +3,65 @@ import Orientation from '../../../types/orientation';
 import { IEdge } from '../../../types/interfaces';
 
 class Edge {
-  private edge: HTMLElement = document.createElement('div');
+  private _edge: HTMLElement = document.createElement('div');
 
-  private edgeText: HTMLElement = document.createElement('div');
+  private _edgeText: HTMLElement = document.createElement('div');
 
-  private edgeState: IEdge;
+  private _edgeState: IEdge;
 
   constructor(edgeState: IEdge) {
-    this.edgeState = { ...edgeState };
-    this.addEdgeClass(this.edgeState.edgeClassList);
-    this.addValueClass(this.edgeState.valueClassList);
-    this.setText();
-    this.addElem();
-    this.setStyle();
+    this._edgeState = { ...edgeState };
+    this._addEdgeClass(this._edgeState.edgeClassList);
+    this._addValueClass(this._edgeState.valueClassList);
+    this._setText();
+    this._addElem();
+    this._setStyle();
   }
 
-  public getTemplate = (): HTMLElement => this.edge;
+  public getTemplate = (): HTMLElement => this._edge;
 
   public update(edgeState: IEdge): void {
-    if (!isArraysEqual(this.edgeState.edgeClassList, edgeState.edgeClassList)) {
-      this.addEdgeClass(edgeState.edgeClassList);
+    if (!isArraysEqual(this._edgeState.edgeClassList, edgeState.edgeClassList)) {
+      this._addEdgeClass(edgeState.edgeClassList);
     }
-    if (!isArraysEqual(this.edgeState.valueClassList, edgeState.valueClassList)) {
-      this.addValueClass(edgeState.valueClassList);
+    if (!isArraysEqual(this._edgeState.valueClassList, edgeState.valueClassList)) {
+      this._addValueClass(edgeState.valueClassList);
     }
-    this.edgeState = { ...edgeState };
-    this.setText();
-    this.setStyle();
+    this._edgeState = { ...edgeState };
+    this._setText();
+    this._setStyle();
   }
 
-  private setStyle(): void {
-    const { orientation, offset } = this.edgeState;
+  private _setStyle(): void {
+    const { orientation, offset } = this._edgeState;
     if (orientation === Orientation.HORIZONTAL) {
-      this.edge.style.top = '0%';
-      this.edge.style.left = `${offset}%`;
+      this._edge.style.top = '0%';
+      this._edge.style.left = `${offset}%`;
       return;
     }
-    this.edge.style.left = '0%';
-    this.edge.style.top = `${offset}%`;
+    this._edge.style.left = '0%';
+    this._edge.style.top = `${offset}%`;
   }
 
-  private addEdgeClass(classNames: string[]): void {
-    this.edge.className = '';
+  private _addEdgeClass(classNames: string[]): void {
+    this._edge.className = '';
     classNames.forEach((className) => {
-      this.edge.classList.add(className);
+      this._edge.classList.add(className);
     });
   }
 
-  private addValueClass(classNames: string[]): void {
-    this.edgeText.className = '';
+  private _addValueClass(classNames: string[]): void {
+    this._edgeText.className = '';
     classNames.forEach((className) => {
-      this.edgeText.classList.add(className);
+      this._edgeText.classList.add(className);
     });
   }
 
-  private setText(): void {
-    this.edgeText.textContent = String(this.edgeState.edge);
+  private _setText(): void {
+    this._edgeText.textContent = String(this._edgeState.edge);
   }
 
-  private addElem = (): void => this.edge.append(this.edgeText);
+  private _addElem = (): void => this._edge.append(this._edgeText);
 }
 
 export default Edge;

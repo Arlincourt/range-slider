@@ -12,128 +12,128 @@ enum Orders {
 }
 
 class RunnerService {
-  private firstRunner: Runner;
+  private _firstRunner: Runner;
 
-  private secondRunner: Runner;
+  private _secondRunner: Runner;
 
-  private firstRunnerData: IRunner;
+  private _firstRunnerData: IRunner;
 
-  private secondRunnerData: IRunner;
+  private _secondRunnerData: IRunner;
 
-  private combinedTip: CombinedTip;
+  private _combinedTip: CombinedTip;
 
-  private combinedTipData: ICombinedTip;
+  private _combinedTipData: ICombinedTip;
 
-  private runnerServiceState: IRunnerService;
+  private _runnerServiceState: IRunnerService;
 
-  private elements: HTMLElement[];
+  private _elements: HTMLElement[];
 
   constructor(runnerServiceState: IRunnerService) {
-    this.runnerServiceState = { ...runnerServiceState };
-    this.combinedTipData = setType(InterfacesNames.ICombinedTip, this.runnerServiceState);
-    this.combinedTip = new CombinedTip(this.combinedTipData);
-    this.firstRunnerData = this.setClass(
-      setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first,
+    this._runnerServiceState = { ...runnerServiceState };
+    this._combinedTipData = setType(InterfacesNames.ICombinedTip, this._runnerServiceState);
+    this._combinedTip = new CombinedTip(this._combinedTipData);
+    this._firstRunnerData = this._setClass(
+      setType(InterfacesNames.IRunner, this._runnerServiceState, 0), Orders.first,
     );
-    this.secondRunnerData = this.setClass(
-      setType(InterfacesNames.IRunner, this.runnerServiceState, 1), Orders.second,
+    this._secondRunnerData = this._setClass(
+      setType(InterfacesNames.IRunner, this._runnerServiceState, 1), Orders.second,
     );
-    this.firstRunner = new Runner(this.firstRunnerData);
-    this.secondRunner = new Runner(this.secondRunnerData);
-    this.elements = [];
-    this.setElements();
+    this._firstRunner = new Runner(this._firstRunnerData);
+    this._secondRunner = new Runner(this._secondRunnerData);
+    this._elements = [];
+    this._setElements();
   }
 
   public update(runnerServiceState: IRunnerService): void {
-    this.runnerServiceState = { ...runnerServiceState };
-    this.updateRunnersData();
-    this.updateRunners();
-    this.customizeDisplay();
-    this.updateCombinedTip();
-    this.setElements();
+    this._runnerServiceState = { ...runnerServiceState };
+    this._updateRunnersData();
+    this._updateRunners();
+    this._customizeDisplay();
+    this._updateCombinedTip();
+    this._setElements();
   }
 
-  public getTemplate = (): HTMLElement[] => this.elements;
+  public getTemplate = (): HTMLElement[] => this._elements;
 
   get getFirstRunner(): Runner {
-    return this.firstRunner;
+    return this._firstRunner;
   }
 
   get getSecondRunner(): Runner {
-    return this.secondRunner;
+    return this._secondRunner;
   }
 
   get getSecondRunnerData(): IRunner {
-    return this.secondRunnerData;
+    return this._secondRunnerData;
   }
 
   get getFirstRunnerData(): IRunner {
-    return this.firstRunnerData;
+    return this._firstRunnerData;
   }
 
   get getRunnerServiceState(): IRunnerService {
-    return this.runnerServiceState;
+    return this._runnerServiceState;
   }
 
-  private isOverlap(): boolean {
-    const isRangeFalse = this.runnerServiceState.range === false;
-    const isTipsFalse = this.runnerServiceState.tips === false;
+  private _isOverlap(): boolean {
+    const isRangeFalse = this._runnerServiceState.range === false;
+    const isTipsFalse = this._runnerServiceState.tips === false;
     if (isRangeFalse || isTipsFalse) {
       return false;
     }
-    const firstTipSize = this.firstRunner.getTipSize;
-    const secondTipSize = this.secondRunner.getTipSize;
+    const firstTipSize = this._firstRunner.getTipSize;
+    const secondTipSize = this._secondRunner.getTipSize;
     const isXOverlap = firstTipSize.x + firstTipSize.width >= secondTipSize.x;
     const isYOverlap = firstTipSize.y + firstTipSize.height >= secondTipSize.y;
 
-    if (this.runnerServiceState.orientation === Orientation.HORIZONTAL) {
+    if (this._runnerServiceState.orientation === Orientation.HORIZONTAL) {
       return isXOverlap;
     }
     return isYOverlap;
   }
 
-  private updateRunnersData(): void {
-    this.firstRunnerData = this.setClass(
-      setType(InterfacesNames.IRunner, this.runnerServiceState, 0), Orders.first,
+  private _updateRunnersData(): void {
+    this._firstRunnerData = this._setClass(
+      setType(InterfacesNames.IRunner, this._runnerServiceState, 0), Orders.first,
     );
-    this.secondRunnerData = this.setClass(
-      setType(InterfacesNames.IRunner, this.runnerServiceState, 1), Orders.second,
+    this._secondRunnerData = this._setClass(
+      setType(InterfacesNames.IRunner, this._runnerServiceState, 1), Orders.second,
     );
   }
 
-  private updateRunners(): void {
-    this.firstRunner.update(this.firstRunnerData);
-    this.secondRunner.update(this.secondRunnerData);
+  private _updateRunners(): void {
+    this._firstRunner.update(this._firstRunnerData);
+    this._secondRunner.update(this._secondRunnerData);
   }
 
-  private updateCombinedTip(): void {
-    this.combinedTipData = setType(InterfacesNames.ICombinedTip, this.runnerServiceState);
-    this.combinedTip.update(this.combinedTipData);
+  private _updateCombinedTip(): void {
+    this._combinedTipData = setType(InterfacesNames.ICombinedTip, this._runnerServiceState);
+    this._combinedTip.update(this._combinedTipData);
   }
 
-  private setElements(): void {
-    if (this.runnerServiceState.range && !this.isOverlap()) {
-      this.elements = [this.firstRunner.getTemplate(), this.secondRunner.getTemplate()];
-    } else if (this.isOverlap()) {
-      this.elements = [
-        this.firstRunner.getTemplate(),
-        this.secondRunner.getTemplate(),
-        this.combinedTip.getTemplate(),
+  private _setElements(): void {
+    if (this._runnerServiceState.range && !this._isOverlap()) {
+      this._elements = [this._firstRunner.getTemplate(), this._secondRunner.getTemplate()];
+    } else if (this._isOverlap()) {
+      this._elements = [
+        this._firstRunner.getTemplate(),
+        this._secondRunner.getTemplate(),
+        this._combinedTip.getTemplate(),
       ];
     } else {
-      this.elements = [this.secondRunner.getTemplate()];
+      this._elements = [this._secondRunner.getTemplate()];
     }
   }
 
-  private customizeDisplay(): void {
-    if (this.isOverlap()) {
-      this.firstRunnerData.tips = false;
-      this.secondRunnerData.tips = false;
-      this.updateRunners();
+  private _customizeDisplay(): void {
+    if (this._isOverlap()) {
+      this._firstRunnerData.tips = false;
+      this._secondRunnerData.tips = false;
+      this._updateRunners();
     }
   }
 
-  private setClass(runnerData: IRunner, order: string): IRunner {
+  private _setClass(runnerData: IRunner, order: string): IRunner {
     const isFirst = order === Orders.first;
     if (runnerData.orientation === Orientation.VERTICAL) {
       /* eslint no-param-reassign: "error" */

@@ -3,11 +3,11 @@ import Model from './MVC/Model/Model';
 import { IState, IOptions } from './types/interfaces';
 
 class Slider {
-  private model: Model;
+  private _model: Model;
 
   constructor(options: IOptions, element: HTMLElement) {
-    this.model = new Model(options);
-    new Controller(element, this.model);
+    this._model = new Model(options);
+    new Controller(element, this._model);
   }
 
   public getMin = (): number => this.getState().min;
@@ -28,32 +28,32 @@ class Slider {
 
   public getProgress = (): boolean => this.getState().progressBar;
 
-  public getState = (): IState => this.model.getState();
+  public getState = (): IState => this._model.getState();
 
   public onChange(callback: <T>(...args: Array<T>) => Record<string, unknown>): void {
-    this.model.setOnChangeMethod(callback);
-    callback(this.model.getState());
+    this._model.setOnChangeMethod(callback);
+    callback(this._model.getState());
   }
 
-  public setMin = (value: number): void => this.model.setMin(value);
+  public setMin = (value: number): void => this._model.setMin(value);
 
-  public setMax = (value: number): void => this.model.setMax(value);
+  public setMax = (value: number): void => this._model.setMax(value);
 
-  public setFirstValue = (value: number): void => this.model.setFirstValue(value);
+  public setFirstValue = (value: number): void => this._model.setFirstValue(value);
 
-  public setSecondValue = (value: number): void => this.model.setSecondValue(value);
+  public setSecondValue = (value: number): void => this._model.setSecondValue(value);
 
-  public setStep = (value: number): void => this.model.setStep(value);
+  public setStep = (value: number): void => this._model.setStep(value);
 
-  public setScale = (scale: boolean): void => this.model.setScale(scale);
+  public setScale = (scale: boolean): void => this._model.setScale(scale);
 
-  public setOrientation = (orientation: string): void => this.model.setOrientation(orientation);
+  public setOrientation = (orientation: string): void => this._model.setOrientation(orientation);
 
-  public setRange = (range: boolean): void => this.model.setRange(range);
+  public setRange = (range: boolean): void => this._model.setRange(range);
 
-  public setProgress = (progress: boolean): void => this.model.setProgress(progress);
+  public setProgress = (progress: boolean): void => this._model.setProgress(progress);
 
-  public setTips = (tips: boolean): void => this.model.setTips(tips);
+  public setTips = (tips: boolean): void => this._model.setTips(tips);
 }
 
 export default Slider;
